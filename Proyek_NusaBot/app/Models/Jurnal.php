@@ -7,5 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Jurnal extends Model
 {
-    use HasFactory;
+  use HasFactory;
+
+  protected $table = 'jurnal';
+
+  protected $fillable = [
+    'id_jurnal',
+    'kegiatan_jurnal',
+    'kompetensi_jurnal',
+    'paraf_pp_jurnal',
+    'gambar_kegiatan_jurnal',
+    'tanggal_jurnal',
+    'id_plotting',
+    'id_pp',
+  ];
 }

@@ -7,5 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Perusahaan extends Model
 {
-    use HasFactory;
+  use HasFactory;
+
+  protected $table = 'perusahaan';
+
+  protected $fillable = [
+    'id_p',
+    'nama_p',
+    'alamat_p',
+  ];
 }
