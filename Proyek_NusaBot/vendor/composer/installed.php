@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'dev-login-siswa',
-        'version' => 'dev-login-siswa',
-        'reference' => '4ff59126781f759331e849413ae1d51f443ba610',
+        'pretty_version' => 'dev-Migration-and-Model',
+        'version' => 'dev-Migration-and-Model',
+        'reference' => 'd7311c0ea39af5118e894a7396c652eb2cfac735',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -371,9 +371,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'dev-login-siswa',
-            'version' => 'dev-login-siswa',
-            'reference' => '4ff59126781f759331e849413ae1d51f443ba610',
+            'pretty_version' => 'dev-Migration-and-Model',
+            'version' => 'dev-Migration-and-Model',
+            'reference' => 'd7311c0ea39af5118e894a7396c652eb2cfac735',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
