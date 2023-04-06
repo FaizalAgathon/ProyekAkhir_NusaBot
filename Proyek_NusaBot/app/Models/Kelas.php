@@ -15,4 +15,9 @@ class Kelas extends Model
     'id_k',
     'angkatan_k',
   ];
+
+  public function siswa()
+  {
+    return $this->hasMany(Siswa::class, 'id_kelas', 'id_k');
+  }
 }

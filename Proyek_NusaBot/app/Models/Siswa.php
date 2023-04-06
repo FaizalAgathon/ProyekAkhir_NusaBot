@@ -20,4 +20,17 @@ class Siswa extends Model
     'id_kelas',
     'id_jurusan',
   ];
+
+  public function jurusan()
+  {
+    return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id_j');
+  }
+  public function kelas()
+  {
+    return $this->belongsTo(Kelas::class, 'id_kelas', 'id_k');
+  }
+  public function plotting()
+  {
+    return $this->hasOne(Plotting::class, 'nis_s', 'nis_s');
+  }
 }

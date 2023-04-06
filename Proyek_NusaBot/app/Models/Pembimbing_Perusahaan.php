@@ -19,4 +19,13 @@ class Pembimbing_Perusahaan extends Model
     'jk_pp',
     'id_perusahaan',
   ];
+
+  public function perusahaan()
+  {
+    return $this->belongsTo(Perusahaan::class, 'id_perusahaan', 'id_p');
+  }
+  public function jurnal()
+  {
+    return $this->hasOne(Jurnal::class,'id_pp', 'id_pp');
+  }
 }

@@ -18,4 +18,13 @@ class Pembimbing_Sekolah extends Model
     'jk_ps',
     'id_jurusan',
   ];
+
+  public function jurusan()
+  {
+    return $this->belongsTo(Jurusan::class, 'id_jurusan', 'id_j');
+  }
+  public function plotting()
+  {
+    return $this->hasMany(Plotting::class, 'nip_ps', 'nip_ps');
+  }
 }

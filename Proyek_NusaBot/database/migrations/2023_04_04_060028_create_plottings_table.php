@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('plotting', function (Blueprint $table) {
-            $table->string('id_p')->primary();
+            $table->string('id_plotting')->primary();
             $table->string('nis_s');
             $table->string('nip_ps');
             $table->string('id_perusahaan');

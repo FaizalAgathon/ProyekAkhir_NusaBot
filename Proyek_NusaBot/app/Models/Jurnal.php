@@ -21,4 +21,13 @@ class Jurnal extends Model
     'id_plotting',
     'id_pp',
   ];
+
+  public function pembimbing_perusahaan()
+  {
+    return $this->belongsTo(Pembimbing_Perusahaan::class, 'id_pp', 'id_pp');
+  }
+  public function plotting()
+  {
+    return $this->belongsTo(Plotting::class, 'id_plotting', 'id_p');
+  }
 }
