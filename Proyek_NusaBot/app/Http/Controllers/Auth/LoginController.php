@@ -39,24 +39,87 @@ class LoginController extends Controller
   public function __construct()
   {
     $this->middleware('guest')->except('logout');
+    // $this->middleware('guest:admin')->except('logout');
+    // $this->middleware('guest:siswa')->except('logout');
+    // $this->middleware('guest:pPerusahaan')->except('logout');
+    // $this->middleware('guest:pSekolah')->except('logout');
+  }
+
+  public function showLoginForm()
+  {
+    return view('auth.login');
   }
 
   public function login(Request $request)
   {
-    $credentials = $request->validate([
-      'email' => ['required', 'email'],
-      'password' => ['required'],
-    ]);
+    switch ($request->user) {
+      case 'siswa':
+        $request->validate([
+          'identify' => ['required', 'numeric'],
+          'password' => ['required'],
+        ]);
+        $infoLogin = [
+          'nis_s' => $request->identify,
+          'password' => $request->password,
+        ];
+        break;
 
-    if (Auth::attempt($credentials)) {
-      $request->session()->regenerate();
+      case 'pSekolah':
+        $request->validate([
+          'identify' => ['required', 'numeric'],
+          'password' => ['required'],
+        ]);
+        $infoLogin = [
+          'nip_ps' => $request->identify,
+          'password' => $request->password,
+        ];
+        break;
 
-      return redirect()->intended('dashboard');
+      case 'admin':
+        $request->validate([
+          'identify' => ['required', 'email'],
+          'password' => ['required'],
+        ]);
+        $infoLogin = [
+          'email_a' => $request->identify,
+          'password' => $request->password,
+        ];
+        break;
+
+      case 'pPerusahaan':
+        $request->validate([
+          'identify' => ['required', 'email'],
+          'password' => ['required'],
+        ]);
+        $infoLogin = [
+          'email_pp' => $request->identify,
+          'password' => $request->password,
+        ];
+        break;
     }
 
-    return back()->withErrors([
-      'email' => 'The provided credentials do not match our records.',
-    ])->onlyInput('email');
+    if (Auth::guard($request->user)->attempt($infoLogin)) {
+      $request->session()->regenerate();
+      switch ($request->user) {
+        case 'siswa':
+          return redirect('/siswa');
+          break;
+        case 'admin':
+          return redirect('/admin');
+          break;
+        case 'pPerusahaan':
+          return redirect('/pPerusahaan');
+          break;
+        case 'pSekolah':
+          return redirect('/pSekolah');
+          break;
+      }
+    }
+
+    return back();
+    // ->withErrors([
+    //   'email' => 'The provided credentials do not match our records.',
+    // ])->onlyInput('email');
   }
 
   public function logout(Request $request): RedirectResponse

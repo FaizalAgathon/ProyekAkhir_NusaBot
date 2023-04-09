@@ -43,7 +43,19 @@ return [
     'admin' => [
       'driver' => 'session',
       'provider' => 'admins',
-    ]
+    ],
+    'siswa' => [
+      'driver' => 'session',
+      'provider' => 'siswas',
+    ],
+    'pPerusahaan' => [
+      'driver' => 'session',
+      'provider' => 'pPerusahaans',
+    ],
+    'pSekolah' => [
+      'driver' => 'session',
+      'provider' => 'pSekolahs',
+    ],
   ],
 
   /*
@@ -71,6 +83,18 @@ return [
     'admins' => [
       'driver' => 'eloquent',
       'model' => App\Models\Admin::class,
+    ],
+    'siswas' => [
+      'driver' => 'eloquent',
+      'model' => App\Models\Siswa::class,
+    ],
+    'pPerusahaans' => [
+      'driver' => 'eloquent',
+      'model' => App\Models\Pembimbing_Perusahaan::class,
+    ],
+    'pSekolah' => [
+      'driver' => 'eloquent',
+      'model' => App\Models\Pembimbing_Sekolah::class,
     ],
 
     // 'users' => [

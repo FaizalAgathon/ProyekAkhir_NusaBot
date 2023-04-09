@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'dev-Migration-and-Model',
-        'version' => 'dev-Migration-and-Model',
-        'reference' => 'd7311c0ea39af5118e894a7396c652eb2cfac735',
+        'pretty_version' => 'dev-fitur-login',
+        'version' => 'dev-fitur-login',
+        'reference' => '5d76bef775fe8e6aa882adcea84e0e11b2437823',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -371,9 +371,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'dev-Migration-and-Model',
-            'version' => 'dev-Migration-and-Model',
-            'reference' => 'd7311c0ea39af5118e894a7396c652eb2cfac735',
+            'pretty_version' => 'dev-fitur-login',
+            'version' => 'dev-fitur-login',
+            'reference' => '5d76bef775fe8e6aa882adcea84e0e11b2437823',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
