@@ -41,22 +41,45 @@ class LoginController extends Controller
     $this->middleware('guest')->except('logout');
   }
 
+  public function showLoginForm()
+  {
+    return view('auth.login');
+  }
+
   public function login(Request $request)
   {
-    $credentials = $request->validate([
-      'email' => ['required', 'email'],
-      'password' => ['required'],
-    ]);
+    if ($request->user == 'siswa') {
+      $credentials = $request->validate([
+        'nis_s' => ['required', 'numeric'],
+        'password' => ['required'],
+      ]);
+    } else if ($request->user == 'pSekolah') {
+      $credentials = $request->validate([
+        'nip_ps' => ['required', 'numeric'],
+        'password' => ['required'],
+      ]);
+    } else if ($request->user == 'admin') {
+      $credentials = $request->validate([
+        'email_a' => ['required', 'email'],
+        'password' => ['required'],
+      ]);
+    } else if ($request->user == 'pPerusahaan') {
+      $credentials = $request->validate([
+        'email_pp' => ['required', 'email'],
+        'password' => ['required'],
+      ]);
+    }
 
-    if (Auth::attempt($credentials)) {
+    if (Auth::guard($request->user)->attempt($credentials)) {
       $request->session()->regenerate();
 
       return redirect()->intended('dashboard');
     }
 
-    return back()->withErrors([
-      'email' => 'The provided credentials do not match our records.',
-    ])->onlyInput('email');
+    return back();
+    // ->withErrors([
+    //   'email' => 'The provided credentials do not match our records.',
+    // ])->onlyInput('email');
   }
 
   public function logout(Request $request): RedirectResponse
