@@ -39,6 +39,10 @@ class LoginController extends Controller
   public function __construct()
   {
     $this->middleware('guest')->except('logout');
+    // $this->middleware('guest:admin')->except('logout');
+    // $this->middleware('guest:siswa')->except('logout');
+    // $this->middleware('guest:pPerusahaan')->except('logout');
+    // $this->middleware('guest:pSekolah')->except('logout');
   }
 
   public function showLoginForm()
@@ -48,32 +52,68 @@ class LoginController extends Controller
 
   public function login(Request $request)
   {
-    if ($request->user == 'siswa') {
-      $credentials = $request->validate([
-        'nis_s' => ['required', 'numeric'],
-        'password' => ['required'],
-      ]);
-    } else if ($request->user == 'pSekolah') {
-      $credentials = $request->validate([
-        'nip_ps' => ['required', 'numeric'],
-        'password' => ['required'],
-      ]);
-    } else if ($request->user == 'admin') {
-      $credentials = $request->validate([
-        'email_a' => ['required', 'email'],
-        'password' => ['required'],
-      ]);
-    } else if ($request->user == 'pPerusahaan') {
-      $credentials = $request->validate([
-        'email_pp' => ['required', 'email'],
-        'password' => ['required'],
-      ]);
+    switch ($request->user) {
+      case 'siswa':
+        $request->validate([
+          'identify' => ['required', 'numeric'],
+          'password' => ['required'],
+        ]);
+        $infoLogin = [
+          'nis_s' => $request->identify,
+          'password' => $request->password,
+        ];
+        break;
+
+      case 'pSekolah':
+        $request->validate([
+          'identify' => ['required', 'numeric'],
+          'password' => ['required'],
+        ]);
+        $infoLogin = [
+          'nip_ps' => $request->identify,
+          'password' => $request->password,
+        ];
+        break;
+
+      case 'admin':
+        $request->validate([
+          'identify' => ['required', 'email'],
+          'password' => ['required'],
+        ]);
+        $infoLogin = [
+          'email_a' => $request->identify,
+          'password' => $request->password,
+        ];
+        break;
+
+      case 'pPerusahaan':
+        $request->validate([
+          'identify' => ['required', 'email'],
+          'password' => ['required'],
+        ]);
+        $infoLogin = [
+          'email_pp' => $request->identify,
+          'password' => $request->password,
+        ];
+        break;
     }
 
-    if (Auth::guard($request->user)->attempt($credentials)) {
+    if (Auth::guard($request->user)->attempt($infoLogin)) {
       $request->session()->regenerate();
-
-      return redirect()->intended('dashboard');
+      switch ($request->user) {
+        case 'siswa':
+          return redirect('/siswa');
+          break;
+        case 'admin':
+          return redirect('/admin');
+          break;
+        case 'pPerusahaan':
+          return redirect('/pPerusahaan');
+          break;
+        case 'pSekolah':
+          return redirect('/pSekolah');
+          break;
+      }
     }
 
     return back();

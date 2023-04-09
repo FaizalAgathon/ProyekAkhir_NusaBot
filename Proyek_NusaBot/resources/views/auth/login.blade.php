@@ -49,14 +49,14 @@
                     <div class="col-12">
                       <label for="yourUsername" class="form-label" id="label">NIS</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="email_a" class="form-control" id="identify" required>
+                        <input type="text" name="identify" class="form-control" id="identify" required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password_a" class="form-control" id="id-password" required>
+                      <input type="password" name="password" class="form-control" id="id-password" required>
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
@@ -99,20 +99,20 @@
       class="bi bi-arrow-up-short"></i></a> --}}
 
   <script>
-    // document.querySelector('#id-user').addEventListener("change", function() {
-    //   if (this.value == "siswa") {
-    //     document.getElementById('identify').setAttribute('name', 'nis_s');
-    //     document.getElementById('label').textContent = 'NIS';
-    //   } else if (this.value == 'admin') {
-    //     document.getElementById('identify').setAttribute('name', 'email_a');
-    //     document.getElementById('label').textContent = 'Email';
-    //   } else if (this.value == 'pPerusahaan') {
-    //     document.getElementById('identify').setAttribute('name', 'email_pp');
-    //     document.getElementById('label').textContent = 'Email';
-    //   } else if (this.value == 'pSekolah') {
-    //     document.getElementById('identify').setAttribute('name', 'nip_ps');
-    //     document.getElementById('label').textContent = 'NIP';
-    //   }
-    // });
+    document.querySelector('#id-user').addEventListener("change", function() {
+      if (this.value == "siswa") {
+        // document.getElementById('identify').setAttribute('name', 'nis_s');
+        document.getElementById('label').textContent = 'NIS';
+      } else if (this.value == 'admin') {
+        // document.getElementById('identify').setAttribute('name', 'email_a');
+        document.getElementById('label').textContent = 'Email';
+      } else if (this.value == 'pPerusahaan') {
+        // document.getElementById('identify').setAttribute('name', 'email_pp');
+        document.getElementById('label').textContent = 'Email';
+      } else if (this.value == 'pSekolah') {
+        // document.getElementById('identify').setAttribute('name', 'nip_ps');
+        document.getElementById('label').textContent = 'NIP';
+      }
+    });
   </script>
 @endsection
