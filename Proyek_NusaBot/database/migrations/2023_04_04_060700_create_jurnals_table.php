@@ -19,6 +19,7 @@ return new class extends Migration
       $table->string('paraf_pp_jurnal')->nullable();
       $table->string('gambar_kegiatan_jurnal');
       $table->date('tanggal_jurnal');
+      $table->timestamps();
     });
     Schema::table('jurnal', function (Blueprint $table) {
       $table->bigInteger('id_plotting')->constrained('plotting', 'id_plotting');

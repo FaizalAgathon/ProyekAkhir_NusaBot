@@ -15,6 +15,7 @@ return new class extends Migration
       $table->engine = 'InnoDB';
       $table->bigInteger('id_j');
       $table->string('nama_j');
+      $table->timestamps();
     });
   }
 

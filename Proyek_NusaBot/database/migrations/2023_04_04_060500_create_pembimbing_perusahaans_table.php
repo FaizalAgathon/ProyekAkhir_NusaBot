@@ -18,6 +18,7 @@ return new class extends Migration
       $table->string('password_pp');
       $table->string('nama_pp');
       $table->enum('jk_pp', ['L', 'P']);
+      $table->timestamps();
     });
     Schema::table('p_perusahaan', function (Blueprint $table) {
       $table->bigInteger('id_perusahaan')->constrained('perusahaan', 'id_p');

@@ -14,6 +14,7 @@ return new class extends Migration
     Schema::create('plotting', function (Blueprint $table) {
       $table->engine = 'InnoDB';
       $table->bigInteger('id_plotting')->primary();
+      $table->timestamps();
     });
     Schema::table('plotting', function (Blueprint $table) {
       $table->bigInteger('nis_s')->constrained('siswa', 'nis_s');
