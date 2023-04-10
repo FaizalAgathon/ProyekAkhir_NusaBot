@@ -20,6 +20,7 @@ return new class extends Migration
           $table->date('tanggal_jurnal');
           $table->string('id_plotting');
           $table->string('id_pp');
+          $table->timestamps();
         });
     }
 

@@ -15,6 +15,7 @@ return new class extends Migration
           $table->string('id_p')->primary();
           $table->string('nama_p');
           $table->longText('alamat_p');
+          $table->timestamps();
         });
     }
 

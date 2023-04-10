@@ -16,19 +16,20 @@
                 </a>
               </div><!-- End Logo --> --}}
 
-              <form action="/login" method="POST" class="row g-3 needs-validation" novalidate>
+              <form action="/{{ basename($_SERVER['REQUEST_URI']) }}" method="POST" class="row g-3 needs-validation" novalidate>
                 @csrf
-                <div class="card mb-3">
+                {{-- <div class="card mb-3">
 
                   <div class="card-body">
 
                     <div class="pt-4 pb-2">
                       <h5 class="card-title text-center pb-0 fs-4">Login Sebagai : </h5>
+                      <h6></h6>
                     </div>
 
                     <div class="col-12">
                       <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="user" id="id-user">
-                        <option selected value="siswa">Siswa</option>
+                        <option value="siswa">Siswa</option>
                         <option value="admin">Admin</option>
                         <option value="pSekolah">Pembimbing Sekolah</option>
                         <option value="pPerusahaan">Pembimbing Perusahaan</option>
@@ -36,7 +37,7 @@
                     </div>
 
                   </div>
-                </div>
+                </div> --}}
                 <div class="card mb-3">
 
                   <div class="card-body">
@@ -49,7 +50,7 @@
                     <div class="col-12">
                       <label for="yourUsername" class="form-label" id="label">NIS</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="identify" class="form-control" id="identify" required>
+                        <input type="text" name="email_a" class="form-control" id="identify" required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
                     </div>

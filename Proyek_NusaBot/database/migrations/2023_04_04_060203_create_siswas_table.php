@@ -19,6 +19,7 @@ return new class extends Migration
       $table->string('gambar_s')->nullable();
       $table->string('id_kelas');
       $table->string('id_jurusan');
+      $table->timestamps();
     });
   }
 

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nis_s');
             $table->string('nip_ps');
             $table->string('id_perusahaan');
+            $table->timestamps();
         });
     }
 

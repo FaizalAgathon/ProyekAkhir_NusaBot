@@ -18,6 +18,7 @@ return new class extends Migration
           $table->string('nama_pp');
           $table->enum('jk_pp', ['L', 'P']);
           $table->string('id_perusahaan');
+          $table->timestamps();
         });
     }
 
