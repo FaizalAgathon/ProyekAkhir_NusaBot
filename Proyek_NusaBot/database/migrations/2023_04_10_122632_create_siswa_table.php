@@ -18,6 +18,7 @@ return new class extends Migration
       $table->string('nama_s');
       $table->enum('jk_s', ['L', 'P']);
       $table->string('gambar_s')->nullable();
+      $table->timestamps();
     });
     Schema::table('siswa', function (Blueprint $table) {
       $table->bigInteger('id_kelas')->constrained('kelas', 'id_k');
