@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pembimbing_sekolah', function (Blueprint $table) {
-            $table->string('nip_ps', 8)->primary();
-            $table->string('password_ps');
-            $table->string('nama_ps');
-            $table->enum('jk_ps', ['L', 'P']);
-            $table->string('id_jurusan');
+        Schema::create('admin', function (Blueprint $table) {
+            $table->bigInteger('id_a')->primary();
+            $table->string('email_a')->unique();
+            $table->string('password_a');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pembimbing_sekolah');
+        Schema::dropIfExists('admin');
     }
 };

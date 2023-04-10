@@ -38,7 +38,7 @@ class GeneralSeeder extends Seeder
     //   'password_s' => Hash::make('12345'),
     // ]);
     Jurusan::create([
-      'id_j' => Random::generate(8),
+      'id_j' => Random::generate(8, '0-9'),
       'nama_j' => 'RPL'
     ]);
     Pembimbing_Sekolah::create([

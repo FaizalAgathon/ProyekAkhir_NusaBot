@@ -12,13 +12,16 @@ return new class extends Migration
   public function up(): void
   {
     Schema::create('siswa', function (Blueprint $table) {
-      $table->string('nis_s', 8)->primary();
+      $table->engine = 'InnoDB';
+      $table->bigInteger('nis_s')->primary();
       $table->string('password_s');
       $table->string('nama_s');
       $table->enum('jk_s', ['L', 'P']);
       $table->string('gambar_s')->nullable();
-      $table->string('id_kelas');
-      $table->string('id_jurusan');
+    });
+    Schema::table('siswa', function (Blueprint $table) {
+      $table->bigInteger('id_kelas')->constrained('kelas', 'id_k');
+      $table->bigInteger('id_jurusan')->constrained('jurusan', 'id_j');
     });
   }
 
