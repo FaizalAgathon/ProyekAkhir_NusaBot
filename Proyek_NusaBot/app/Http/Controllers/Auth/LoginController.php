@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -38,8 +39,8 @@ class LoginController extends Controller
    */
   public function __construct()
   {
-    $this->middleware('guest')->except('logout');
-    // $this->middleware('guest:admin')->except('logout');
+    // $this->middleware('guest')->except('logout');
+    $this->middleware('guest:admin')->except('logout');
     // $this->middleware('guest:siswa')->except('logout');
     // $this->middleware('guest:pPerusahaan')->except('logout');
     // $this->middleware('guest:pSekolah')->except('logout');
@@ -52,69 +53,71 @@ class LoginController extends Controller
 
   public function login(Request $request)
   {
-    switch ($request->user) {
-      case 'siswa':
-        $request->validate([
-          'identify' => ['required', 'numeric'],
-          'password' => ['required'],
-        ]);
-        $infoLogin = [
-          'nis_s' => $request->identify,
-          'password' => $request->password,
-        ];
-        break;
+    // dd($request->user);
+    if ($request->user == 'admin') {
+      // case 'siswa':
+      //   $request->validate([
+      //     'identify' => ['required', 'numeric'],
+      //     'password' => ['required'],
+      //   ]);
+      //   $infoLogin = [
+      //     'nis_s' => $request->identify,
+      //     'password' => $request->password,
+      //   ];
+      //   break;
 
-      case 'pSekolah':
-        $request->validate([
-          'identify' => ['required', 'numeric'],
-          'password' => ['required'],
-        ]);
-        $infoLogin = [
-          'nip_ps' => $request->identify,
-          'password' => $request->password,
-        ];
-        break;
+      // case 'pSekolah':
+      //   $request->validate([
+      //     'identify' => ['required', 'numeric'],
+      //     'password' => ['required'],
+      //   ]);
+      //   $infoLogin = [
+      //     'nip_ps' => $request->identify,
+      //     'password' => $request->password,
+      //   ];
+      //   break;
+      $this->validate($request, [
+        'email_a' => ['required', 'email'],
+        'password' => ['required'],
+      ]);
+      $infoLogin = [
+        'email_a' => $request->email_a,
+        'password' => $request->password,
+      ];
+      // break;
 
-      case 'admin':
-        $request->validate([
-          'identify' => ['required', 'email'],
-          'password' => ['required'],
-        ]);
-        $infoLogin = [
-          'email_a' => $request->identify,
-          'password' => $request->password,
-        ];
-        break;
-
-      case 'pPerusahaan':
-        $request->validate([
-          'identify' => ['required', 'email'],
-          'password' => ['required'],
-        ]);
-        $infoLogin = [
-          'email_pp' => $request->identify,
-          'password' => $request->password,
-        ];
-        break;
+      // case 'pPerusahaan':
+      //   $request->validate([
+      //     'identify' => ['required', 'email'],
+      //     'password' => ['required'],
+      //   ]);
+      //   $infoLogin = [
+      //     'email_pp' => $request->identify,
+      //     'password' => $request->password,
+      //   ];
+      //   break;
     }
 
-    if (Auth::guard($request->user)->attempt($infoLogin)) {
-      $request->session()->regenerate();
-      switch ($request->user) {
-        case 'siswa':
-          return redirect('/siswa');
-          break;
-        case 'admin':
-          return redirect('/admin');
-          break;
-        case 'pPerusahaan':
-          return redirect('/pPerusahaan');
-          break;
-        case 'pSekolah':
-          return redirect('/pSekolah');
-          break;
+    // dd(Auth::guard($request->user)->attempt($infoLogin), $request->session()->regenerate(), $infoLogin, Auth::check());
+
+    if ($request->user == 'admin') {
+      if (Auth::guard('admin')->attempt($infoLogin)) {
+        // Auth::guard('admin');
+        $request->session()->regenerate();
+        return redirect()->intended('admin');
       }
     }
+
+    // dd(
+    // //   $request->user, $request->validate([
+    // //   'identify' => ['required', 'email'],
+    // //   'password' => ['required'],
+    // // ]), 
+    // // $infoLogin = [
+    // //   'email_a' => $request->identify,
+    // //   'password' => $request->password,
+    // // ],
+    // Auth::guard($request->user)->attempt($infoLogin), $request->session()->regenerate());
 
     return back();
     // ->withErrors([
@@ -124,12 +127,15 @@ class LoginController extends Controller
 
   public function logout(Request $request): RedirectResponse
   {
-    Auth::logout();
-
-    $request->session()->invalidate();
-
-    $request->session()->regenerateToken();
-
-    return redirect('/');
+    $guards = array_keys(config('auth.guards'));
+    foreach ($guards as $guard) {
+      if (Auth::guard($guard)->check()) {
+        Auth::guard($guard)->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+      };
+    }
+    // Auth::logout();
   }
 }

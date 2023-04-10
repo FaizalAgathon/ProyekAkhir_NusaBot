@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('perusahaan', function (Blueprint $table) {
-          $table->bigInteger('id_p')->primary();
-          $table->string('nama_p');
-          $table->longText('alamat_p');
+        Schema::create('pembimbing_perusahaan', function (Blueprint $table) {
+          $table->string('id_pp')->primary();
+          $table->string('email_pp')->unique();
+          $table->string('password_pp');
+          $table->string('nama_pp');
+          $table->enum('jk_pp', ['L', 'P']);
+          $table->string('id_perusahaan');
           $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('perusahaan');
+        Schema::dropIfExists('pembimbing_perusahaan');
     }
 };

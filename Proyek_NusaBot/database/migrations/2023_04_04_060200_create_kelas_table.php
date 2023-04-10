@@ -14,6 +14,7 @@ return new class extends Migration
     Schema::create('kelas', function (Blueprint $table) {
       $table->bigInteger('id_k')->primary();
       $table->string('angkatan_k');
+      $table->timestamps();
     });
   }
 

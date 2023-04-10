@@ -13,7 +13,11 @@ class Admin extends Authenticatable
 {
   use HasFactory, HasApiTokens, Notifiable;
 
+  protected $primaryKey = 'id_a';
+
   protected $table = 'admin';
+
+  protected $guard = 'admin';
 
   protected $fillable = [
     'id_a',
@@ -30,4 +34,6 @@ class Admin extends Authenticatable
   {
     return $this->password_a;
   }
+
+
 }
