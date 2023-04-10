@@ -9,7 +9,7 @@ class Pembimbing_Sekolah extends Model
 {
   use HasFactory;
 
-  protected $table = 'pembimbing_sekolah';
+  protected $table = 'p_sekolah';
 
   protected $fillable = [
     'nip_ps',

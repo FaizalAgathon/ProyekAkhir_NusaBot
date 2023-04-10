@@ -9,7 +9,7 @@ class Pembimbing_Perusahaan extends Model
 {
   use HasFactory;
 
-  protected $table = 'pembimbing_perusahaan';
+  protected $table = 'p_perusahaan';
 
   protected $fillable = [
     'id_pp',
