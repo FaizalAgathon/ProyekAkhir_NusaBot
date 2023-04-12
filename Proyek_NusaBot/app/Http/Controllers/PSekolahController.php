@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Jurusan;
 use App\Models\Pembimbing_Sekolah;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Nette\Utils\Random;
 use Illuminate\Support\Str;
 
@@ -20,7 +21,7 @@ class PSekolahController extends Controller
       'psekolahClassActive' => 'active',
       'dataPS' => Pembimbing_Sekolah::all(),
       'dataJurusan' => Jurusan::all(),
-      'data' => Pembimbing_Sekolah::all()->jurusan(),
+      'data' => Pembimbing_Sekolah::all(),
     ]);
   }
 
@@ -29,12 +30,14 @@ class PSekolahController extends Controller
    */
   public function store(Request $request)
   {
+    $pass = Str::upper(Random::generate(8,'a-z'));
     $data = [
       'nip_ps' => $request->nip,
-      'password_ps' => Str::upper(Random::generate(8,'a-z')),
+      'pass_unhash' => $pass,
+      'password_ps' => Hash::make($pass),
       'nama_ps' => $request->nama,
       'jk_ps' => $request->jk,
-      'id_jurusan' => Jurusan::where('id_j', $request->jurusan)->get('id_j')->first(),
+      'id_jurusan' => Jurusan::where('id_jurusan', $request->jurusan)->get('id_jurusan')->first(),
     ];
     Pembimbing_Sekolah::create($data);
     return redirect('/psekolah')->with('add');

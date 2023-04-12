@@ -46,7 +46,7 @@
               <select class="form-select" id="inputGroupSelect01" name="jurusan">
                 <option selected>Choose...</option>
                 @foreach ($dataJurusan as $item)
-                  <option value="{{ $item->id_j }}">{{ $item->nama_j }}</option>
+                  <option value="{{ $item->id_jurusan }}">{{ $item->nama_j }}</option>
                 @endforeach
               </select>
             </div>
