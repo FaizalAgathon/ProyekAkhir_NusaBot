@@ -13,7 +13,7 @@ return new class extends Migration
   {
     Schema::create('jurusan', function (Blueprint $table) {
       $table->engine = 'InnoDB';
-      $table->bigInteger('id_j');
+      $table->bigInteger('id_jurusan')->unique();
       $table->string('nama_j');
       $table->timestamps();
     });

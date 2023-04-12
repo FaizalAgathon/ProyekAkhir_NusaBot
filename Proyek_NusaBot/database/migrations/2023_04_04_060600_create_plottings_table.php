@@ -13,13 +13,16 @@ return new class extends Migration
   {
     Schema::create('plotting', function (Blueprint $table) {
       $table->engine = 'InnoDB';
-      $table->bigInteger('id_plotting')->primary();
+      $table->bigInteger('id_plotting')->unique();
+      $table->bigInteger('nis_siswa');
+      $table->bigInteger('nip_ps');
+      $table->bigInteger('id_perusahaan');
       $table->timestamps();
     });
-    Schema::table('plotting', function (Blueprint $table) {
-      $table->bigInteger('nis_s')->constrained('siswa', 'nis_s');
-      $table->bigInteger('nip_ps')->constrained('p_sekolah', 'nip_ps');
-      $table->bigInteger('id_perusahaan')->constrained('perusahaan', 'id_p');
+    Schema::table('plotting', function (Blueprint $table) {      
+      $table->foreign('nis_siswa')->references('nis_siswa')->on('siswa')->restrictOnUpdate()->restrictOnDelete();
+      $table->foreign('nip_ps')->references('nip_ps')->on('p_sekolah')->restrictOnUpdate()->restrictOnDelete();
+      $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaan')->restrictOnUpdate()->restrictOnDelete();
     });
   }
 
