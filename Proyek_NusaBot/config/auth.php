@@ -96,11 +96,6 @@ return [
       'driver' => 'eloquent',
       'model' => App\Models\Pembimbing_Sekolah::class,
     ],
-
-    // 'users' => [
-    //     'driver' => 'database',
-    //     'table' => 'users',
-    // ],
   ],
 
   /*

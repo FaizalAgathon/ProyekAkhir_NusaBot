@@ -5,6 +5,7 @@ use App\Http\Controllers\AngkatanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\PSekolahController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -20,27 +21,39 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// NOTE Routing untuk mengecek login sebagai siapa
+
 Route::get('/', function () {
-  if(Auth::guard('admin')->check()){
+
+  // NOTE Jika akun admin sudah login, tampilkan dashboard/index admin
+
+  if(Auth::guard('admin')->check()){ 
     return view('users.admin.index');
   }
+
+  // NOTE Jika sama sekali blm login, tampilkan daftar akun untuk login
+
   return view('user');
 });
 
 Route::get('/login', function (Request $request) {
-  if ($request->user == 'admin'){
-    return redirect('/login/admin');
-  }
+  if ($request->user == 'admin') return redirect('/login/admin');
 });
+
+// SECTION LOGIN ADMIN
+
 Route::get('/login/admin', [AdminController::class, 'loginForm']);
 Route::post('/admin', [AdminController::class, 'index']);
+
+// !SECTION LOGIN ADMIN
 
 Route::get('/logout', [LoginController::class, 'logout']);
 
 // SECTION AKSES ADMIN
 
 Route::resource('/angkatan', AngkatanController::class);
-
 Route::resource('/jurusan', JurusanController::class);
-
 Route::resource('/perusahaan', PerusahaanController::class);
+Route::resource('/psekolah', PSekolahController::class);
+
+// !SECTION AKSES ADMIN
