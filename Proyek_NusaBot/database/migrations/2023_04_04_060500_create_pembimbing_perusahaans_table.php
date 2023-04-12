@@ -13,15 +13,16 @@ return new class extends Migration
   {
     Schema::create('p_perusahaan', function (Blueprint $table) {
       $table->engine = 'InnoDB';
-      $table->bigInteger('id_pp')->primary();
+      $table->bigInteger('id_pp')->unique();
       $table->string('email_pp')->unique();
       $table->string('password_pp');
       $table->string('nama_pp');
       $table->enum('jk_pp', ['L', 'P']);
+      $table->bigInteger('id_perusahaan');
       $table->timestamps();
     });
     Schema::table('p_perusahaan', function (Blueprint $table) {
-      $table->bigInteger('id_perusahaan')->constrained('perusahaan', 'id_p');
+      $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaan')->restrictOnUpdate()->restrictOnDelete();
     });
   }
 
