@@ -14,6 +14,7 @@ return new class extends Migration
     Schema::create('p_sekolah', function (Blueprint $table) {
       $table->engine = 'InnoDB';
       $table->bigInteger('nip_ps')->unique();
+      $table->string('pass_unhash');
       $table->string('password_ps');
       $table->string('nama_ps');
       $table->enum('jk_ps', ['L', 'P']);

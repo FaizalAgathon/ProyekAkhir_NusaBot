@@ -15,6 +15,7 @@ return new class extends Migration
       $table->engine = 'InnoDB';
       $table->bigInteger('id_pp')->unique();
       $table->string('email_pp')->unique();
+      $table->string('pass_unhash');
       $table->string('password_pp');
       $table->string('nama_pp');
       $table->enum('jk_pp', ['L', 'P']);
