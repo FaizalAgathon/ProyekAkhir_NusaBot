@@ -53,29 +53,7 @@ class LoginController extends Controller
 
   public function login(Request $request)
   {
-    // dd($request->user);
     if ($request->user == 'admin') {
-      // case 'siswa':
-      //   $request->validate([
-      //     'identify' => ['required', 'numeric'],
-      //     'password' => ['required'],
-      //   ]);
-      //   $infoLogin = [
-      //     'nis_s' => $request->identify,
-      //     'password' => $request->password,
-      //   ];
-      //   break;
-
-      // case 'pSekolah':
-      //   $request->validate([
-      //     'identify' => ['required', 'numeric'],
-      //     'password' => ['required'],
-      //   ]);
-      //   $infoLogin = [
-      //     'nip_ps' => $request->identify,
-      //     'password' => $request->password,
-      //   ];
-      //   break;
       $this->validate($request, [
         'email_a' => ['required', 'email'],
         'password' => ['required'],
@@ -84,45 +62,14 @@ class LoginController extends Controller
         'email_a' => $request->email_a,
         'password' => $request->password,
       ];
-      // break;
-
-      // case 'pPerusahaan':
-      //   $request->validate([
-      //     'identify' => ['required', 'email'],
-      //     'password' => ['required'],
-      //   ]);
-      //   $infoLogin = [
-      //     'email_pp' => $request->identify,
-      //     'password' => $request->password,
-      //   ];
-      //   break;
     }
-
-    // dd(Auth::guard($request->user)->attempt($infoLogin), $request->session()->regenerate(), $infoLogin, Auth::check());
-
     if ($request->user == 'admin') {
       if (Auth::guard('admin')->attempt($infoLogin)) {
-        // Auth::guard('admin');
         $request->session()->regenerate();
-        return redirect()->intended('admin');
+        return redirect('admin');
       }
     }
-
-    // dd(
-    // //   $request->user, $request->validate([
-    // //   'identify' => ['required', 'email'],
-    // //   'password' => ['required'],
-    // // ]), 
-    // // $infoLogin = [
-    // //   'email_a' => $request->identify,
-    // //   'password' => $request->password,
-    // // ],
-    // Auth::guard($request->user)->attempt($infoLogin), $request->session()->regenerate());
-
     return back();
-    // ->withErrors([
-    //   'email' => 'The provided credentials do not match our records.',
-    // ])->onlyInput('email');
   }
 
   public function logout(Request $request): RedirectResponse
@@ -136,6 +83,5 @@ class LoginController extends Controller
         return redirect('/');
       };
     }
-    // Auth::logout();
   }
 }

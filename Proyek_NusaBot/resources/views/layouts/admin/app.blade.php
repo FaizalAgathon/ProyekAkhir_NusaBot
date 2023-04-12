@@ -321,6 +321,13 @@
         </a>
       </li><!-- End Profile Page Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link {{ isset($psekolahClassActive) ? '' : 'collapsed' }}" href="{{ url('/psekolah') }}">
+          <i class="bi bi-person"></i>
+          <span>P. Sekolah</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
       <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
