@@ -60,40 +60,32 @@ Route::post('/siswa', [SiswaController::class, 'validator']);
 Route::get('/logout', [LoginController::class, 'logout']);
 
 // SECTION AKSES ADMIN
-
 Route::middleware('auth:admin')->prefix('admin')->group(function () {
-  Route::get('/', fn () => view('users.admin.index'));
-  Route::resource('/angkatan', AngkatanController::class);
-  Route::resource('/jurusan', JurusanController::class);
-  Route::resource('/perusahaan', PerusahaanController::class);
-  Route::resource('/psekolah', PSekolahController::class);
-  Route::resource('/pperusahaan', PPerusahaanController::class);
-  Route::resource('/siswa', SiswaController::class);
+  Route::get('/', fn () => view('users.admin.index')); /* Tampilan Dashboard Admin */
+  Route::resource('/angkatan', AngkatanController::class); /* CRUD Angkatan */
+  Route::resource('/jurusan', JurusanController::class); /* CRUD Jurusan */
+  Route::resource('/perusahaan', PerusahaanController::class);  /* CRUD Perusahaan */
+  Route::resource('/psekolah', PSekolahController::class); /* CRUD Pembimbing Sekolah */
+  Route::resource('/pperusahaan', PPerusahaanController::class); /* CRUD Pembimbing Perusahaan */
+  Route::resource('/siswa', SiswaController::class); /* CRUD Siswa */
+  Route::resource('/admin', AdminController::class); /* CRUD Admin */
 });
-
 // !SECTION AKSES ADMIN
 
 // SECTION AKSES PEMBIMBING SEKOLAH
-
 Route::middleware('auth:pSekolah')->prefix('p-sekolah')->group(function () {
   Route::get('', fn () => view('users.pSekolah.index'));
-  // Route::get('', [PSekolahController::class, 'coba']);
 });
-
 // !SECTION AKSES PEMBIMBING SEKOLAH
 
 // SECTION AKSES SISWA
-
 Route::middleware('auth:siswa')->prefix('siswa')->group(function () {
   Route::get('', [SiswaController::class, 'index']);
 });
-
 // !SECTION AKSES SISWA
 
 // SECTION AKSES PEMBIMBING PERUSAHAAN
-
 Route::middleware('auth:pPerusahaan')->prefix('p-perusahaan')->group(function () {
   Route::get('', fn () => dd(Auth::guard('pPerusahaan')->check()));
 });
-
 // !SECTION AKSES PEMBIMBING PERUSAHAAN

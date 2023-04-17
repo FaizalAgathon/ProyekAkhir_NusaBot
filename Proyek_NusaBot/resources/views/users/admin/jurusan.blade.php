@@ -24,7 +24,7 @@
           <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Jurusan</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ url('/jurusan') }}" method="post"> @csrf
+        <form action="{{ url('/admin/jurusan') }}" method="post"> @csrf
           <div class="modal-body">
             <div class="input-group mb-3">
               <span class="input-group-text" id="basic-addon1">Jurusan : </span>
@@ -78,7 +78,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Jurusan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action="/jurusan/{{ $item->id_jurusan }}" method="post"> @csrf @method('PUT')
+              <form action="/admin/jurusan/{{ $item->id_jurusan }}" method="post"> @csrf @method('PUT')
                 <div class="modal-body">
                   <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Jurusan : </span>
@@ -107,7 +107,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Jurusan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action="/jurusan/{{ $item->id_jurusan }}" method="post"> @csrf @method('DELETE')
+              <form action="/admin/jurusan/{{ $item->id_jurusan }}" method="post"> @csrf @method('DELETE')
                 <div class="modal-body">
                   {{ $item->nama_j }}
                 </div>
