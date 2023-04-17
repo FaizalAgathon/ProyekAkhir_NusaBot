@@ -18,18 +18,18 @@ class RedirectIfAuthenticated
   public function handle(Request $request, Closure $next, string $guard = null): Response
   {
 
-    if ($guard == "admin" && Auth::guard($guard)->check()) {
-      return redirect('/admin');
-    }
-    if ($guard == "siswa" && Auth::guard($guard)->check()) {
-      return redirect('/siswa');
-    }
-    if ($guard == "pPerusahaan" && Auth::guard($guard)->check()) {
-      return redirect('/pPerusahaan');
-    }
-    if ($guard == "pSekolah" && Auth::guard($guard)->check()) {
-      return redirect('/pSekolah');
-    }
+    // if ($guard == "admin" && Auth::guard($guard)->check()) {
+    //   return redirect('/admin');
+    // }
+    // if ($guard == "siswa" && Auth::guard($guard)->check()) {
+    //   return redirect('/siswa');
+    // }
+    // if ($guard == "pPerusahaan" && Auth::guard($guard)->check()) {
+    //   return redirect('/pPerusahaan');
+    // }
+    // if ($guard == "pSekolah" && Auth::guard($guard)->check()) {
+    //   return redirect('/pSekolah');
+    // }
 
     // $guards = empty($guards) ? [null] : $guards;
 

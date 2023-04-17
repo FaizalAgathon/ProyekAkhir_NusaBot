@@ -12,16 +12,16 @@ class Jurusan extends Model
   protected $table = 'jurusan';
 
   protected $fillable = [
-    'id_j',
+    'id_jurusan',
     'nama_j',
   ];
 
   public function siswa()
   {
-    return $this->hasMany(Siswa::class, 'id_jurusan', 'id_j');
+    return $this->hasMany(Siswa::class, 'id_jurusan', 'id_jurusan');
   }
   public function pembimbing_sekolah()
   {
-    return $this->hasMany(Pembimbing_Sekolah::class, 'id_jurusan', 'id_j');
+    return $this->hasMany(Pembimbing_Sekolah::class, 'id_jurusan', 'id_jurusan');
   }
 }

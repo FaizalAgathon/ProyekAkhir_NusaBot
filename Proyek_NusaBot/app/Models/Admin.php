@@ -22,6 +22,7 @@ class Admin extends Authenticatable
   protected $fillable = [
     'id_a',
     'email_a',
+    'pass_unhash',
     'password_a',
   ];
 

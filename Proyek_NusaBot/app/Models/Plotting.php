@@ -13,14 +13,14 @@ class Plotting extends Model
 
   protected $fillable = [
     'id_plotting',
-    'nis_s',
+    'nis_siswa',
     'nip_ps',
     'id_perusahaan',
   ];
 
   public function siswa()
   {
-    return $this->belongsTo(Siswa::class, 'nis_s', 'nis_s');
+    return $this->belongsTo(Siswa::class, 'nis_siswa', 'nis_siswa');
   }
   public function pembimbing_sekolah()
   {
@@ -28,7 +28,7 @@ class Plotting extends Model
   }
   public function perusahaan()
   {
-    return $this->belongsTo(Perusahaan::class, 'id_perusahaan', 'id_p');
+    return $this->belongsTo(Perusahaan::class, 'id_perusahaan', 'id_perusahaan');
   }
   public function jurnal()
   {

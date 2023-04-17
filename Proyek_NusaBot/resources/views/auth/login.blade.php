@@ -50,7 +50,7 @@
                     <div class="col-12">
                       <label for="yourUsername" class="form-label" id="label">NIS</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="email_a" class="form-control" id="identify" required>
+                        <input type="text" name="{{ $nameValidate ?? '' }}" class="form-control" id="identify" required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
                     </div>

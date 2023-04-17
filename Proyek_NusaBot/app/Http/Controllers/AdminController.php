@@ -14,12 +14,13 @@ class AdminController extends Controller
 
   public function loginForm()
   {
-    return view('auth.login');
+    return view('auth.login', [
+      'nameValidate' => 'email_a'
+    ]);
   }
 
-  public function index(Request $request)
+  public function validator(Request $request)
   {
-
     $this->validate($request, [
       'email_a' => ['required', 'email'],
       'password' => ['required'],
@@ -30,11 +31,16 @@ class AdminController extends Controller
     ];
 
     if (Auth::guard('admin')->attempt($infoLogin)) {
+      
       $request->session()->regenerate();
       // dd(auth('admin'), Auth::guard('admin'), Auth::check(), Auth::guard('admin')->check());
-      return redirect('/');
+      return redirect('/admin');
     }
     return back();
-
   }
+  
+    public function dashboard()
+    {
+      return view('users.admin.index');
+    }
 }

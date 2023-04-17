@@ -217,13 +217,13 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             {{-- <img src="{{ url('img/profile-img.jpg') }}" alt="Profile" class="rounded-circle"> --}}
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::guard('admin')->user()->email_a }}</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::guard('siswa')->user()->nama_s }}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>{{ Auth::guard('admin')->user()->email_a }}</h6>
-              <span>Admin</span>
+              <h6>{{ Auth::guard('siswa')->user()->nama_s }}</h6>
+              <span>Siswa</span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -325,13 +325,6 @@
         <a class="nav-link {{ isset($psekolahClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/psekolah') }}">
           <i class="bi bi-person"></i>
           <span>P. Sekolah</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link {{ isset($pperusahaanClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/pperusahaan') }}">
-          <i class="bi bi-person"></i>
-          <span>P. Perusahaan</span>
         </a>
       </li><!-- End Profile Page Nav -->
 

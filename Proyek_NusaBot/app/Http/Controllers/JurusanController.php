@@ -36,7 +36,7 @@ class JurusanController extends Controller
   public function store(Request $request)
   {
     $data = [
-      'id_j' => Random::generate(),
+      'id_jurusan' => Random::generate(),
       'nama_j' => $request->jurusan,
     ];
     Jurusan::create($data);
@@ -51,7 +51,7 @@ class JurusanController extends Controller
     $data = [
       'nama_j' => $request->jurusan,
     ];
-    Jurusan::where('id_j', $id)->update($data);
+    Jurusan::where('id_jurusan', $id)->update($data);
     return redirect('/jurusan')->with('edit');
   }
 
@@ -60,7 +60,7 @@ class JurusanController extends Controller
    */
   public function destroy(string $id)
   {
-    Jurusan::where('id_j', $id)->delete();
+    Jurusan::where('id_jurusan', $id)->delete();
     return redirect('/jurusan')->with('del');
   }
 }

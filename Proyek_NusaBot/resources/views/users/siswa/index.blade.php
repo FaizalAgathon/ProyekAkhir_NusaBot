@@ -1,8 +1,8 @@
-@extends('layouts.admin.app')
+@extends('layouts.siswa.app')
 
 @section('content-body')
   <div class="pagetitle">
-    <h1>{{ Auth::guard('admin')->user()->email_a }}</h1>
+    <h1>{{ Auth::guard('siswa')->user()->nama_s }}</h1>
     <nav>
       <ol class="breadcrumb">
         {{-- <li class="breadcrumb-item"><a href="index.html">Home</a></li> --}}

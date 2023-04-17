@@ -1,8 +1,8 @@
-@extends('layouts.admin.app')
+@extends('layouts.pSekolah.app')
 
 @section('content-body')
   <div class="pagetitle">
-    <h1>{{ Auth::guard('admin')->user()->email_a }}</h1>
+    <h1>{{ Auth::guard('pSekolah')->user()->nama_ps }}</h1>
     <nav>
       <ol class="breadcrumb">
         {{-- <li class="breadcrumb-item"><a href="index.html">Home</a></li> --}}

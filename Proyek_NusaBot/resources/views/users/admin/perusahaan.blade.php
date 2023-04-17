@@ -1,6 +1,6 @@
 @extends('layouts.admin.app')
 
-@section('admin-body')
+@section('content-body')
   <div class="pagetitle">
     <h1>Perusahaan</h1>
     <nav>
@@ -65,10 +65,10 @@
           <td>{{ $item->alamat_p }}</td>
           <td>
             <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-              data-bs-target="#edit{{ $item->id_p }}">
+              data-bs-target="#edit{{ $item->id_perusahaan }}">
               Edit
             </button>
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#del{{ $item->id_p }}">
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#del{{ $item->id_perusahaan }}">
               Delete
             </button>
           </td>
@@ -76,7 +76,7 @@
 
         {{-- SECTION MODAL EDIT --}}
 
-        <div class="modal fade" id="edit{{ $item->id_p }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="edit{{ $item->id_perusahaan }}" tabindex="-1" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -84,7 +84,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Perusahaan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action="/perusahaan/{{ $item->id_p }}" method="post"> @csrf @method('PUT')
+              <form action="/perusahaan/{{ $item->id_perusahaan }}" method="post"> @csrf @method('PUT')
                 <div class="modal-body">
                   <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Nama Perusahaan : </span>
@@ -109,7 +109,7 @@
 
         {{-- SECTION MODAL HAPUS --}}
 
-        <div class="modal fade" id="del{{ $item->id_p }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="del{{ $item->id_perusahaan }}" tabindex="-1" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -117,7 +117,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus perusahaan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action="/perusahaan/{{ $item->id_p }}" method="post"> @csrf @method('DELETE')
+              <form action="/perusahaan/{{ $item->id_perusahaan }}" method="post"> @csrf @method('DELETE')
                 <div class="modal-body">
                   {{ $item->nama_p }} <br>
                   {{ $item->alamat_p }}

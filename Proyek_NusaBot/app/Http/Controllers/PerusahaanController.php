@@ -35,7 +35,7 @@ class PerusahaanController extends Controller
   public function store(Request $request)
   {
     $data = [
-      'id_p' => Random::generate(),
+      'id_perusahaan' => Random::generate(),
       'nama_p' => $request->nama,
       'alamat_p' => $request->alamat,
     ];
@@ -52,7 +52,7 @@ class PerusahaanController extends Controller
       'nama_p' => $request->nama,
       'alamat_p' => $request->alamat,
     ];
-    Perusahaan::where('id_p', $id)->update($data);
+    Perusahaan::where('id_perusahaan', $id)->update($data);
     return redirect('/perusahaan')->with('edit');
   }
 
@@ -61,7 +61,7 @@ class PerusahaanController extends Controller
    */
   public function destroy(string $id)
   {
-    Perusahaan::where('id_p', $id)->delete();
+    Perusahaan::where('id_perusahaan', $id)->delete();
     return redirect('/perusahaan')->with('del');
   }
 }

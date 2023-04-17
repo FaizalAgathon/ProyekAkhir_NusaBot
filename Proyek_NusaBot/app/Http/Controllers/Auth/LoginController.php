@@ -40,37 +40,47 @@ class LoginController extends Controller
   public function __construct()
   {
     // $this->middleware('guest')->except('logout');
-    $this->middleware('guest:admin')->except('logout');
+    // $this->middleware('guest:admin')->except('logout');
     // $this->middleware('guest:siswa')->except('logout');
     // $this->middleware('guest:pPerusahaan')->except('logout');
     // $this->middleware('guest:pSekolah')->except('logout');
   }
 
-  public function showLoginForm()
+  public function isLogin()
   {
-    return view('auth.login');
+    // dd(Auth::guard('pSekolah')->check());
+    if (Auth::guard('admin')->check()) return redirect('/admin');
+    else if (Auth::guard('siswa')->check()) return redirect('/siswa');
+    else if (Auth::guard('pPerusahaan')->check()) return redirect('/pPerusahaan');
+    else if (Auth::guard('pSekolah')->check()) return redirect('/p-sekolah');
+    else return view('user');
   }
 
-  public function login(Request $request)
-  {
-    if ($request->user == 'admin') {
-      $this->validate($request, [
-        'email_a' => ['required', 'email'],
-        'password' => ['required'],
-      ]);
-      $infoLogin = [
-        'email_a' => $request->email_a,
-        'password' => $request->password,
-      ];
-    }
-    if ($request->user == 'admin') {
-      if (Auth::guard('admin')->attempt($infoLogin)) {
-        $request->session()->regenerate();
-        return redirect('admin');
-      }
-    }
-    return back();
-  }
+  // public function showLoginForm()
+  // {
+  //   return view('auth.login');
+  // }
+
+  // public function login(Request $request)
+  // {
+  //   if ($request->user == 'admin') {
+  //     $this->validate($request, [
+  //       'email_a' => ['required', 'email'],
+  //       'password' => ['required'],
+  //     ]);
+  //     $infoLogin = [
+  //       'email_a' => $request->email_a,
+  //       'password' => $request->password,
+  //     ];
+  //   }
+  //   if ($request->user == 'admin') {
+  //     if (Auth::guard('admin')->attempt($infoLogin)) {
+  //       $request->session()->regenerate();
+  //       return redirect('admin');
+  //     }
+  //   }
+  //   return back();
+  // }
 
   public function logout(Request $request): RedirectResponse
   {

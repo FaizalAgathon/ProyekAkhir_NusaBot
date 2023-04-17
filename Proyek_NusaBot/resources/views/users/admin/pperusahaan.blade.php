@@ -2,11 +2,11 @@
 
 @section('content-body')
   <div class="pagetitle">
-    <h1>Pembimbing Sekolah</h1>
+    <h1>Pembimbing Perusahaan</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active">Pembimbing Sekolah</li>
+        <li class="breadcrumb-item active">Pembimbing Perusahaan</li>
       </ol>
     </nav>
   </div><!-- End Page Title -->
@@ -14,13 +14,6 @@
   <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
     + Add
   </button>
-  
-  <select class="form-select" id="inputGroupSelect01" name="jurusan">
-    <option selected>Choose...</option>
-    @foreach ($data as $item)
-      <option value="{{ $item->id_jurusan }}">{{ $item->nama_j }}</option>
-    @endforeach
-  </select>
 
   {{-- SECTION MODAL TAMBAH --}}
 
@@ -28,14 +21,14 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Pembimbing Sekolah</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Pembimbing Perusahaan</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ url('/psekolah') }}" method="post"> @csrf
+        <form action="{{ url('/admin/pperusahaan') }}" method="post"> @csrf
           <div class="modal-body">
             <div class="input-group mb-3">
-              <span class="input-group-text" id="basic-addon1">NIP : </span>
-              <input type="text" class="form-control" name="nip">
+              <span class="input-group-text" id="basic-addon1">Email : </span>
+              <input type="text" class="form-control" name="email">
             </div>
             <div class="input-group mb-3">
               <span class="input-group-text" id="basic-addon1">Nama : </span>
@@ -49,12 +42,11 @@
               </select>
             </div>
             <div class="input-group mb-3">
-              <label class="input-group-text" for="inputGroupSelect01">Jurusan : </label>
-              <select class="form-select" id="inputGroupSelect01" name="jurusan">
+              <label class="input-group-text" for="inputGroupSelect01">Perusahaan : </label>
+              <select class="form-select" id="inputGroupSelect01" name="perusahaan">
                 <option selected>Choose...</option>
-                @foreach ($data as $item)
-                  {{-- @dd($item) --}}
-                  <option value="{{ $item->id_jurusan }}">{{ $item->nama_j }}</option>
+                @foreach ($dataPerusahaan as $item)
+                  <option value="{{ $item->id_perusahaan }}">{{ $item->nama_p }}</option>
                 @endforeach
               </select>
             </div>
@@ -74,11 +66,11 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>NIP</th>
+        <th>Email</th>
         <th>Pass</th>
         <th>Nama</th>
         <th>JK</th>
-        <th>Jurusan</th>
+        <th>Perusahaan</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -88,19 +80,19 @@
       @foreach ($data as $item => $content)
         <tr>
           <td>{{ $i++ }}</td>
-          <td>{{ $content->nip_ps }}</td>
+          <td>{{ $content->email_pp }}</td>
           <td>{{ $content->pass_unhash }}</td>
-          <td>{{ $content->nama_ps }}</td>
-          <td>{{ $content->jk_ps }}</td>
+          <td>{{ $content->nama_pp }}</td>
+          <td>{{ $content->jk_pp }}</td>
           {{--  --}}
-          <td>{{ $content->jurusan->nama_j }}</td>
+          <td>{{ $content->perusahaan->nama_p }}</td>
           <td>
             <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-              data-bs-target="#edit{{ $content->id_ps }}">
+              data-bs-target="#edit{{ $content->id_pp }}">
               Edit
             </button>
             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-              data-bs-target="#del{{ $content->id_ps }}">
+              data-bs-target="#del{{ $content->id_pp }}">
               Delete
             </button>
           </td>
@@ -108,37 +100,37 @@
 
         {{-- SECTION MODAL EDIT --}}
 
-        <div class="modal fade" id="edit{{ $content->id_ps }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="edit{{ $content->id_pp }}" tabindex="-1" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Pembimbing Sekolah</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Pembimbing Perusahaan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action="/psekolah/{{ $content->id_ps }}" method="post"> @csrf @method('PUT')
+              <form action="/admin/pperusahaan/{{ $content->id_pp }}" method="post"> @csrf @method('PUT')
                 <div class="modal-body">
                   <div class="input-group mb-3">
-                    <span class="input-group-text" id="basic-addon1">NIP : </span>
-                    <input type="text" class="form-control" name="nip" value="{{ $content->nip_ps }}">
+                    <span class="input-group-text" id="basic-addon1">Email : </span>
+                    <input type="text" class="form-control" name="email" value="{{ $content->email_pp }}">
                   </div>
                   <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Nama : </span>
-                    <input type="text" class="form-control" name="nama" value="{{ $content->nama_ps }}">
+                    <input type="text" class="form-control" name="nama" value="{{ $content->nama_pp }}">
                   </div>
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="inputGroupSelect02">JK : </label>
                     <select class="form-select" id="inputGroupSelect02" name="jk">
-                      <option {{ $content->jk_ps == 'L' ? 'selected' : '' }} value="L">L</option>
-                      <option {{ $content->jk_ps == 'P' ? 'selected' : '' }} value="P">P</option>
+                      <option {{ $content->jk_pp == 'L' ? 'selected' : '' }} value="L">L</option>
+                      <option {{ $content->jk_pp == 'P' ? 'selected' : '' }} value="P">P</option>
                     </select>
                   </div>
                   <div class="input-group mb-3">
                     <label class="input-group-text" for="inputGroupSelect01">Jurusan : </label>
                     <select class="form-select" id="inputGroupSelect01" name="jurusan">
-                      @foreach ($dataJurusan as $jurusan)
-                        <option value="{{ $content->id_jurusan }}" {{ $content->id_jurusan == $jurusan->id_jurusan ? 'selected' : '' }}>
-                          {{ $jurusan->nama_j }}
+                      @foreach ($dataPerusahaan as $perusahaan)
+                        <option value="{{ $content->id_perusahaan }}" {{ $content->id_perusahaan == $perusahaan->id_perusahaan ? 'selected' : '' }}>
+                          {{ $perusahaan->nama_p }}
                         </option>
                       @endforeach
                     </select>
@@ -157,18 +149,19 @@
 
         {{-- SECTION MODAL HAPUS --}}
 
-        <div class="modal fade" id="del{{ $content->id_ps }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="del{{ $content->id_pp }}" tabindex="-1" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Pembimbing Sekolah</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Pembimbing Perusahaan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action="/psekolah/{{ $content->id_ps }}" method="post"> @csrf @method('DELETE')
+              <form action="/admin/pperusahaan/{{ $content->id_pp }}" method="post"> @csrf @method('DELETE')
                 <div class="modal-body">
-                  {{ $content->nama_p }} <br>
-                  {{ $content->alamat_p }}
+                  {{ $content->email_pp }} <br>
+                  {{ $content->nama_pp }} <br>
+                  {{ $content->perusahaan->nama_p }}
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -1,6 +1,6 @@
 @extends('layouts.admin.app')
 
-@section('admin-body')
+@section('content-body')
   <div class="pagetitle">
     <h1>Angkatan</h1>
     <nav>

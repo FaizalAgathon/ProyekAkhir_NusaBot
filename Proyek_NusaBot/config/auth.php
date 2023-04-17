@@ -50,11 +50,11 @@ return [
     ],
     'pPerusahaan' => [
       'driver' => 'session',
-      'provider' => 'pPerusahaans',
+      'provider' => 'PP_user',
     ],
     'pSekolah' => [
       'driver' => 'session',
-      'provider' => 'pSekolahs',
+      'provider' => 'PS_user',
     ],
   ],
 
@@ -88,11 +88,11 @@ return [
       'driver' => 'eloquent',
       'model' => App\Models\Siswa::class,
     ],
-    'pPerusahaans' => [
+    'PP_user' => [
       'driver' => 'eloquent',
       'model' => App\Models\Pembimbing_Perusahaan::class,
     ],
-    'pSekolah' => [
+    'PS_user' => [
       'driver' => 'eloquent',
       'model' => App\Models\Pembimbing_Sekolah::class,
     ],

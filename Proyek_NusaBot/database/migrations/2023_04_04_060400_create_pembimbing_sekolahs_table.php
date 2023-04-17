@@ -13,6 +13,7 @@ return new class extends Migration
   {
     Schema::create('p_sekolah', function (Blueprint $table) {
       $table->engine = 'InnoDB';
+      $table->bigInteger('id_ps')->unique();
       $table->bigInteger('nip_ps')->unique();
       $table->string('pass_unhash');
       $table->string('password_ps');

@@ -217,12 +217,12 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             {{-- <img src="{{ url('img/profile-img.jpg') }}" alt="Profile" class="rounded-circle"> --}}
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::guard('admin')->user()->email_a }}</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::guard('pSekolah')->user()->nip_ps }}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>{{ Auth::guard('admin')->user()->email_a }}</h6>
+              <h6>{{ Auth::guard('pSekolah')->user()->nip_ps }}</h6>
               <span>Admin</span>
             </li>
             <li>
@@ -280,8 +280,8 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link {{ basename($_SERVER['REQUEST_URI']) != 'admin' ? 'collapsed' : '' }}"
-          href="{{ url('/admin') }}">
+        <a class="nav-link {{ basename($_SERVER['REQUEST_URI']) != null ? 'collapsed' : '' }}"
+          href="{{ url('/') }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -295,12 +295,12 @@
         <ul id="components-nav" class="nav-content collapse {{ isset($kelasClassActive) ? $kelasClassActive : '' }}"
           data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ url('/admin/angkatan') }}" class="{{ isset($angkatanClassActive) ? $angkatanClassActive : '' }}">
+            <a href="{{ url('/angkatan') }}" class="{{ isset($angkatanClassActive) ? $angkatanClassActive : '' }}">
               <i class="bi bi-circle"></i><span>Angkatan</span>
             </a>
           </li>
           <li>
-            <a href="{{ url('/admin/jurusan') }}" class="{{ isset($jurusanClassActive) ? $jurusanClassActive : '' }}">
+            <a href="{{ url('/jurusan') }}" class="{{ isset($jurusanClassActive) ? $jurusanClassActive : '' }}">
               <i class="bi bi-circle"></i><span>Jurusan</span>
             </a>
           </li>
@@ -308,37 +308,23 @@
       </li><!-- End Components Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{  isset($perusahaanClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/perusahaan') }}">
+        <a class="nav-link {{  isset($perusahaanClassActive) ? '' : 'collapsed' }}" href="{{ url('/perusahaan') }}">
           <i class="bi bi-person"></i>
           <span>Perusahaan</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ url('/admin/list-admin') }}">
+        <a class="nav-link collapsed" href="{{ url('/list-admin') }}">
           <i class="bi bi-person"></i>
           <span>Admin</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ isset($psekolahClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/psekolah') }}">
+        <a class="nav-link {{ isset($psekolahClassActive) ? '' : 'collapsed' }}" href="{{ url('/psekolah') }}">
           <i class="bi bi-person"></i>
           <span>P. Sekolah</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link {{ isset($pperusahaanClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/pperusahaan') }}">
-          <i class="bi bi-person"></i>
-          <span>P. Perusahaan</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link {{ isset($siswaClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/siswa') }}">
-          <i class="bi bi-person"></i>
-          <span>Siswa</span>
         </a>
       </li><!-- End Profile Page Nav -->
 

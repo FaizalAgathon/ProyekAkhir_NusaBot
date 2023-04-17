@@ -13,6 +13,7 @@ return new class extends Migration
   {
     Schema::create('siswa', function (Blueprint $table) {
       $table->engine = 'InnoDB';
+      $table->bigInteger('id_siswa')->unique();
       $table->bigInteger('nis_siswa')->unique();
       $table->string('pass_unhash');
       $table->string('password_s');

@@ -12,17 +12,17 @@ class Perusahaan extends Model
   protected $table = 'perusahaan';
 
   protected $fillable = [
-    'id_p',
+    'id_perusahaan',
     'nama_p',
     'alamat_p',
   ];
 
   public function plotting()
   {
-    return $this->hasOne(Plotting::class, 'id_perusahaan', 'id_p');
+    return $this->hasOne(Plotting::class, 'id_perusahaan', 'id_perusahaan');
   }
   public function pembimbing_perusahaan()
   {
-    return $this->hasMany(Pembimbing_Perusahaan::class, 'id_perusahaan', 'id_p');
+    return $this->hasMany(Pembimbing_Perusahaan::class, 'id_perusahaan', 'id_perusahaan');
   }
 }

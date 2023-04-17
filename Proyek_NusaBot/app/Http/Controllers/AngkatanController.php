@@ -36,7 +36,7 @@ class AngkatanController extends Controller
   public function store(Request $request)
   {
     $data = [
-      'id_k' => Random::generate(),
+      'id_kelas' => Random::generate(),
       'angkatan_k' => $request->angkatan,
     ];
     Kelas::create($data);
@@ -51,7 +51,7 @@ class AngkatanController extends Controller
     $data = [
       'angkatan_k' => $request->angkatan,
     ];
-    Kelas::where('id_k', $id)->update($data);
+    Kelas::where('id_kelas', $id)->update($data);
     return redirect('/angkatan')->with('edit');
   }
 
@@ -60,7 +60,7 @@ class AngkatanController extends Controller
    */
   public function destroy(string $id)
   {
-    Kelas::where('id_k', $id)->delete();
+    Kelas::where('id_kelas', $id)->delete();
     return redirect('/angkatan')->with('del');
   }
 }
