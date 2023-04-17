@@ -24,7 +24,7 @@
           <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Perusahaan</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ url('/perusahaan') }}" method="post"> @csrf
+        <form action="{{ url('/admin/perusahaan') }}" method="post"> @csrf
           <div class="modal-body">
             <div class="input-group mb-3">
               <span class="input-group-text" id="basic-addon1">Nama Perusahaan : </span>
@@ -84,7 +84,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Perusahaan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action="/perusahaan/{{ $item->id_perusahaan }}" method="post"> @csrf @method('PUT')
+              <form action="/admin/perusahaan/{{ $item->id_perusahaan }}" method="post"> @csrf @method('PUT')
                 <div class="modal-body">
                   <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Nama Perusahaan : </span>
@@ -117,7 +117,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus perusahaan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action="/perusahaan/{{ $item->id_perusahaan }}" method="post"> @csrf @method('DELETE')
+              <form action="/admin/perusahaan/{{ $item->id_perusahaan }}" method="post"> @csrf @method('DELETE')
                 <div class="modal-body">
                   {{ $item->nama_p }} <br>
                   {{ $item->alamat_p }}

@@ -38,9 +38,28 @@ class AdminController extends Controller
     }
     return back();
   }
-  
-    public function dashboard()
-    {
-      return view('users.admin.index');
-    }
+
+  // NOTE Tampilan tabel CRUD admin
+  public function index()
+  {
+    # code...
+  }
+
+  // NOTE Method untuk menyimpan data yang dikirim $request ($request dapet dari form blade)
+  public function store(Request $request)
+  {
+    # code...
+  }
+
+  // NOTE Method untuk mengedit data di database berdasarkan $id yg di kirim form action
+  public function update(Request $request, $id)
+  {
+    # code...
+  }
+
+  // NOTE Method untuk menghapus data yg ada di database berdasarkan $id yg di kirim form action
+  public function destroy(Request $request, $id)
+  {
+    # code...
+  }
 }

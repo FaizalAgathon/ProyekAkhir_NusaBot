@@ -14,13 +14,6 @@
   <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
     + Add
   </button>
-  
-  <select class="form-select" id="inputGroupSelect01" name="jurusan">
-    <option selected>Choose...</option>
-    @foreach ($data as $item)
-      <option value="{{ $item->id_jurusan }}">{{ $item->nama_j }}</option>
-    @endforeach
-  </select>
 
   {{-- SECTION MODAL TAMBAH --}}
 
