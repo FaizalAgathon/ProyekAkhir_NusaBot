@@ -6,6 +6,7 @@ use App\Models\Jurusan;
 use App\Models\Pembimbing_Perusahaan;
 use App\Models\Pembimbing_Sekolah;
 use App\Models\Perusahaan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -53,6 +54,13 @@ class PPerusahaanController extends Controller
     } else if(Auth::guard('pPerusahaan')->check()){
       return view('welcome');
     }
+  }
+
+  public function pdf()
+  {
+    $user = Pembimbing_Perusahaan::all();
+    $pdf = Pdf::loadView('users.admin.pdf.pperusahaan', compact('user'));
+    return $pdf->stream();
   }
 
   /**

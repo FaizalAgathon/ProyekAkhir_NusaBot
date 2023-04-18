@@ -15,6 +15,12 @@
     + Add
   </button>
 
+  <a href="{{ url('/admin/pperusahaan/pdf') }}" target="_blank">
+    <button type="button" class="btn btn-info">
+      Export PDF
+    </button>
+  </a>
+
   {{-- SECTION MODAL TAMBAH --}}
 
   <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

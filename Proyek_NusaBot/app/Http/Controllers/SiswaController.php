@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Jurusan;
 use App\Models\Kelas;
 use App\Models\Siswa;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -53,6 +54,18 @@ class SiswaController extends Controller
     } else if (Auth::guard('siswa')->check()) {
       return view('users.siswa.index');
     }
+  }
+
+  public function pdf(Request $request)
+  {
+    $user = Siswa::where('id_jurusan', $request->jurusan)
+      ->where('id_kelas', $request->angkatan)
+      ->get();
+    $angkatan = Kelas::where('id_kelas', $request->angkatan)->get();
+    $jurusan = Jurusan::where('id_jurusan', $request->jurusan)->get();
+    $pdf = Pdf::loadView('users.admin.pdf.siswa', compact('user', 'angkatan', 'jurusan'));
+    return $pdf->stream();
+    // return view('users.admin.pdf.siswa', compact('user', 'angkatan', 'jurusan'));
   }
 
   /**

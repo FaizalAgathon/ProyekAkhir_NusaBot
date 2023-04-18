@@ -16,6 +16,10 @@
   <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
     + Add
   </button>
+
+  <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#pdf">
+    Export PDF
+  </button>
   
   {{-- SECTION MODAL TAMBAH --}}
 
@@ -74,6 +78,47 @@
   </div>
 
   {{-- !SECTION MODAL TAMBAH --}}
+  
+  {{-- SECTION MODAL EXPORT PDF --}}
+
+  <div class="modal fade" id="pdf" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Kelas Siswa</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{{ url('/admin/siswa/pdf') }}" method="post"> @csrf
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <label class="input-group-text" for="inputGroupSelect01">Angkatan : </label>
+              <select class="form-select" id="inputGroupSelect01" name="angkatan">
+                <option selected>Choose...</option>
+                @foreach ($dataKelas as $item)
+                  <option value="{{ $item->id_kelas }}">{{ $item->angkatan_k }}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="input-group mb-3">
+              <label class="input-group-text" for="inputGroupSelect01">Jurusan : </label>
+              <select class="form-select" id="inputGroupSelect01" name="jurusan">
+                <option selected>Choose...</option>
+                @foreach ($dataJurusan as $item)
+                  <option value="{{ $item->id_jurusan }}">{{ $item->nama_j }}</option>
+                @endforeach
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-info"> Export </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  {{-- !SECTION MODAL EXPORT PDF --}}
 
   <table id="datatable" class="table table-striped" style="width:100%">
     <thead>

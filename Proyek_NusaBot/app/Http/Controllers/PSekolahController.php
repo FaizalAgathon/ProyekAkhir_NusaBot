@@ -40,10 +40,10 @@ class PSekolahController extends Controller
     return back();
   }
 
-  public function psekolahPDF()
+  public function pdf()
   {
     $user = Pembimbing_Sekolah::all()->sortBy('nip_ps');
-    $pdf = FacadePdf::loadView('users.admin.pdf', compact('user'));
+    $pdf = FacadePdf::loadView('users.admin.pdf.psekolah', compact('user'));
     return $pdf->stream();
   }
 
@@ -52,7 +52,6 @@ class PSekolahController extends Controller
     if (Auth::guard('admin')->check()){
       return view('users.admin.psekolah', [
         'psekolahClassActive' => 'active',
-        'coba' => Schema::getColumnListing('p_sekolah'),
         'dataJurusan' => Jurusan::all(),
         'data' => Pembimbing_Sekolah::with('jurusan')->get(),
       ]);
