@@ -67,7 +67,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
   Route::resource('/angkatan', AngkatanController::class); /* CRUD Angkatan */
   Route::resource('/jurusan', JurusanController::class); /* CRUD Jurusan */
   Route::resource('/perusahaan', PerusahaanController::class);  /* CRUD Perusahaan */
-  Route::resource('/psekolah', PSekolahController::class); /* CRUD Pembimbing Sekolah */
+  Route::resource('/psekolah', PSekolahController::class)->except(['show']); /* CRUD Pembimbing Sekolah */
+  Route::get('/psekolah/pdf', [PSekolahController::class, 'psekolahPDF'])->name('psekolah.pdf'); /* CRUD Pembimbing Sekolah */
   Route::resource('/pperusahaan', PPerusahaanController::class); /* CRUD Pembimbing Perusahaan */
   Route::resource('/siswa', SiswaController::class); /* CRUD Siswa */
   Route::resource('/admin', AdminController::class); /* CRUD Admin */

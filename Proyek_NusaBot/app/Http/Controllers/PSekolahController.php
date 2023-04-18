@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Jurusan;
 use App\Models\Pembimbing_Sekolah;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Schema;
 use Nette\Utils\Random;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Route;
 
 class PSekolahController extends Controller
 {
@@ -40,9 +40,11 @@ class PSekolahController extends Controller
     return back();
   }
 
-  public function coba()
+  public function psekolahPDF()
   {
-    return dd(Auth::guard('pSekolah')->check());
+    $user = Pembimbing_Sekolah::all()->sortBy('nip_ps');
+    $pdf = FacadePdf::loadView('users.admin.pdf', compact('user'));
+    return $pdf->stream();
   }
 
   public function index()
@@ -50,6 +52,7 @@ class PSekolahController extends Controller
     if (Auth::guard('admin')->check()){
       return view('users.admin.psekolah', [
         'psekolahClassActive' => 'active',
+        'coba' => Schema::getColumnListing('p_sekolah'),
         'dataJurusan' => Jurusan::all(),
         'data' => Pembimbing_Sekolah::with('jurusan')->get(),
       ]);

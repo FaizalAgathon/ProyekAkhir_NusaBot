@@ -14,6 +14,11 @@
   <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
     + Add
   </button>
+  <a href="{{ route('psekolah.pdf') }}">
+    <button type="button" class="btn btn-info">
+      Export PDF
+    </button>
+  </a>
 
   {{-- SECTION MODAL TAMBAH --}}
 
@@ -60,6 +65,8 @@
       </div>
     </div>
   </div>
+
+  @dd($coba)
 
   {{-- !SECTION MODAL TAMBAH --}}
 
@@ -130,7 +137,8 @@
                     <label class="input-group-text" for="inputGroupSelect01">Jurusan : </label>
                     <select class="form-select" id="inputGroupSelect01" name="jurusan">
                       @foreach ($dataJurusan as $jurusan)
-                        <option value="{{ $content->id_jurusan }}" {{ $content->id_jurusan == $jurusan->id_jurusan ? 'selected' : '' }}>
+                        <option value="{{ $content->id_jurusan }}"
+                          {{ $content->id_jurusan == $jurusan->id_jurusan ? 'selected' : '' }}>
                           {{ $jurusan->nama_j }}
                         </option>
                       @endforeach
