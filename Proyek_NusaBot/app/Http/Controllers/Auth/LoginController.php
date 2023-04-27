@@ -53,7 +53,7 @@ class LoginController extends Controller
     else if (Auth::guard('siswa')->check()) return redirect('/siswa');
     else if (Auth::guard('pPerusahaan')->check()) return redirect('/pPerusahaan');
     else if (Auth::guard('pSekolah')->check()) return redirect('/p-sekolah');
-    else return view('user');
+    else return view('index');
   }
 
   // public function showLoginForm()

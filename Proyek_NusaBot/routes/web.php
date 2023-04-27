@@ -26,8 +26,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('coba', fn () => view('index'));
-
 // NOTE Routing untuk mengecek login sebagai siapa
 Route::get('/', [LoginController::class, 'isLogin'])->name('login');
 // Route::get('/', fn () => view('user'))->name('login');
