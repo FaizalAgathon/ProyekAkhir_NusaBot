@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jurnal;
 use App\Models\Jurusan;
 use App\Models\Kelas;
 use App\Models\Siswa;
@@ -52,7 +53,10 @@ class SiswaController extends Controller
         'dataKelas' => Kelas::all(),
       ]);
     } else if (Auth::guard('siswa')->check()) {
-      return view('users.siswa.index');
+      return view('users.siswa.index', [
+        'dataSiswa' => Siswa::with(['jurusan', 'kelas'])->where('id_siswa', Auth::guard('siswa')->user()->id_siswa)->get(),
+      ]);
+      // return dd(Auth::guard('siswa')->user()->id_siswa);
     }
   }
 

@@ -8,6 +8,7 @@
   <title>Dashboard - NiceAdmin Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Favicons -->
   <link href="{{ url('img/favicon.png') }}" rel="icon">
@@ -315,7 +316,7 @@
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ url('/admin/admin') }}">
+        <a class="nav-link {{ $adminClassActive ?? 'collapsed' }}" href="{{ url('/admin/admin') }}">
           <i class="bi bi-person"></i>
           <span>Admin</span>
         </a>
@@ -339,6 +340,13 @@
         <a class="nav-link {{ isset($siswaClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/siswa') }}">
           <i class="bi bi-person"></i>
           <span>Siswa</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link {{ isset($plottingClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/plotting') }}">
+          <i class="bi bi-person"></i>
+          <span>Plotting</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
@@ -427,9 +435,7 @@
   <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-  <script>
-    @yield('admin-notification')
-  </script>
+  @yield('admin-notification')
 
   <!-- Template Main JS File -->
   <script src="{{ url('js/main.js') }}"></script>

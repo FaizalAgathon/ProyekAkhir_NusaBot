@@ -29,7 +29,7 @@
           <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Pembimbing Sekolah</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ url('/psekolah') }}" method="post"> @csrf
+        <form action="{{ route('admin-storePSekolah') }}" method="post"> @csrf
           <div class="modal-body">
             <div class="input-group mb-3">
               <span class="input-group-text" id="basic-addon1">NIP : </span>
@@ -50,8 +50,7 @@
               <label class="input-group-text" for="inputGroupSelect01">Jurusan : </label>
               <select class="form-select" id="inputGroupSelect01" name="jurusan">
                 <option selected>Choose...</option>
-                @foreach ($data as $item)
-                  {{-- @dd($item) --}}
+                @foreach ($dataJurusan as $item)
                   <option value="{{ $item->id_jurusan }}">{{ $item->nama_j }}</option>
                 @endforeach
               </select>

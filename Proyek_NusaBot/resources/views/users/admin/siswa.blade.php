@@ -20,7 +20,7 @@
   <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#pdf">
     Export PDF
   </button>
-  
+
   {{-- SECTION MODAL TAMBAH --}}
 
   <div class="modal fade" id="add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -78,7 +78,7 @@
   </div>
 
   {{-- !SECTION MODAL TAMBAH --}}
-  
+
   {{-- SECTION MODAL EXPORT PDF --}}
 
   <div class="modal fade" id="pdf" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -148,11 +148,11 @@
           <td>{{ $content->jurusan->nama_j }}</td>
           <td>
             <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-              data-bs-target="#edit{{ $content->id_ps }}">
+              data-bs-target="#edit{{ $content->id_siswa }}">
               Edit
             </button>
             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-              data-bs-target="#del{{ $content->id_ps }}">
+              data-bs-target="#del{{ $content->id_siswa }}">
               Delete
             </button>
           </td>
@@ -160,7 +160,7 @@
 
         {{-- SECTION MODAL EDIT --}}
 
-        <div class="modal fade" id="edit{{ $content->id_ps }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="edit{{ $content->id_siswa }}" tabindex="-1" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -168,7 +168,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Siswa</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action="/psekolah/{{ $content->id_ps }}" method="post"> @csrf @method('PUT')
+              <form action="/psekolah/{{ $content->id_siswa }}" method="post"> @csrf @method('PUT')
                 <div class="modal-body">
                   <div class="row">
                     <div class="col">
@@ -183,15 +183,16 @@
                       <div class="input-group mb-3">
                         <label class="input-group-text" for="inputGroupSelect02">JK : </label>
                         <select class="form-select" id="inputGroupSelect02" name="jk">
-                          <option {{ $content->jk_ps == 'L' ? 'selected' : '' }} value="L">L</option>
-                          <option {{ $content->jk_ps == 'P' ? 'selected' : '' }} value="P">P</option>
+                          <option {{ $content->jk_s == 'L' ? 'selected' : '' }} value="L">L</option>
+                          <option {{ $content->jk_s == 'P' ? 'selected' : '' }} value="P">P</option>
                         </select>
                       </div>
                       <div class="input-group mb-3">
                         <label class="input-group-text" for="inputGroupSelect01">Angkatan : </label>
                         <select class="form-select" id="inputGroupSelect01" name="jurusan">
                           @foreach ($dataKelas as $kelas)
-                            <option value="{{ $content->id_kelas }}" {{ $content->id_kelas == $kelas->id_kelas ? 'selected' : '' }}>
+                            <option value="{{ $content->id_kelas }}"
+                              {{ $content->id_kelas == $kelas->id_kelas ? 'selected' : '' }}>
                               {{ $kelas->angkatan_k }}
                             </option>
                           @endforeach
@@ -201,7 +202,8 @@
                         <label class="input-group-text" for="inputGroupSelect01">Jurusan : </label>
                         <select class="form-select" id="inputGroupSelect01" name="jurusan">
                           @foreach ($dataJurusan as $jurusan)
-                            <option value="{{ $content->id_jurusan }}" {{ $content->id_jurusan == $jurusan->id_jurusan ? 'selected' : '' }}>
+                            <option value="{{ $content->id_jurusan }}"
+                              {{ $content->id_jurusan == $jurusan->id_jurusan ? 'selected' : '' }}>
                               {{ $jurusan->nama_j }}
                             </option>
                           @endforeach
@@ -209,7 +211,8 @@
                       </div>
                     </div>
                     <div class="col d-flex flex-column align-items-center">
-                      <img src="{{ url("img/{$content->gambar_s}") }}" alt="Gambar Siswa" width="155" class="rounded mb-3">
+                      <img src="{{ url("img/{$content->gambar_s}") }}" alt="Gambar Siswa" width="155"
+                        class="rounded mb-3">
                       <div class="input-group mb-3">
                         <label for="formFile" class="input-group-text">Gambar</label>
                         <input class="form-control" type="file" id="formFile">
@@ -230,7 +233,7 @@
 
         {{-- SECTION MODAL HAPUS --}}
 
-        <div class="modal fade" id="del{{ $content->id_ps }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="del{{ $content->id_siswa }}" tabindex="-1" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -238,10 +241,10 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Siswa</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action="/psekolah/{{ $content->id_ps }}" method="post"> @csrf @method('DELETE')
+              <form action="/psekolah/{{ $content->id_siswa }}" method="post"> @csrf @method('DELETE')
                 <div class="modal-body">
-                  {{ $content->nama_p }} <br>
-                  {{ $content->alamat_p }}
+                  {{ $content->nama_s }} <br>
+                  {{ $content->kelas->angkatan_k . $content->jurusan->nama_j }}
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -259,30 +262,34 @@
 @endsection
 
 @section('admin-notification')
-  {{-- toastr.options = {
-  "closeButton": false,
-  "debug": false,
-  "newestOnTop": false,
-  "progressBar": true,
-  "positionClass": "toast-bottom-right",
-  "preventDuplicates": false,
-  "onclick": null,
-  "showDuration": "600",
-  "hideDuration": "1000",
-  "timeOut": "5000",
-  "extendedTimeOut": "1000",
-  "showEasing": "swing",
-  "hideEasing": "linear",
-  "showMethod": "fadeIn",
-  "hideMethod": "fadeOut"
-  } --}}
-  @if (Session::has('add'))
-    toastr.success("Successfully Added Data")
-  @endif
-  @if (Session::has('edit'))
-    toastr.success("Successfully Edited Data")
-  @endif
-  @if (Session::has('del'))
-    toastr.success("Successfully Deleted Data")
-  @endif
+  <script>
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-bottom-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "600",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+
+    if ({{ Session::has('add') }}){
+      toastr.success("Successfully Added Data")
+    }
+    else if ({{ Session::has('edit') }}){
+      toastr.success("Successfully Edited Data")
+    }
+    else if ({{ Session::has('del') }}){
+      toastr.success("Successfully Deleted Data")
+    }
+    
+  </script>
 @endsection

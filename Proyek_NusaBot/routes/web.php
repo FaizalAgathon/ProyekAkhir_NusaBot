@@ -3,8 +3,10 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AngkatanController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\PlottingController;
 use App\Http\Controllers\PPerusahaanController;
 use App\Http\Controllers\PSekolahController;
 use App\Http\Controllers\SiswaController;
@@ -67,13 +69,21 @@ Route::middleware('auth:admin')->prefix('admin')->group(function () {
   Route::resource('/angkatan', AngkatanController::class); /* CRUD Angkatan */
   Route::resource('/jurusan', JurusanController::class); /* CRUD Jurusan */
   Route::resource('/perusahaan', PerusahaanController::class);  /* CRUD Perusahaan */
-  Route::resource('/psekolah', PSekolahController::class)->except(['show']); /* CRUD Pembimbing Sekolah */
+  Route::resource('/psekolah', PSekolahController::class)->names([
+    'index' => 'admin-readPSekolah',
+    'store' => 'admin-storePSekolah',
+    'update' => 'admin-updatePSekolah',
+    'destroy' => 'admin-destroyPSekolah',
+  ])->except(['show']); /* CRUD Pembimbing Sekolah */
   Route::get('/psekolah/pdf', [PSekolahController::class, 'pdf'])->name('psekolah.pdf'); /* Export PDF Pembimbing Sekolah */
   Route::resource('/pperusahaan', PPerusahaanController::class)->except(['show']); /* CRUD Pembimbing Perusahaan */
   Route::get('/pperusahaan/pdf', [PPerusahaanController::class, 'pdf']); /* Export PDF Pembimbing Perusahaan */
   Route::resource('/siswa', SiswaController::class)->except(['show']); /* CRUD Siswa */
-  Route::post('/siswa/pdf', [SiswaController::class, 'pdf']); /* CRUD Siswa */
+  Route::post('/siswa/pdf', [SiswaController::class, 'pdf']); /* Export PDF Siswa */
   Route::resource('/admin', AdminController::class); /* CRUD Admin */
+  Route::resource('/plotting', PlottingController::class)->except(['show']); /* CRUD Admin */
+  // Route::post('/plotting/getNIS', [PlottingController::class, 'getNIS'])->name('admin-getNIS');
+  // Route::post('/plotting', [PlottingController::class, 'getPS'])->name('admin-getPS');
 });
 // !SECTION AKSES ADMIN
 
@@ -85,7 +95,15 @@ Route::middleware('auth:pSekolah')->prefix('p-sekolah')->group(function () {
 
 // SECTION AKSES SISWA
 Route::middleware('auth:siswa')->prefix('siswa')->group(function () {
-  Route::get('', [SiswaController::class, 'index']);
+  Route::get('', [SiswaController::class, 'index'])->name('siswa-index');
+  Route::resource('/jurnal', JurnalController::class)
+    ->names([
+      'index' => 'siswa-readJurnal',
+      'create' => 'siswa-createJurnal',
+      'store' => 'siswa-storeJurnal',
+      'update' => 'siswa-updateJurnal-{id}',
+      'destroy' => 'siswa-destroyJurnal',
+    ]);
 });
 // !SECTION AKSES SISWA
 

@@ -76,7 +76,7 @@ class PSekolahController extends Controller
       'id_jurusan' => $idJurusan->toArray()[0]['id_jurusan'],
     ];
     Pembimbing_Sekolah::create($data);
-    return redirect('/psekolah')->with('add');
+    return redirect()->route('admin-readPSekolah')->with('add');
   }
 
   /**

@@ -29,7 +29,7 @@
   <link href="{{ url('vendor/simple-datatables/style.css') }}" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet" />
 
   <!-- Template Main CSS File -->
   <link href="{{ url('css/style.css') }}" rel="stylesheet">
@@ -280,7 +280,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link {{ basename($_SERVER['REQUEST_URI']) != 'admin' ? 'collapsed' : '' }}"
+        <a class="nav-link {{ basename($_SERVER['REQUEST_URI']) != 'siswa' ? 'collapsed' : '' }}"
           href="{{ url('/admin') }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
@@ -288,33 +288,20 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ isset($kelasClassActive) ? '' : 'collapsed' }}" data-bs-target="#components-nav"
-          data-bs-toggle="collapse" href="#">
-          <i class="bi bi-person"></i><span>Kelas</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse {{ isset($kelasClassActive) ? $kelasClassActive : '' }}"
-          data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="{{ url('/admin/angkatan') }}" class="{{ isset($angkatanClassActive) ? $angkatanClassActive : '' }}">
-              <i class="bi bi-circle"></i><span>Angkatan</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ url('/admin/jurusan') }}" class="{{ isset($jurusanClassActive) ? $jurusanClassActive : '' }}">
-              <i class="bi bi-circle"></i><span>Jurusan</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Components Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link {{  isset($perusahaanClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/perusahaan') }}">
+        <a class="nav-link {{ $readJurnal ?? 'collapsed' }}" href="{{ route('siswa-readJurnal') }}">
           <i class="bi bi-person"></i>
-          <span>Perusahaan</span>
+          <span>Jurnal</span>
         </a>
-      </li><!-- End Profile Page Nav -->
+      </li>
 
       <li class="nav-item">
+        <a class="nav-link {{ $createJurnal ?? 'collapsed' }}" href="{{ route('siswa-createJurnal') }}">
+          <i class="bi bi-person"></i>
+          <span>Tambah Jurnal</span>
+        </a>
+      </li>
+
+      {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="{{ url('/admin/list-admin') }}">
           <i class="bi bi-person"></i>
           <span>Admin</span>
@@ -333,51 +320,9 @@
           <i class="bi bi-person"></i>
           <span>Siswa</span>
         </a>
-      </li><!-- End Profile Page Nav -->
+      </li><!-- End Profile Page Nav --> --}}
 
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
-          <i class="bi bi-question-circle"></i>
-          <span>F.A.Q</span>
-        </a>
-      </li><!-- End F.A.Q Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
-        </a>
-      </li><!-- End Register Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li><!-- End Error 404 Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-blank.html">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li><!-- End Blank Page Nav -->
+      {{-- <li class="nav-heading">Pages</li> --}}
 
     </ul>
 
@@ -420,16 +365,16 @@
   <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-  <script>
-    @yield('admin-notification')
-  </script>
+  @yield('content-script')
 
   <!-- Template Main JS File -->
   <script src="{{ url('js/main.js') }}"></script>
 
   <script>
     $(document).ready(function() {
-      $('#datatable').DataTable();
+      $('#datatable').DataTable({
+        "deferRender": true,
+      });
     });
   </script>
 
