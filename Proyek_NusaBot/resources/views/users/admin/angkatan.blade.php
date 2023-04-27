@@ -24,7 +24,7 @@
           <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Angkatan</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ url('/admin/angkatan') }}" method="post"> @csrf
+        <form action="{{ route('admin-storeAngkatan') }}" method="post"> @csrf
           <div class="modal-body">
             <div class="input-group mb-3">
               <span class="input-group-text" id="basic-addon1">Angkatan : </span>
@@ -59,10 +59,10 @@
           <td>{{ $item->angkatan_k }}</td>
           <td>
             <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-              data-bs-target="#edit{{ $item->id_k }}">
+              data-bs-target="#edit{{ $item->id_kelas }}">
               Edit
             </button>
-            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#del{{ $item->id_k }}">
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#del{{ $item->id_kelas }}">
               Delete
             </button>
           </td>
@@ -70,7 +70,7 @@
 
         {{-- SECTION MODAL EDIT --}}
 
-        <div class="modal fade" id="edit{{ $item->id_k }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="edit{{ $item->id_kelas }}" tabindex="-1" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -78,7 +78,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Angkatan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action="/admin/angkatan/{{ $item->id_k }}" method="post"> @csrf @method('PUT')
+              <form action="{{ $_SERVER['REQUEST_URI'] . '/' . $item->id_kelas }}" method="post"> @csrf @method('PUT')
                 <div class="modal-body">
                   <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Angkatan : </span>
@@ -99,7 +99,7 @@
 
         {{-- SECTION MODAL HAPUS --}}
 
-        <div class="modal fade" id="del{{ $item->id_k }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        <div class="modal fade" id="del{{ $item->id_kelas }}" tabindex="-1" aria-labelledby="exampleModalLabel"
           aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -107,7 +107,7 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Hapus Angkatan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <form action="/admin/angkatan/{{ $item->id_k }}" method="post"> @csrf @method('DELETE')
+              <form action="{{ $_SERVER['REQUEST_URI'] . '/' . $item->id_kelas }}" method="post"> @csrf @method('DELETE')
                 <div class="modal-body">
                   {{ $item->angkatan_k }}
                 </div>

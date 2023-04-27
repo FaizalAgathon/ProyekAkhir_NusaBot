@@ -35,12 +35,12 @@ class PerusahaanController extends Controller
   public function store(Request $request)
   {
     $data = [
-      'id_perusahaan' => Random::generate(),
+      'id_perusahaan' => Random::generate(10,'0-9'),
       'nama_p' => $request->nama,
       'alamat_p' => $request->alamat,
     ];
     Perusahaan::create($data);
-    return redirect('/perusahaan')->with('add');
+    return redirect()->route('admin-readPerusahaan')->with('add');
   }
 
   /**
@@ -53,7 +53,7 @@ class PerusahaanController extends Controller
       'alamat_p' => $request->alamat,
     ];
     Perusahaan::where('id_perusahaan', $id)->update($data);
-    return redirect('/perusahaan')->with('edit');
+    return redirect()->route('admin-readPerusahaan')->with('edit');
   }
 
   /**
@@ -62,6 +62,6 @@ class PerusahaanController extends Controller
   public function destroy(string $id)
   {
     Perusahaan::where('id_perusahaan', $id)->delete();
-    return redirect('/perusahaan')->with('del');
+    return redirect()->route('admin-readPerusahaan')->with('del');
   }
 }

@@ -62,24 +62,56 @@ Route::post('/siswa', [SiswaController::class, 'validator']);
 Route::get('/logout', [LoginController::class, 'logout']);
 
 // SECTION AKSES ADMIN
-Route::middleware('auth:admin')->prefix('admin')->group(function () {
+Route::middleware('auth:admin')->prefix('admin')->name('admin-')->group(function () {
   Route::get('/', fn () => view('users.admin.index')); /* Tampilan Dashboard Admin */
-  Route::resource('/angkatan', AngkatanController::class); /* CRUD Angkatan */
-  Route::resource('/jurusan', JurusanController::class); /* CRUD Jurusan */
-  Route::resource('/perusahaan', PerusahaanController::class);  /* CRUD Perusahaan */
+
+  /* CRUD Angkatan */
+  Route::resource('/angkatan', AngkatanController::class)->names([
+    'index' => 'readAngkatan',
+    'store' => 'storeAngkatan',
+  ])->except(['show']); 
+
+  /* CRUD Jurusan */
+  Route::resource('/jurusan', JurusanController::class)->names([
+    'index' => 'readJurusan',
+    'store' => 'storeJurusan',
+  ])->except(['show']); 
+
+  /* CRUD Perusahaan */
+  Route::resource('/perusahaan', PerusahaanController::class)->names([
+    'index' => 'readPerusahaan',
+    'store' => 'storePerusahaan',
+  ])->except(['show']);  
+
+  /* CRUD Pembimbing Sekolah */
   Route::resource('/psekolah', PSekolahController::class)->names([
-    'index' => 'admin-readPSekolah',
-    'store' => 'admin-storePSekolah',
-    'update' => 'admin-updatePSekolah',
-    'destroy' => 'admin-destroyPSekolah',
-  ])->except(['show']); /* CRUD Pembimbing Sekolah */
+    'index' => 'readPSekolah',
+    'store' => 'storePSekolah',
+  ])->except(['show']); 
   Route::get('/psekolah/pdf', [PSekolahController::class, 'pdf'])->name('psekolah.pdf'); /* Export PDF Pembimbing Sekolah */
-  Route::resource('/pperusahaan', PPerusahaanController::class)->except(['show']); /* CRUD Pembimbing Perusahaan */
+
+  /* CRUD Pembimbing Perusahaan */
+  Route::resource('/pperusahaan', PPerusahaanController::class)->names([
+    'index' => 'readPPerusahaan',
+    'store' => 'storePPerusahaan',
+  ])->except(['show']); 
   Route::get('/pperusahaan/pdf', [PPerusahaanController::class, 'pdf']); /* Export PDF Pembimbing Perusahaan */
-  Route::resource('/siswa', SiswaController::class)->except(['show']); /* CRUD Siswa */
+
+  Route::resource('/siswa', SiswaController::class)->names([
+    'index' => 'readSiswa',
+    'store' => 'storeSiswa',
+  ])->except(['show']); /* CRUD Siswa */
   Route::post('/siswa/pdf', [SiswaController::class, 'pdf']); /* Export PDF Siswa */
-  Route::resource('/admin', AdminController::class); /* CRUD Admin */
-  Route::resource('/plotting', PlottingController::class)->except(['show']); /* CRUD Admin */
+
+  Route::resource('/admin', AdminController::class)->names([
+    'index' => 'readAdmin',
+    'store' => 'storeAdmin',
+  ])->except(['show']); /* CRUD Admin */
+
+  Route::resource('/plotting', PlottingController::class)->names([
+    'index' => 'readPlotting',
+    'store' => 'storePlotting',
+  ])->except(['show']); /* CRUD Admin */
   // Route::post('/plotting/getNIS', [PlottingController::class, 'getNIS'])->name('admin-getNIS');
   // Route::post('/plotting', [PlottingController::class, 'getPS'])->name('admin-getPS');
 });
