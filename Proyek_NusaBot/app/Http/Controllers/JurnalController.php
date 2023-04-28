@@ -32,7 +32,11 @@ class JurnalController extends Controller
    */
   public function create()
   {
-    return view('users.siswa.createJurnal',['createJurnal' => '']);
+    return view('welcome');
+    // if (Jurnal::where('tanggal_jurnal', now()))
+    return view('users.siswa.createJurnal'
+    // ,['createJurnal' => '']
+  );
   }
 
   /**

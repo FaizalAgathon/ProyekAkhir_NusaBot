@@ -15,6 +15,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+// TODO 
+// 1. validasi data yg masuk ke database method store (Route::resource)
+// 2. desain form login
+// 3. melarang siswa untuk menambah jurnal di hari yg sama
+// 4. desain dashboard
+// 5. benerin routing crud pSekolah, pPerusahaan, Siswa, Plotting, Admin
+// 6. akses pSekolah (liat histori jurnal siswa)
+// 7. akses pPerusahaan (liat histori jurnal siswa, memberi paraf)
+// 8. export pdf jurnal
+// 9. 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -81,7 +92,7 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin-')->group(function
   Route::resource('/perusahaan', PerusahaanController::class)->names([
     'index' => 'readPerusahaan',
     'store' => 'storePerusahaan',
-  ])->except(['show']);  
+  ])->except(['show']);
 
   /* CRUD Pembimbing Sekolah */
   Route::resource('/psekolah', PSekolahController::class)->names([
@@ -97,23 +108,24 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin-')->group(function
   ])->except(['show']); 
   Route::get('/pperusahaan/pdf', [PPerusahaanController::class, 'pdf']); /* Export PDF Pembimbing Perusahaan */
 
+  /* CRUD Siswa */
   Route::resource('/siswa', SiswaController::class)->names([
     'index' => 'readSiswa',
     'store' => 'storeSiswa',
-  ])->except(['show']); /* CRUD Siswa */
+  ])->except(['show']); 
   Route::post('/siswa/pdf', [SiswaController::class, 'pdf']); /* Export PDF Siswa */
 
+  /* CRUD Admin */
   Route::resource('/admin', AdminController::class)->names([
     'index' => 'readAdmin',
     'store' => 'storeAdmin',
-  ])->except(['show']); /* CRUD Admin */
+  ])->except(['show']); 
 
+  /* CRUD Plotting */
   Route::resource('/plotting', PlottingController::class)->names([
     'index' => 'readPlotting',
     'store' => 'storePlotting',
-  ])->except(['show']); /* CRUD Admin */
-  // Route::post('/plotting/getNIS', [PlottingController::class, 'getNIS'])->name('admin-getNIS');
-  // Route::post('/plotting', [PlottingController::class, 'getPS'])->name('admin-getPS');
+  ])->except(['show']); 
 });
 // !SECTION AKSES ADMIN
 
