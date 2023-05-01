@@ -14,7 +14,7 @@
   <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#add">
     + Add
   </button>
-  <a href="{{ route('psekolah.pdf') }}" target="_blank">
+  <a href="{{ route('admin-psekolah-pdf') }}" target="_blank">
     <button type="button" class="btn btn-info">
       Export PDF
     </button>

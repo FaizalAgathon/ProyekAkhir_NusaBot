@@ -28,6 +28,6 @@ class Jurnal extends Model
   }
   public function plotting()
   {
-    return $this->belongsTo(Plotting::class, 'id_plotting', 'id_p');
+    return $this->belongsTo(Plotting::class, 'id_plotting', 'id_plotting');
   }
 }

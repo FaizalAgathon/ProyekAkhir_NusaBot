@@ -101,7 +101,7 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin-')->group(function
     'index' => 'readPSekolah',
     'store' => 'storePSekolah',
   ])->except(['show']); 
-  Route::get('/psekolah/pdf', [PSekolahController::class, 'pdf'])->name('psekolah.pdf'); /* Export PDF Pembimbing Sekolah */
+  Route::get('/psekolah/pdf', [PSekolahController::class, 'pdf'])->name('psekolah-pdf'); /* Export PDF Pembimbing Sekolah */
 
   /* CRUD Pembimbing Perusahaan */
   Route::resource('/pperusahaan', PPerusahaanController::class)->names([
@@ -134,6 +134,8 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin-')->group(function
 // SECTION AKSES PEMBIMBING SEKOLAH
 Route::middleware('auth:pSekolah')->prefix('p-sekolah')->name('pSekolah-')->group(function () {
   Route::get('', [PSekolahController::class, 'index'])->name('index');
+  Route::get('/profile', [PSekolahController::class, 'pageProfile'])->name('profile');
+  Route::get('/jurnal/{id}', [PSekolahController::class, 'jurnalSiswa']);
 });
 // !SECTION AKSES PEMBIMBING SEKOLAH
 

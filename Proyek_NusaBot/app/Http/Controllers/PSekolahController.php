@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jurnal;
 use App\Models\Jurusan;
 use App\Models\Pembimbing_Sekolah;
+use App\Models\Plotting;
+use App\Models\Siswa;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,13 +15,16 @@ use Illuminate\Support\Facades\Schema;
 use Nette\Utils\Random;
 use Illuminate\Support\Str;
 
+use function PHPUnit\Framework\isNull;
+
 class PSekolahController extends Controller
 {
 
   public function loginForm()
   {
     return view('auth.login', [
-      'nameValidate' => 'nip_ps'
+      'nameValidate' => 'nip_ps',
+      'Identify' => 'NIP'
     ]);
   }
 
@@ -35,7 +41,7 @@ class PSekolahController extends Controller
     if (Auth::guard('pSekolah')->attempt($infoLogin)) {
       Auth::guard('pSekolah')->attempt($infoLogin);
       $request->session()->regenerate();
-      return redirect('/p-sekolah');
+      return redirect()->route('pSekolah-index');
     }
     return back();
   }
@@ -56,9 +62,41 @@ class PSekolahController extends Controller
         'data' => Pembimbing_Sekolah::with('jurusan')->get(),
       ]);
     } else if (Auth::guard('pSekolah')->check()) {
-      view('users.pSekolah.index');
+      return view('users.pSekolah.index',[
+        'listSiswa' => Plotting::with(['siswa','pembimbing_sekolah'])->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get()
+      ]);
     }
     return redirect('/');
+  }
+
+  public function jurnalSiswa(string $id)
+  {
+    $idPlotting = Plotting::where('id_plotting', $id)->get('id_plotting')[0]['id_plotting'];
+    $data = Jurnal::with('plotting.siswa')->where('id_plotting', $id)->get();
+
+    if ($data->isEmpty()) {return view('users.pSekolah.jurnalSiswaEmpty',[
+      'data' => Plotting::with('siswa')->where('id_plotting', $id)->get(),
+      'listSiswa' => Plotting::with(['siswa','pembimbing_sekolah'])->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get(),
+      'jurnalActive' => 'show',
+    ]);} else {
+      return view('users.pSekolah.jurnalSiswa',[
+        'listSiswa' => Plotting::with(['siswa','pembimbing_sekolah'])->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get(),
+        'data' => $data,
+        'jurnalActive' => 'show',
+        "$idPlotting" => '',
+        'parafTrue' => "<span class='badge text-bg-success'>Sudah di paraf</span>",
+        'parafFalse' => "<span class='badge text-bg-danger'>Belum di paraf</span>",
+      ]);
+    }
+  }
+
+  public function pageProfile()
+  {
+    return view('users.pSekolah.profile',[
+      'data' => Pembimbing_Sekolah::with(['jurusan'])->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get()[0],
+      'listSiswa' => Plotting::with(['siswa','pembimbing_sekolah'])->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get(),
+      'profile' => '',
+    ]);
   }
 
   /**
