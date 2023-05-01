@@ -52,7 +52,7 @@ class PPerusahaanController extends Controller
         'data' => Pembimbing_Perusahaan::with('perusahaan')->get(),
       ]);
     } else if(Auth::guard('pPerusahaan')->check()){
-      return view('welcome');
+      return view('users.pPerusahaan.index');
     }
   }
 

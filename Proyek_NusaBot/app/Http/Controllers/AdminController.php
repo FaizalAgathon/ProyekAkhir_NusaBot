@@ -21,10 +21,10 @@ class AdminController extends Controller
   public function loginForm()
   {
     return view('auth.login', [
-      'nameValidate' => 'email_a'
+      'nameValidate' => 'email_a',
+      'Identify' => 'Email'
     ]);
   }
-
   public function validator(Request $request)
   {
     $this->validate($request, [

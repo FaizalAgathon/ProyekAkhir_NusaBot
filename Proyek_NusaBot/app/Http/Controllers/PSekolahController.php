@@ -55,6 +55,8 @@ class PSekolahController extends Controller
         'dataJurusan' => Jurusan::all(),
         'data' => Pembimbing_Sekolah::with('jurusan')->get(),
       ]);
+    } else if (Auth::guard('pSekolah')->check()) {
+      view('users.pSekolah.index');
     }
     return redirect('/');
   }

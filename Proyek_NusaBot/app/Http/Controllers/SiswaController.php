@@ -19,7 +19,8 @@ class SiswaController extends Controller
   public function loginForm()
   {
     return view('auth.login', [
-      'nameValidate' => 'nis_siswa'
+      'nameValidate' => 'nis_siswa',
+      'Identify' => 'NIS'
     ]);
   }
 
@@ -58,6 +59,14 @@ class SiswaController extends Controller
       ]);
       // return dd(Auth::guard('siswa')->user()->id_siswa);
     }
+  }
+
+  public function pageProfile()
+  {
+    return view('users.siswa.profile', [
+      'dataKelas' => Siswa::with(['kelas','jurusan'])->where('id_siswa', Auth::guard('siswa')->user()->id_siswa)->get()[0],
+      'profile' => '',
+    ]);
   }
 
   public function pdf(Request $request)

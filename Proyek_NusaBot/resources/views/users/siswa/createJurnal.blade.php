@@ -1,16 +1,15 @@
 @extends('layouts.siswa.app')
 
-@section('content-body')
-  <div class="pagetitle">
-    <h1>{{ Auth::guard('siswa')->user()->nama_s }}</h1>
-    <nav>
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('siswa-index') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active">Tambah Jurnal</li>
-      </ol>
-    </nav>
-  </div><!-- End Page Title -->
+@section('content-pageTitle')
+  <nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{{ route('siswa-index') }}">Dashboard</a></li>
+      <li class="breadcrumb-item active">Tambah Jurnal</li>
+    </ol>
+  </nav>
+@endsection
 
+@section('content-body')
   <form action="{{ route('siswa-storeJurnal') }}" method="post" enctype="multipart/form-data"> @csrf
     <div class="w-100 p-2 rounded-4 border border-2 mb-3">
       <h2 class="m-0">KEGIATAN YANG DILAKUKAN</h2>

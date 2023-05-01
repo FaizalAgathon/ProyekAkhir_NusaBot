@@ -10,12 +10,14 @@ use App\Http\Controllers\PlottingController;
 use App\Http\Controllers\PPerusahaanController;
 use App\Http\Controllers\PSekolahController;
 use App\Http\Controllers\SiswaController;
+use App\Models\Pembimbing_Perusahaan;
+use App\Models\Pembimbing_Sekolah;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-// TODO 
+// TODO
 // 1. validasi data yg masuk ke database method store (Route::resource)
 // 2. desain form login
 // 3. melarang siswa untuk menambah jurnal di hari yg sama
@@ -23,8 +25,8 @@ use Illuminate\Support\Facades\Route;
 // 5. benerin routing crud pSekolah, pPerusahaan, Siswa, Plotting, Admin
 // 6. akses pSekolah (liat histori jurnal siswa)
 // 7. akses pPerusahaan (liat histori jurnal siswa, memberi paraf)
-// 8. export pdf jurnal
-// 9. 
+// 8. export pdf jurnal
+//// 9. kompres gambar jurnal
 
 /*
 |--------------------------------------------------------------------------
@@ -130,27 +132,26 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin-')->group(function
 // !SECTION AKSES ADMIN
 
 // SECTION AKSES PEMBIMBING SEKOLAH
-Route::middleware('auth:pSekolah')->prefix('p-sekolah')->group(function () {
-  Route::get('', fn () => view('users.pSekolah.index'));
+Route::middleware('auth:pSekolah')->prefix('p-sekolah')->name('pSekolah-')->group(function () {
+  Route::get('', [PSekolahController::class, 'index'])->name('index');
 });
 // !SECTION AKSES PEMBIMBING SEKOLAH
 
 // SECTION AKSES SISWA
-Route::middleware('auth:siswa')->prefix('siswa')->group(function () {
-  Route::get('', [SiswaController::class, 'index'])->name('siswa-index');
+Route::middleware('auth:siswa')->prefix('siswa')->name('siswa-')->group(function () {
+  Route::get('', [SiswaController::class, 'index'])->name('index');
+  Route::get('/profile', [SiswaController::class, 'pageProfile'])->name('profile');
   Route::resource('/jurnal', JurnalController::class)
     ->names([
-      'index' => 'siswa-readJurnal',
-      'create' => 'siswa-createJurnal',
-      'store' => 'siswa-storeJurnal',
-      'update' => 'siswa-updateJurnal-{id}',
-      'destroy' => 'siswa-destroyJurnal',
+      'index' => 'readJurnal',
+      'create' => 'createJurnal',
+      'store' => 'storeJurnal',
     ]);
 });
 // !SECTION AKSES SISWA
 
 // SECTION AKSES PEMBIMBING PERUSAHAAN
-Route::middleware('auth:pPerusahaan')->prefix('p-perusahaan')->group(function () {
-  Route::get('', fn () => dd(Auth::guard('pPerusahaan')->check()));
+Route::middleware('auth:pPerusahaan')->prefix('p-perusahaan')->name('pPerusahaan')->group(function () {
+  Route::get('', [PPerusahaanController::class, 'index'])->name('index');
 });
 // !SECTION AKSES PEMBIMBING PERUSAHAAN

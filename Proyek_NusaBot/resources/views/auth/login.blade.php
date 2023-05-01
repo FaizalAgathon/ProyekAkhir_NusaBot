@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label" id="label">NIS</label>
+                      <label for="yourUsername" class="form-label" id="label">{{ $Identify }}</label>
                       <div class="input-group has-validation">
                         <input type="text" name="{{ $nameValidate ?? '' }}" class="form-control" id="identify" required>
                         <div class="invalid-feedback">Please enter your username.</div>
