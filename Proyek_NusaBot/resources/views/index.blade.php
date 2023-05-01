@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="{{ url('css/style2.css') }}">
     {{-- <link rel="stylesheet" href="{{ url('dropdown-13/css/style.css') }}"> --}}
 
-    <title>Carousel #10</title>
+    <title>Jurnal PKL</title>
   </head>
   <body>
   

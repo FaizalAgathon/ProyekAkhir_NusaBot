@@ -21,14 +21,14 @@
             <div class="col-lg-4 col-md-7 col-sm-9">
               <div class="single-card card-style-one">
                 <div class="card-image">
-                  <img src="https://cdn.ayroui.com/1.0/images/card/card-1.jpg" alt="Image" />
+                  <img src="https://cdn.ayroui.com/1.0/images/card/card-3.jpg" alt="Image" />
                 </div>
                 <div class="card-content">
                   <h4 class="card-title">
-                    <a href="javascript:void(0)">Item title is here</a>
+                    <a href="javascript:void(0)">Tujuan kami membuat Jurnal PKL</a>
                   </h4>
                   <p class="text">
-                    Short description for the ones who look for something new
+                    Penjelasan ada pada link di atas
                   </p>
                 </div>
               </div>
@@ -42,10 +42,10 @@
                 </div>
                 <div class="card-content">
                   <h4 class="card-title">
-                    <a href="javascript:void(0)">Item title is here</a>
+                    <a href="javascript:void(0)">Fungsi dari Jurnal PKL</a>
                   </h4>
                   <p class="text">
-                    Short description for the ones who look for something new
+                    Penjelasan ada pada link di atas
                   </p>
                 </div>
               </div>
@@ -55,14 +55,14 @@
             <div class="col-lg-4 col-md-7 col-sm-9">
               <div class="single-card card-style-one">
                 <div class="card-image">
-                  <img src="https://cdn.ayroui.com/1.0/images/card/card-3.jpg" alt="Image" />
+                  <img src="https://cdn.ayroui.com/1.0/images/card/card-1.jpg" alt="Image" />
                 </div>
                 <div class="card-content">
                   <h4 class="card-title">
-                    <a href="javascript:void(0)">Item title is here</a>
+                    <a href="javascript:void(0)">Cara Mengisi Jurnal PKL</a>
                   </h4>
                   <p class="text">
-                    Short description for the ones who look for something new
+                   Penjelasan ada pada link di atas
                   </p>
                 </div>
               </div>
