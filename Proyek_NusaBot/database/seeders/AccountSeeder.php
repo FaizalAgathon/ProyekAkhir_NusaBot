@@ -41,17 +41,17 @@ class AccountSeeder extends Seeder
       //   'jk_ps' => $jk[array_rand($jk)],
       //   'id_jurusan' => $idJurusan[array_rand($idJurusan)],
       // ]);
-      Siswa::create([
-        'id_siswa' => Random::generate(10, '0-9'),
-        'nis_siswa' => Random::generate(8, '0-9'),
-        'pass_unhash' => $pass,
-        'password_s' => Hash::make($pass),
-        'nama_s' => $faker->name(),
-        'jk_s' => $jk[array_rand($jk)],
-        'gambar_s' => 'noImgProfile.png',
-        'id_kelas' => $idAngkatan[array_rand($idAngkatan)],
-        'id_jurusan' => $idJurusan[array_rand($idJurusan)],
-      ]);
+      // Siswa::create([
+      //   'id_siswa' => Random::generate(10, '0-9'),
+      //   'nis_siswa' => Random::generate(8, '0-9'),
+      //   'pass_unhash' => $pass,
+      //   'password_s' => Hash::make($pass),
+      //   'nama_s' => $faker->name(),
+      //   'jk_s' => $jk[array_rand($jk)],
+      //   'gambar_s' => 'noImgProfile.png',
+      //   'id_kelas' => $idAngkatan[array_rand($idAngkatan)],
+      //   'id_jurusan' => $idJurusan[array_rand($idJurusan)],
+      // ]);
     }
   }
 }

@@ -30,7 +30,7 @@
           <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Pembimbing Perusahaan</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form action="{{ url('/admin/pperusahaan') }}" method="post"> @csrf
+        <form action="{{ route('admin-storePPerusahaan') }}" method="post"> @csrf
           <div class="modal-body">
             <div class="input-group mb-3">
               <span class="input-group-text" id="basic-addon1">Email : </span>

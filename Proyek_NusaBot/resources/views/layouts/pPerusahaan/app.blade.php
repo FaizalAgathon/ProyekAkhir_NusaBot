@@ -5,10 +5,9 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - Jurnal PKL</title>
+  <title>Dashboard - NiceAdmin Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Favicons -->
   <link href="{{ url('img/favicon.png') }}" rel="icon">
@@ -30,7 +29,7 @@
   <link href="{{ url('vendor/simple-datatables/style.css') }}" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet" />
 
   <!-- Template Main CSS File -->
   <link href="{{ url('css/style.css') }}" rel="stylesheet">
@@ -50,7 +49,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="{{ route('pPerusahaan-index') }}" class="logo d-flex align-items-center">
         <img src="{{ url('img/logo.png') }}" alt="">
         <span class="d-none d-lg-block">{{ implode(' ', explode('_', config('app.name'))) }}</span>
       </a>
@@ -64,20 +63,20 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             {{-- <img src="{{ url('img/profile-img.jpg') }}" alt="Profile" class="rounded-circle"> --}}
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::guard('admin')->user()->email_a }}</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::guard('pPerusahaan')->user()->nama_pp }}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>{{ Auth::guard('admin')->user()->email_a }}</h6>
-              <span>Admin</span>
+              <h6>{{ Auth::guard('pPerusahaan')->user()->nama_pp }}</h6>
+              <span>Pembimbing Perusahaan</span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="{{ route('pPerusahaan-profile') }}">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -107,80 +106,64 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link {{ basename($_SERVER['REQUEST_URI']) != 'admin' ? 'collapsed' : '' }}"
-          href="{{ url('/admin') }}">
+        <a class="nav-link {{ basename($_SERVER['REQUEST_URI']) != 'p-perusahaan' ? 'collapsed' : '' }}"
+          href="{{ url('/') }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ isset($kelasClassActive) ? '' : 'collapsed' }}" data-bs-target="#components-nav"
+        <a class="nav-link {{ $jurnalActive ?? 'collapsed' }}" data-bs-target="#components-nav"
           data-bs-toggle="collapse" href="#">
-          <i class="bi bi-person"></i><span>Kelas</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-person"></i><span>Jurnal Siswa</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav" class="nav-content collapse {{ isset($kelasClassActive) ? $kelasClassActive : '' }}"
-          data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="{{ url('/admin/angkatan') }}" class="{{ isset($angkatanClassActive) ? $angkatanClassActive : '' }}">
-              <i class="bi bi-circle"></i><span>Angkatan</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ url('/admin/jurusan') }}" class="{{ isset($jurusanClassActive) ? $jurusanClassActive : '' }}">
-              <i class="bi bi-circle"></i><span>Jurusan</span>
-            </a>
-          </li>
+
+        <ul id="components-nav" class="nav-content collapse {{ $jurnalActive ?? '' }}" data-bs-parent="#sidebar-nav">
+          @foreach ($listSiswa as $item)
+            <li>
+              <a href="{{ url('p-perusahaan/jurnal/') . '/' . $item->id_plotting }}"
+                class="{{ $item->id_plotting == basename($_SERVER['REQUEST_URI']) ? 'active' : '' }}">
+                <i class="bi bi-circle"></i>
+                <span>
+                  <u>
+                    {{ $item->siswa->nis_siswa }} <br>
+                  </u>
+                  {{ $item->siswa->nama_s }}
+                </span>
+              </a>
+            </li>
+          @endforeach
         </ul>
       </li><!-- End Components Nav -->
 
+      <li class="nav-heading">Account</li>
+
       <li class="nav-item">
-        <a class="nav-link {{  isset($perusahaanClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/perusahaan') }}">
+        <a class="nav-link {{ $profile ?? 'collapsed' }}" href="{{ route('pPerusahaan-profile') }}">
           <i class="bi bi-person"></i>
-          <span>Perusahaan</span>
+          <span>Profile</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ $adminClassActive ?? 'collapsed' }}" href="{{ url('/admin/admin') }}">
+        <a class="nav-link collapsed" href="{{ url('/logout') }}">
           <i class="bi bi-person"></i>
-          <span>Admin</span>
+          <span>Logout</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link {{ isset($psekolahClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/psekolah') }}">
-          <i class="bi bi-person"></i>
-          <span>P. Sekolah</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link {{ isset($pperusahaanClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/pperusahaan') }}">
-          <i class="bi bi-person"></i>
-          <span>P. Perusahaan</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link {{ isset($siswaClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/siswa') }}">
-          <i class="bi bi-person"></i>
-          <span>Siswa</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link {{ isset($plottingClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/plotting') }}">
-          <i class="bi bi-person"></i>
-          <span>Penempatan</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-      
     </ul>
 
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
+
+    <div class="pagetitle">
+
+      @yield('content-pageTitle')
+
+    </div><!-- End Page Title -->
 
     @yield('content-body')
 
@@ -217,7 +200,7 @@
   <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-  @yield('admin-notification')
+    @yield('content-script')
 
   <!-- Template Main JS File -->
   <script src="{{ url('js/main.js') }}"></script>

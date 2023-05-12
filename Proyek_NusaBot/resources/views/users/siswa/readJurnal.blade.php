@@ -48,15 +48,15 @@
             <td class="">
               <div class="d-flex flex-column gap-2">
                 <a href="{{ $_SERVER['REQUEST_URI'] . '/' . $item->id_jurnal }}">
-                  <button type="button" class="btn btn-info">
+                  <button type="button" class="btn btn-info w-100">
                     Detail
                   </button>
                 </a>
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                <button type="button" class="btn btn-warning w-100" data-bs-toggle="modal"
                   data-bs-target="#edit{{ $item->id_jurnal }}">
                   Edit
                 </button>
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal"
                   data-bs-target="#del{{ $item->id_jurnal }}">
                   Delete
                 </button>
@@ -68,18 +68,34 @@
 
           <div class="modal fade" id="edit{{ $item->id_jurnal }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
               <div class="modal-content">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Angkatan</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/admin/angkatan/{{ $item->id_jurnal }}" method="post"> @csrf @method('PUT')
+                <form action="{{ $_SERVER['REQUEST_URI'] . '/' . $item->id_jurnal }}" method="post"> @csrf
+                  @method('PUT')
                   <div class="modal-body">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="basic-addon1">Angkatan : </span>
-                      <input type="text" class="form-control" placeholder="Angkatan" name="angkatan"
-                        value="{{ $item->angkatan_k }}">
+                    <div class="w-100 p-2 rounded-4 border border-2 mb-3">
+                      <h2 class="m-0">KEGIATAN YANG DILAKUKAN</h2>
+                      <hr class="mt-1 mb-2">
+                      <textarea name="kegiatan" class="default">{{ $item->kegiatan_jurnal }}</textarea>
+                    </div>
+                    <div class="w-100 p-2 rounded-4 border border-2 mb-3">
+                      <h2 class="m-0">KOMPETENSI YANG DIDAPATKAN</h2>
+                      <hr class="mt-1 mb-2">
+                      <textarea name="kompetensi" class="default">{{ $item->kompetensi_jurnal }}</textarea>
+                    </div>
+                    <div class="w-100 p-2 rounded-4 border border-2 mb-3">
+                      <h2 class="m-0">GAMBAR KEGIATAN</h2>
+                      <hr class="mt-1 mb-2">
+                      @if (file_exists(public_path('/storage/' . $item->gambar_kegiatan_jurnal)))
+                      <img src="/storage/{{ $item->gambar_kegiatan_jurnal }}" alt="" class="rounded w-100 mb-3" id="img">
+                      @else
+                        <img src="{{ url('img/noImg.png') }}" alt="" class="rounded w-100" id="img">
+                      @endif
+                      <input type="file" name="gambar" class="form-control" id="input">
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -125,26 +141,19 @@
 
 @section('content-script')
   <script>
-    // var table = $('#datatable').DataTable({
-    // columns: [
-    //   null, null,
-    //   {
-    //     data : 
-    //     render: function(data, type, row) {
-    //       return $('#kegiatan').val()
-    //     }
-    //   },
-    //   {
-    //     render: function(data, type, row) {
-    //       return $('#kompetensi').val()
-    //     }
-    //   },null,
-    //   {
-    //     render: function(data, type, row) {
-    //       return $('#paraf').val()
-    //     }
-    //   },null
-    // ]
-    // })
+    tinymce.init({
+      selector: 'textarea.default',
+      skin: 'oxide-dark',
+      height: 350,
+      statusbar: false,
+      promotion: false,
+    });
+    let img = document.getElementById('img')
+    let imgSrc = document.getElementById('img').src
+    let input = document.getElementById('input')
+    input.onchange = (e) => {
+      if (input.files[0]) img.src = URL.createObjectURL(input.files[0])
+      else if (!input.files[0]) img.src = imgSrc
+    }
   </script>
 @endsection

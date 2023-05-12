@@ -26,6 +26,8 @@ use Illuminate\Support\Facades\Route;
 // 6. akses pSekolah (liat histori jurnal siswa)
 // 7. akses pPerusahaan (liat histori jurnal siswa, memberi paraf)
 // 8. export pdf jurnal
+// 9. (Siswa) Upload Gambar jurnal siswa
+// 10. (Siswa) Detail jurnal siswa
 //// 9. kompres gambar jurnal
 
 /*
@@ -153,7 +155,10 @@ Route::middleware('auth:siswa')->prefix('siswa')->name('siswa-')->group(function
 // !SECTION AKSES SISWA
 
 // SECTION AKSES PEMBIMBING PERUSAHAAN
-Route::middleware('auth:pPerusahaan')->prefix('p-perusahaan')->name('pPerusahaan')->group(function () {
+Route::middleware('auth:pPerusahaan')->prefix('p-perusahaan')->name('pPerusahaan-')->group(function () {
   Route::get('', [PPerusahaanController::class, 'index'])->name('index');
+  Route::get('/profile', [PPerusahaanController::class, 'pageProfile'])->name('profile');
+  Route::get('/jurnal/{idSiswa}', [PPerusahaanController::class, 'jurnalSiswa']);
+  Route::get('/jurnal/{idSiswa}/edit/{jurnal}', [PPerusahaanController::class, 'parafJurnalSiswa']);
 });
 // !SECTION AKSES PEMBIMBING PERUSAHAAN

@@ -8,6 +8,7 @@ use App\Models\Plotting;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
@@ -42,9 +43,9 @@ class JurnalController extends Controller
     //     'createJurnal' => '',
     //   ]);
     // } else {
-      return view('users.siswa.createJurnal', [
-        'createJurnal' => '', 
-      ]);
+    return view('users.siswa.createJurnal', [
+      'createJurnal' => '',
+    ]);
     // }
   }
 
@@ -63,7 +64,7 @@ class JurnalController extends Controller
     $request->validate([
       'kegiatan' => 'required',
       'kompetensi' => 'required'
-    ],[
+    ], [
       'kegiatan.required' => 'Kegiatan wajib diisi',
       'kompetensi.required' => 'Kompetensi wajib diisi',
     ]);
@@ -95,7 +96,25 @@ class JurnalController extends Controller
    */
   public function update(Request $request, string $id)
   {
-    //
+    // dd(
+    //   request('gambar'),
+    //   request('gambar')->store('uploads/jurnal', 'public'),
+    // );
+    if ($request->gambar == null){
+      $imagePath = Jurnal::where('id_jurnal', $id)->get('gambar_kegiatan_jurnal')[0]->gambar_kegiatan_jurnal;
+    }
+      $imagePath = $request->file('gambar')->store('uploads/jurnal', 'public');
+      list($width, $height) = getimagesize($_FILES["gambar"]['tmp_name']);
+      $imageWidth = (int)round($width * (10 / 100));
+      $imageHeight = (int)round($height * (10 / 100));
+      $image = Image::make(public_path('storage/' . $imagePath))->fit($imageWidth, $imageHeight)->save();
+    $data = [
+      'kegiatan_jurnal' => $request->kegiatan,
+      'kompetensi_jurnal' => $request->kompetensi,
+      'gambar_kegiatan_jurnal' => $imagePath,
+    ];
+    Jurnal::where('id_jurnal', $id)->update($data);
+    return redirect()->route('siswa-readJurnal');
   }
 
   /**

@@ -2,11 +2,11 @@
 
 @section('content-body')
   <div class="pagetitle">
-    <h1>Plotting</h1>
+    <h1>Penempatan</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ url('/') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active">Plotting</li>
+        <li class="breadcrumb-item active">Penempatan</li>
       </ol>
     </nav>
   </div><!-- End Page Title -->
@@ -23,7 +23,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Plotting</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Penempatan</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="{{ url('/admin/plotting') }}" method="post"> @csrf
@@ -137,7 +137,7 @@
           <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Plotting</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Penempatan</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <form action="/admin/plotting/{{ $content->id_plotting }}" method="post"> @csrf @method('PUT')

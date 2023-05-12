@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Schema;
 use Nette\Utils\Random;
 use Illuminate\Support\Str;
 
-use function PHPUnit\Framework\isNull;
-
 class PSekolahController extends Controller
 {
 

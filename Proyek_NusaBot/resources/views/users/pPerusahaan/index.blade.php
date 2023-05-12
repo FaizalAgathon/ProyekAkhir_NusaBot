@@ -1,8 +1,8 @@
-@extends('layouts.pSekolah.app')
+@extends('layouts.pPerusahaan.app')
 
 @section('content-body')
   <div class="pagetitle">
-    <h1>{{ Auth::guard('pSekolah')->user()->nama_ps }}</h1>
+    <h1>{{ Auth::guard('pPerusahaan')->user()->nama_pp }}</h1>
     <nav>
       <ol class="breadcrumb">
         {{-- <li class="breadcrumb-item"><a href="index.html">Home</a></li> --}}
