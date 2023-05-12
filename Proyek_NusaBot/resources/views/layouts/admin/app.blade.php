@@ -30,7 +30,8 @@
   <link href="{{ url('vendor/simple-datatables/style.css') }}" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+  <link href="toastr.css" rel="stylesheet" />
 
   <!-- Template Main CSS File -->
   <link href="{{ url('css/style.css') }}" rel="stylesheet">
@@ -114,37 +115,12 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link {{ isset($kelasClassActive) ? '' : 'collapsed' }}" data-bs-target="#components-nav"
-          data-bs-toggle="collapse" href="#">
-          <i class="bi bi-person"></i><span>Kelas</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse {{ isset($kelasClassActive) ? $kelasClassActive : '' }}"
-          data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="{{ url('/admin/angkatan') }}" class="{{ isset($angkatanClassActive) ? $angkatanClassActive : '' }}">
-              <i class="bi bi-circle"></i><span>Angkatan</span>
-            </a>
-          </li>
-          <li>
-            <a href="{{ url('/admin/jurusan') }}" class="{{ isset($jurusanClassActive) ? $jurusanClassActive : '' }}">
-              <i class="bi bi-circle"></i><span>Jurusan</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Components Nav -->
+      <li class="nav-heading">Accounts</li>
 
       <li class="nav-item">
-        <a class="nav-link {{  isset($perusahaanClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/perusahaan') }}">
+        <a class="nav-link {{ isset($siswaClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/siswa') }}">
           <i class="bi bi-person"></i>
-          <span>Perusahaan</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link {{ $adminClassActive ?? 'collapsed' }}" href="{{ url('/admin/admin') }}">
-          <i class="bi bi-person"></i>
-          <span>Admin</span>
+          <span>Siswa</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
@@ -156,26 +132,60 @@
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ isset($pperusahaanClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/pperusahaan') }}">
+        <a class="nav-link {{ isset($pperusahaanClassActive) ? '' : 'collapsed' }}"
+          href="{{ url('/admin/pperusahaan') }}">
           <i class="bi bi-person"></i>
           <span>P. Perusahaan</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ isset($siswaClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/siswa') }}">
+        <a class="nav-link {{ $adminClassActive ?? 'collapsed' }}" href="{{ url('/admin/admin') }}">
           <i class="bi bi-person"></i>
-          <span>Siswa</span>
+          <span>Admin</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-heading">Others</li>
+
+      <li class="nav-item">
+        <a class="nav-link {{ isset($kelasClassActive) ? '' : 'collapsed' }}" data-bs-target="#components-nav"
+          data-bs-toggle="collapse" href="#">
+          <i class="bi bi-person"></i><span>Kelas</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse {{ isset($kelasClassActive) ? $kelasClassActive : '' }}"
+          data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ url('/admin/angkatan') }}"
+              class="{{ isset($angkatanClassActive) ? $angkatanClassActive : '' }}">
+              <i class="bi bi-circle"></i><span>Angkatan</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url('/admin/jurusan') }}"
+              class="{{ isset($jurusanClassActive) ? $jurusanClassActive : '' }}">
+              <i class="bi bi-circle"></i><span>Jurusan</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link {{ isset($perusahaanClassActive) ? '' : 'collapsed' }}"
+          href="{{ url('/admin/perusahaan') }}">
+          <i class="bi bi-person"></i>
+          <span>Perusahaan</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link {{ isset($plottingClassActive) ? '' : 'collapsed' }}" href="{{ url('/admin/plotting') }}">
+        <a class="nav-link {{ isset($plottingClassActive) ? '' : 'collapsed' }}"
+          href="{{ url('/admin/plotting') }}">
           <i class="bi bi-person"></i>
           <span>Penempatan</span>
         </a>
       </li><!-- End Profile Page Nav -->
-      
+
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -216,9 +226,7 @@
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-  @yield('admin-notification')
-
+  <script src="toastr.js"></script>
   <!-- Template Main JS File -->
   <script src="{{ url('js/main.js') }}"></script>
 
@@ -227,6 +235,43 @@
       $('#datatable').DataTable();
     });
   </script>
+
+  <script>
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": true,
+      "progressBar": true,
+      "positionClass": "toast-bottom-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+  </script>
+  @if (Session::has('add'))
+    <script>
+      toastr.success("Berhasil Menambah Data", "Success")
+    </script>
+  @endif
+  @if (Session::has('edit'))
+    <script>
+      toastr.success("Berhasil Mengedit Data", "Success")
+    </script>
+  @endif
+  @if (Session::has('del'))
+    <script>
+      toastr.success("Berhasil Menghapus Data", "Success")
+    </script>
+  @endif
+
+  @yield('admin-script')
 
 </body>
 

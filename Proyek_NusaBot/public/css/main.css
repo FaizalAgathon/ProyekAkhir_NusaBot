@@ -80,3 +80,13 @@
   transition: all 0.3s ease-out;
   color: #fff;
 }
+
+@keyframes highlight_add {
+  from {background-color: #7ff08a;}
+  to {background-color: unset;}
+}
+
+@keyframes highlight_edit {
+  from {background-color: #7fd6f0;}
+  to {background-color: unset;}
+}

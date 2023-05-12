@@ -46,10 +46,10 @@ class SiswaController extends Controller
    */
   public function index()
   {
-    if(Auth::guard('admin')->check()){
+    if (Auth::guard('admin')->check()) {
       return view('users.admin.siswa', [
         'siswaClassActive' => '',
-        'data' => Siswa::with(['jurusan', 'kelas'])->get(),
+        'data' => Siswa::with(['jurusan', 'kelas'])->orderBy('siswa.created_at','desc')->get(),
         'dataJurusan' => Jurusan::all(),
         'dataKelas' => Kelas::all(),
       ]);
@@ -64,7 +64,7 @@ class SiswaController extends Controller
   public function pageProfile()
   {
     return view('users.siswa.profile', [
-      'dataKelas' => Siswa::with(['kelas','jurusan'])->where('id_siswa', Auth::guard('siswa')->user()->id_siswa)->get()[0],
+      'dataKelas' => Siswa::with(['kelas', 'jurusan'])->where('id_siswa', Auth::guard('siswa')->user()->id_siswa)->get()[0],
       'profile' => '',
     ]);
   }
@@ -77,8 +77,7 @@ class SiswaController extends Controller
     $angkatan = Kelas::where('id_kelas', $request->angkatan)->get();
     $jurusan = Jurusan::where('id_jurusan', $request->jurusan)->get();
     $pdf = Pdf::loadView('users.admin.pdf.siswa', compact('user', 'angkatan', 'jurusan'));
-    return $pdf->stream();
-    // return view('users.admin.pdf.siswa', compact('user', 'angkatan', 'jurusan'));
+    return $pdf->download("AKUN_SISWA_" . $angkatan[0]->angkatan_k . '_' . $jurusan[0]->nama_j . '.pdf');
   }
 
   /**
@@ -86,10 +85,10 @@ class SiswaController extends Controller
    */
   public function store(Request $request)
   {
-    $pass = Str::upper(Random::generate(8,'a-z'));
+    $pass = Str::upper(Random::generate(8, 'a-z'));
     $namaGambar = 'NoImgProfile.png';
     $data = [
-      'id_siswa' => Random::generate(10,'0-9'),
+      'id_siswa' => Random::generate(10, '0-9'),
       'nis_siswa' => $request->nis,
       'pass_unhash' => $pass,
       'password_s' => Hash::make($pass),
@@ -100,7 +99,7 @@ class SiswaController extends Controller
       'id_jurusan' => $request->jurusan,
     ];
     Siswa::create($data);
-    return redirect('/admin/siswa');
+    return redirect('/admin/siswa')->with('add', Siswa::select('id_siswa')->max('created_at'));
   }
 
   /**
@@ -112,20 +111,19 @@ class SiswaController extends Controller
       'nis_siswa' => $request->nis,
       'nama_s' => $request->nama,
       'jk_s' => $request->jk,
-      'gambar_s' => $request->gambar,
       'id_kelas' => $request->angkatan,
       'id_jurusan' => $request->jurusan,
     ];
     Siswa::where('id_siswa', $id)->update($data);
-    return redirect('/admin/siswa');
+    return redirect('/admin/siswa')->with('edit', Siswa::select('id_siswa')->max('updated_at'));
   }
-  
+
   /**
    * Remove the specified resource from storage.
    */
   public function destroy(string $id)
   {
     Siswa::where('id_siswa', $id)->delete();
-    return redirect('/admin/siswa');
+    return redirect('/admin/siswa')->with('del');
   }
 }

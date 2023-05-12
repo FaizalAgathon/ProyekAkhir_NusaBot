@@ -48,7 +48,7 @@ class PSekolahController extends Controller
   {
     $user = Pembimbing_Sekolah::all()->sortBy('nip_ps');
     $pdf = FacadePdf::loadView('users.admin.pdf.psekolah', compact('user'));
-    return $pdf->stream();
+    return $pdf->download('AKUN_PEMBIMBING_SEKOLAH.pdf');
   }
 
   public function index()
@@ -57,7 +57,7 @@ class PSekolahController extends Controller
       return view('users.admin.psekolah', [
         'psekolahClassActive' => 'active',
         'dataJurusan' => Jurusan::all(),
-        'data' => Pembimbing_Sekolah::with('jurusan')->get(),
+        'data' => Pembimbing_Sekolah::with('jurusan')->orderBy('created_at','desc')->get(),
       ]);
     } else if (Auth::guard('pSekolah')->check()) {
       return view('users.pSekolah.index',[
@@ -114,7 +114,7 @@ class PSekolahController extends Controller
       'id_jurusan' => $idJurusan->toArray()[0]['id_jurusan'],
     ];
     Pembimbing_Sekolah::create($data);
-    return redirect()->route('admin-readPSekolah')->with('add');
+    return redirect()->route('admin-readPSekolah')->with('add', Pembimbing_Sekolah::select('id_ps')->max('created_at'));
   }
 
   /**
@@ -129,7 +129,7 @@ class PSekolahController extends Controller
       'id_jurusan' => $request->jurusan,
     ];
     Pembimbing_Sekolah::where('id_ps', $id)->update($data);
-    return redirect('/psekolah')->with('edit');
+    return redirect()->route('admin-readPSekolah')->with('edit', Pembimbing_Sekolah::select('id_ps')->max('updated_at'));
   }
   
   /**
@@ -138,6 +138,6 @@ class PSekolahController extends Controller
   public function destroy(string $id)
   {
     Pembimbing_Sekolah::where('id_ps', $id)->delete();
-    return redirect('/psekolah')->with('del');
+    return redirect()->route('admin-readPSekolah')->with('del');
   }
 }
