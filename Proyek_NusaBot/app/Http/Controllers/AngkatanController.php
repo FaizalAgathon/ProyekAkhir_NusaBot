@@ -36,11 +36,11 @@ class AngkatanController extends Controller
   public function store(Request $request)
   {
     $data = [
-      'id_kelas' => Random::generate(),
+      'id_kelas' => Random::generate(10,'0-9'),
       'angkatan_k' => $request->angkatan,
     ];
     Kelas::create($data);
-    return redirect('/angkatan')->with('add');
+    return redirect()->route('admin-readAngkatan')->with('add');
   }
 
   /**
@@ -52,7 +52,7 @@ class AngkatanController extends Controller
       'angkatan_k' => $request->angkatan,
     ];
     Kelas::where('id_kelas', $id)->update($data);
-    return redirect('/angkatan')->with('edit');
+    return redirect()->route('admin-readAngkatan')->with('edit');
   }
 
   /**
@@ -61,6 +61,6 @@ class AngkatanController extends Controller
   public function destroy(string $id)
   {
     Kelas::where('id_kelas', $id)->delete();
-    return redirect('/angkatan')->with('del');
+    return redirect()->route('admin-readAngkatan')->with('del');
   }
 }

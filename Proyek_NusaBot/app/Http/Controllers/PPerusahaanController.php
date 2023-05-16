@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jurnal;
 use App\Models\Jurusan;
 use App\Models\Pembimbing_Perusahaan;
 use App\Models\Pembimbing_Sekolah;
 use App\Models\Perusahaan;
+use App\Models\Plotting;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +20,8 @@ class PPerusahaanController extends Controller
   public function loginForm()
   {
     return view('auth.login', [
-      'nameValidate' => 'email_pp'
+      'nameValidate' => 'email_pp',
+      'Identify' => 'Email'
     ]);
   }
 
@@ -50,19 +54,63 @@ class PPerusahaanController extends Controller
         'dataPerusahaan' => Perusahaan::all(),
         'data' => Pembimbing_Perusahaan::with('perusahaan')->get(),
       ]);
-    } else if(Auth::guard('pPerusahaan')->check()){
-      return view('welcome');
+    } else if (Auth::guard('pPerusahaan')->check()) {
+      return view('users.pPerusahaan.index', [
+        'listSiswa' => Plotting::with('siswa')->where('id_perusahaan', Auth::guard('pPerusahaan')->user()->id_perusahaan)->get()
+      ]);
     }
+  }
+
+  public function pdf()
+  {
+    $user = Pembimbing_Perusahaan::all();
+    $pdf = Pdf::loadView('users.admin.pdf.pperusahaan', compact('user'));
+    return $pdf->stream();
+  }
+
+  public function pageProfile()
+  {
+    return view('users.pPerusahaan.profile', [
+      'data' => Pembimbing_Perusahaan::with(['perusahaan'])->where('id_pp', Auth::guard('pPerusahaan')->user()->id_pp)->get()[0],
+      'listSiswa' => Plotting::with('siswa')->where('id_perusahaan', Auth::guard('pPerusahaan')->user()->id_perusahaan)->get(),
+      'profile' => '',
+    ]);
+  }
+
+  public function jurnalSiswa(string $id)
+  {
+    $data = Jurnal::with('plotting.siswa')->where('id_plotting', $id)->get();
+
+    if ($data->isEmpty()) {
+      return view('users.pPerusahaan.jurnalSiswaEmpty', [
+        'data' => Plotting::with('siswa')->where('id_plotting', $id)->get(),
+        'listSiswa' => Plotting::with('siswa')->where('id_perusahaan', Auth::guard('pPerusahaan')->user()->id_perusahaan)->get(),
+        'jurnalActive' => 'show',
+      ]);
+    } else {
+      return view('users.pPerusahaan.jurnalSiswa', [
+        'listSiswa' => Plotting::with('siswa')->where('id_perusahaan', Auth::guard('pPerusahaan')->user()->id_perusahaan)->get(),
+        'data' => $data,
+        'jurnalActive' => 'show',
+        'parafTrue' => "<span class='badge text-bg-success'>Sudah di paraf</span>",
+        'parafFalse' => "<span class='badge text-bg-danger'>Belum di paraf</span>",
+      ]);
+    }
+  }
+
+  public function parafJurnalSiswa(Request $request)
+  {
+    // return 
   }
 
   /**
    * Store a newly created resource in storage.
    */
   public function store(Request $request)
-  {    
-    $pass = Str::upper(Random::generate(8,'a-z'));
+  {
+    $pass = Str::upper(Random::generate(8, 'a-z'));
     $data = [
-      'id_pp' => Random::generate(8,'0-9'),
+      'id_pp' => Random::generate(8, '0-9'),
       'email_pp' => $request->email,
       'pass_unhash' => $pass,
       'password_pp' => Hash::make($pass),
@@ -71,9 +119,9 @@ class PPerusahaanController extends Controller
       'id_perusahaan' => $request->perusahaan,
     ];
     Pembimbing_Perusahaan::create($data);
-    return redirect('/admin/pperusahaan');
+    return redirect()->route('admin-readPPerusahaan');
   }
-  
+
   /**
    * Update the specified resource in storage.
    */
@@ -88,7 +136,7 @@ class PPerusahaanController extends Controller
     Pembimbing_Perusahaan::where('id_pp', $id)->update($data);
     return redirect('/admin/pperusahaan');
   }
-  
+
   /**
    * Remove the specified resource from storage.
    */

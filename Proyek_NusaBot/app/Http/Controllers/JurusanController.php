@@ -36,11 +36,11 @@ class JurusanController extends Controller
   public function store(Request $request)
   {
     $data = [
-      'id_jurusan' => Random::generate(),
+      'id_jurusan' => Random::generate(10,'0-9'),
       'nama_j' => $request->jurusan,
     ];
     Jurusan::create($data);
-    return redirect('/jurusan')->with('add');
+    return redirect()->route('admin-readJurusan')->with('add');
   }
 
   /**
@@ -52,7 +52,7 @@ class JurusanController extends Controller
       'nama_j' => $request->jurusan,
     ];
     Jurusan::where('id_jurusan', $id)->update($data);
-    return redirect('/jurusan')->with('edit');
+    return redirect()->route('admin-readJurusan')->with('edit');
   }
 
   /**
@@ -61,6 +61,6 @@ class JurusanController extends Controller
   public function destroy(string $id)
   {
     Jurusan::where('id_jurusan', $id)->delete();
-    return redirect('/jurusan')->with('del');
+    return redirect()->route('admin-readJurusan')->with('del');
   }
 }

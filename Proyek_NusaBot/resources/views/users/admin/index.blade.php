@@ -18,57 +18,102 @@
       <section class="card-area pb-5">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-7 col-sm-9">
-              <div class="single-card card-style-one">
-                <div class="card-image">
-                  <img src="https://cdn.ayroui.com/1.0/images/card/card-1.jpg" alt="Image" />
+            <div class="card-list py-5">
+              <div class="row ">
+                <div class="col p-0 d-flex justify-content-center justify-content-xl-end">
+                  <a class="card" href="{{ route('admin-readAngkatan') }}">
+                    <p>Angkatan</p>
+                    <p class="small m-0">Daftar angkatan Siswa</p>
+                    <div class="go-corner" >
+                      <div class="go-arrow">
+                        →
+                      </div>
+                    </div>
+                  </a>
                 </div>
-                <div class="card-content">
-                  <h4 class="card-title">
-                    <a href="javascript:void(0)">Item title is here</a>
-                  </h4>
-                  <p class="text">
-                    Short description for the ones who look for something new
-                  </p>
+                <div class="col-3 p-0 d-flex justify-content-center">
+                  <a class="card" href="{{ route('admin-readSiswa') }}">
+                    <p>Siswa</p>
+                    <p class="small m-0">Daftar akun Siswa</p>
+                    <div class="go-corner" >
+                      <div class="go-arrow">
+                        →
+                      </div>
+                    </div>
+                  </a>
                 </div>
-              </div>
-              <!-- single-card -->
-            </div>
-            <!-- col -->
-            <div class="col-lg-4 col-md-7 col-sm-9">
-              <div class="single-card card-style-one">
-                <div class="card-image">
-                  <img src="https://cdn.ayroui.com/1.0/images/card/card-2.jpg" alt="Image" />
-                </div>
-                <div class="card-content">
-                  <h4 class="card-title">
-                    <a href="javascript:void(0)">Item title is here</a>
-                  </h4>
-                  <p class="text">
-                    Short description for the ones who look for something new
-                  </p>
-                </div>
-              </div>
-              <!-- single-card -->
-            </div>
-            <!-- col -->
-            <div class="col-lg-4 col-md-7 col-sm-9">
-              <div class="single-card card-style-one">
-                <div class="card-image">
-                  <img src="https://cdn.ayroui.com/1.0/images/card/card-3.jpg" alt="Image" />
-                </div>
-                <div class="card-content">
-                  <h4 class="card-title">
-                    <a href="javascript:void(0)">Item title is here</a>
-                  </h4>
-                  <p class="text">
-                    Short description for the ones who look for something new
-                  </p>
+                <div class="col p-0 d-flex justify-content-center justify-content-xl-start">
+                  <a class="card" href="{{ route('admin-readJurusan') }}">
+                    <p>Jurusan</p>
+                    <p class="small m-0">Daftar jurusan Siswa</p>
+                    <div class="go-corner" >
+                      <div class="go-arrow">
+                        →
+                      </div>
+                    </div>
+                  </a>
                 </div>
               </div>
-              <!-- single-card -->
+              <div class="row ">
+                <div class="col p-0 d-flex justify-content-center justify-content-xxl-end">
+                  <a class="card" href="{{ route('admin-readPerusahaan') }}">
+                    <p>Perusahaan</p>
+                    <p class="small m-0">Daftar perusahaan</p>
+                    <div class="go-corner" >
+                      <div class="go-arrow">
+                        →
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col-3 p-0 d-flex justify-content-center">
+                  <a class="card" href="{{ route('admin-readPPerusahaan') }}">
+                    <p>P. Perusahaan</p>
+                    <p class="small m-0">Daftar Pembimbing Perusahaan</p>
+                    <div class="go-corner" >
+                      <div class="go-arrow">
+                        →
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col p-0 d-flex justify-content-center justify-content-xxl-start">
+                  <a class="card" href="{{ route('admin-readPSekolah') }}">
+                    <p>P. Sekolah</p>
+                    <p class="small m-0">Daftar Pembimbing Sekolah</p>
+                    <div class="go-corner" >
+                      <div class="go-arrow">
+                        →
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col p-0 d-flex justify-content-center justify-content-xxl-end">
+                  <a class="card" href="{{ route('admin-readPlotting') }}">
+                    <p>Penempatan</p>
+                    <p class="small m-0">Daftar penempatan</p>
+                    <div class="go-corner" >
+                      <div class="go-arrow">
+                        →
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <div class="col p-0 d-flex justify-content-center justify-content-xxl-start">
+                  <a class="card" href="{{ route('admin-readAdmin') }}">
+                    <p>Admin</p>
+                    <p class="small m-0">Daftar akun Admin</p>
+                    <div class="go-corner" >
+                      <div class="go-arrow">
+                        →
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
             </div>
-            <!-- col -->
           </div>
           <!-- row -->
         </div>

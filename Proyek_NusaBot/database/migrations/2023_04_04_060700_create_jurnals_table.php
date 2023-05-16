@@ -20,7 +20,7 @@ return new class extends Migration
       $table->string('gambar_kegiatan_jurnal');
       $table->date('tanggal_jurnal');
       $table->bigInteger('id_plotting');
-      $table->bigInteger('id_pp');
+      $table->bigInteger('id_pp')->nullable();
       $table->timestamps();
     });
     Schema::table('jurnal', function (Blueprint $table) {
