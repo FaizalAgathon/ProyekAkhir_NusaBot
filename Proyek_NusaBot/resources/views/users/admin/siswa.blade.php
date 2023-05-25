@@ -35,22 +35,22 @@
               <div class="modal-body">
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1">NIS : </span>
-                  <input type="text" class="form-control" name="nis">
+                  <input type="text" class="form-control" name="nis" required>
                 </div>
                 <div class="input-group mb-3">
                   <span class="input-group-text" id="basic-addon1">Nama : </span>
-                  <input type="text" class="form-control" name="nama">
+                  <input type="text" class="form-control" name="nama" required>
                 </div>
                 <div class="input-group mb-3">
                   <label class="input-group-text" for="inputGroupSelect02">JK : </label>
-                  <select class="form-select" id="inputGroupSelect02" name="jk">
+                  <select class="form-select" id="inputGroupSelect02" name="jk" required>
                     <option selected value="L">L</option>
                     <option value="P">P</option>
                   </select>
                 </div>
                 <div class="input-group mb-3">
                   <label class="input-group-text" for="inputGroupSelect01">Angkatan : </label>
-                  <select class="form-select" id="inputGroupSelect01" name="angkatan">
+                  <select class="form-select" id="inputGroupSelect01" name="angkatan" required>
                     <option selected>Choose...</option>
                     @foreach ($dataKelas as $item)
                       {{-- @dd($item) --}}
@@ -60,7 +60,7 @@
                 </div>
                 <div class="input-group mb-3">
                   <label class="input-group-text" for="inputGroupSelect01">Jurusan : </label>
-                  <select class="form-select" id="inputGroupSelect01" name="jurusan">
+                  <select class="form-select" id="inputGroupSelect01" name="jurusan" required>
                     <option selected>Choose...</option>
                     @foreach ($dataJurusan as $item)
                       {{-- @dd($item) --}}
@@ -91,7 +91,7 @@
               <div class="modal-body">
                 <div class="input-group mb-3">
                   <label class="input-group-text" for="inputGroupSelect01">Angkatan : </label>
-                  <select class="form-select" id="inputGroupSelect01" name="angkatan">
+                  <select class="form-select" id="inputGroupSelect01" name="angkatan" required>
                     <option selected>Choose...</option>
                     @foreach ($dataKelas as $item)
                       <option value="{{ $item->id_kelas }}">{{ $item->angkatan_k }}</option>
@@ -100,7 +100,7 @@
                 </div>
                 <div class="input-group mb-3">
                   <label class="input-group-text" for="inputGroupSelect01">Jurusan : </label>
-                  <select class="form-select" id="inputGroupSelect01" name="jurusan">
+                  <select class="form-select" id="inputGroupSelect01" name="jurusan" required>
                     <option selected>Choose...</option>
                     @foreach ($dataJurusan as $item)
                       <option value="{{ $item->id_jurusan }}">{{ $item->nama_j }}</option>
@@ -176,23 +176,23 @@
                       <div class="col">
                         <div class="input-group mb-3">
                           <span class="input-group-text" id="basic-addon1">NIS : </span>
-                          <input type="text" class="form-control" name="nis"
+                          <input type="text" class="form-control" name="nis" required
                             value="{{ $content->nis_siswa }}">
                         </div>
                         <div class="input-group mb-3">
                           <span class="input-group-text" id="basic-addon1">Nama : </span>
-                          <input type="text" class="form-control" name="nama" value="{{ $content->nama_s }}">
+                          <input type="text" class="form-control" name="nama" value="{{ $content->nama_s }}" required>
                         </div>
                         <div class="input-group mb-3">
                           <label class="input-group-text" for="inputGroupSelect02">JK : </label>
-                          <select class="form-select" id="inputGroupSelect02" name="jk">
+                          <select class="form-select" id="inputGroupSelect02" name="jk" required>
                             <option {{ $content->jk_s == 'L' ? 'selected' : '' }} value="L">L</option>
                             <option {{ $content->jk_s == 'P' ? 'selected' : '' }} value="P">P</option>
                           </select>
                         </div>
                         <div class="input-group mb-3">
                           <label class="input-group-text" for="inputGroupSelect01">Angkatan : </label>
-                          <select class="form-select" id="inputGroupSelect01" name="angkatan">
+                          <select class="form-select" id="inputGroupSelect01" name="angkatan" required>
                             @foreach ($dataKelas as $kelas)
                               <option value="{{ $content->id_kelas }}"
                                 {{ $content->id_kelas == $kelas->id_kelas ? 'selected' : '' }}>
@@ -203,7 +203,7 @@
                         </div>
                         <div class="input-group mb-3">
                           <label class="input-group-text" for="inputGroupSelect01">Jurusan : </label>
-                          <select class="form-select" id="inputGroupSelect01" name="jurusan">
+                          <select class="form-select" id="inputGroupSelect01" name="jurusan" required>
                             @foreach ($dataJurusan as $jurusan)
                               <option value="{{ $content->id_jurusan }}"
                                 {{ $content->id_jurusan == $jurusan->id_jurusan ? 'selected' : '' }}>

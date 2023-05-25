@@ -4,7 +4,7 @@
   <h1>{{ $data[0]->plotting->siswa->nis_siswa }} - {{ $data[0]->plotting->siswa->nama_s }}</h1>
   <nav>
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="{{ route('pSekolah-index') }}">Dashboard</a></li>
+      <li class="breadcrumb-item"><a href="{{ route('pPerusahaan-index') }}">Dashboard</a></li>
       <li class="breadcrumb-item">Jurnal</li>
       <li class="breadcrumb-item active">{{ $data[0]->plotting->siswa->nis_siswa }}</li>
     </ol>

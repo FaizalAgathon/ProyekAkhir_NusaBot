@@ -1,34 +1,32 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AngkatanController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\JurnalController;
-use App\Http\Controllers\JurusanController;
-use App\Http\Controllers\PerusahaanController;
-use App\Http\Controllers\PlottingController;
-use App\Http\Controllers\PPerusahaanController;
-use App\Http\Controllers\PSekolahController;
-use App\Http\Controllers\SiswaController;
-use App\Models\Pembimbing_Perusahaan;
-use App\Models\Pembimbing_Sekolah;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use App\Models\Pembimbing_Sekolah;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Pembimbing_Perusahaan;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\JurnalController;
+use App\Http\Controllers\JurusanController;
+use App\Http\Controllers\AngkatanController;
+use App\Http\Controllers\PlottingController;
+use App\Http\Controllers\PSekolahController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\PPerusahaanController;
 
 // TODO
-// 1. validasi data yg masuk ke database method store (Route::resource)
-// 2. desain form login
-// 3. melarang siswa untuk menambah jurnal di hari yg sama
-// 4. desain dashboard
-// 5. benerin routing crud pSekolah, pPerusahaan, Siswa, Plotting, Admin
-// 6. akses pSekolah (liat histori jurnal siswa)
-// 7. akses pPerusahaan (liat histori jurnal siswa, memberi paraf)
+// 4. (siswa)(pPerusahaan) desain dashboard
+// 7. akses pPerusahaan (memberi paraf)
 // 8. export pdf jurnal
-// 9. (Siswa) Upload Gambar jurnal siswa
-// 10. (Siswa) Detail jurnal siswa
-//// 9. kompres gambar jurnal
+
+// TODO
+// 1. Langsung hal.login 
+// 2. (siswa) (tambah jurnal) kegiatan dan kompetensi pake textarea biasa
+// 3. (siswa) (jurnal) pencarian berdasarkan tanggal
+// 2. (siswa) (edit jurnal) kegiatan dan kompetensi pake textarea biasa
 
 /*
 |--------------------------------------------------------------------------
@@ -102,7 +100,7 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin-')->group(function
   Route::resource('/psekolah', PSekolahController::class)->names([
     'index' => 'readPSekolah',
     'store' => 'storePSekolah',
-  ])->except(['show']); 
+  ])->except(['show']);
   Route::get('/psekolah/pdf', [PSekolahController::class, 'pdf'])->name('psekolah-pdf'); /* Export PDF Pembimbing Sekolah */
 
   /* CRUD Pembimbing Perusahaan */
@@ -130,6 +128,9 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin-')->group(function
     'index' => 'readPlotting',
     'store' => 'storePlotting',
   ])->except(['show']); 
+
+  // AJAX GETSISWA
+  Route::post('/plotting/getsiswa', [PlottingController::class, 'getSiswa']);
 });
 // !SECTION AKSES ADMIN
 
@@ -137,6 +138,7 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin-')->group(function
 Route::middleware('auth:pSekolah')->prefix('p-sekolah')->name('pSekolah-')->group(function () {
   Route::get('', [PSekolahController::class, 'index'])->name('index');
   Route::get('/profile', [PSekolahController::class, 'pageProfile'])->name('profile');
+  Route::get('/jurnal', [PSekolahController::class, 'daftarJurnalSiswa'])->name('daftarJurnal');
   Route::get('/jurnal/{id}', [PSekolahController::class, 'jurnalSiswa']);
 });
 // !SECTION AKSES PEMBIMBING SEKOLAH

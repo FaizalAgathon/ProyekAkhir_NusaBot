@@ -107,7 +107,7 @@
 
       <li class="nav-item">
         <a class="nav-link {{ basename($_SERVER['REQUEST_URI']) != 'p-perusahaan' ? 'collapsed' : '' }}"
-          href="{{ url('/') }}">
+          href="{{ route('pPerusahaan-index') }}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>

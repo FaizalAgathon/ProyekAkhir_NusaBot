@@ -1,47 +1,46 @@
 @extends('layouts.pSekolah.app')
 
 @section('content-pageTitle')
-  <h1>{{ $data[0]->plotting->siswa->nis_siswa }} - {{ $data[0]->plotting->siswa->nama_s }}</h1>
+  <h1>Daftar Jurnal Siswa</h1>
   <nav>
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{{ route('pSekolah-index') }}">Dashboard</a></li>
-      <li class="breadcrumb-item"><a href="{{ route('pSekolah-daftarJurnal') }}">Jurnal</a></li>
-      <li class="breadcrumb-item active">{{ $data[0]->plotting->siswa->nis_siswa }}</li>
+      <li class="breadcrumb-item active">Jurnal</li>
     </ol>
   </nav>
 @endsection
 
 @section('content-body')
-  <div class="p-3 rounded overflow-auto" style="background-color: #899BBD;width:100%">
+  <div class="card-list p-4">
     <table id="datatable" class="table table-striped bg-light rounded " style="width:100%">
       <thead>
         <tr>
           <th>#</th>
-          <th>Tanggal</th>
-          <th>Gambar Kegiatan</th>
-          <th>Paraf</th>
+          <th>NIS</th>
+          <th>Nama</th>
+          <th>Perusahaan</th>
+          <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
         <?php $i = 1; ?>
-        @foreach ($data as $item)
+        @foreach ($listSiswa as $item)
           <tr>
             <td>{{ $i++ }}</td>
-            <td>{{ $item->tanggal_jurnal }}</td>
+            <td>{{ $item->siswa->nis_siswa }}</td>
+            <td>{{ $item->siswa->nama_s }}</td>
+            <td>{{ $item->perusahaan->nama_p }}</td>
             <td>
-              @if (file_exists(public_path('/storage/' . $item->gambar_kegiatan_jurnal)))
-                <img src="/storage/{{ $item->gambar_kegiatan_jurnal }}" alt="" class="rounded d-block mx-auto" height="250">
-              @else
-                <img src="{{ url('img/noImg.png') }}" alt="" class="rounded d-block mx-auto" height="250">
-              @endif
-            </td>
-            <td id="paraf">
-              {!! $item->paraf_pp_jurnal == null ? $parafFalse : $parafTrue !!}
+              <a href="{{ $_SERVER['REQUEST_URI'] . '/' . $item->id_plotting }}">
+                <button class="btn btn-info">
+                  Detail
+                </button>
+              </a>
             </td>
           </tr>
-
+  
           {{-- SECTION MODAL EDIT --}}
-
+  
           <div class="modal fade" id="edit{{ $item->id_jurnal }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -66,7 +65,7 @@
               </div>
             </div>
           </div>
-
+  
           {{-- !SECTION MODAL EDIT --}}
         @endforeach
       </tbody>

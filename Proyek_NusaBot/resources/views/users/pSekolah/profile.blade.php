@@ -14,7 +14,7 @@
     <div class="row">
       <div class="col-xl-4">
 
-        <div class="card">
+        <div class="card-list">
           <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
             <h2>{{ Auth::guard('pSekolah')->user()->nama_ps }}</h2>
             <h3>Pembimbing Sekolah</h3>
@@ -25,7 +25,7 @@
 
       <div class="col-xl-8">
 
-        <div class="card">
+        <div class="card-list">
           <div class="card-body pt-3">
             <!-- Bordered Tabs -->
             <ul class="nav nav-tabs nav-tabs-bordered">

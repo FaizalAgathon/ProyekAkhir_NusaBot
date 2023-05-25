@@ -57,8 +57,8 @@ class JurnalController extends Controller
     $idPlotting = Plotting::where('id_siswa', auth('siswa')->user()->id_siswa)->get('id_plotting')[0]['id_plotting'];
     $imagePath = request('gambar')->store('uploads/jurnal', 'public');
     list($width, $height) = getimagesize($_FILES["gambar"]['tmp_name']);
-    $imageWidth = (int)round($width * (10 / 100));
-    $imageHeight = (int)round($height * (10 / 100));
+    $imageWidth = (int)round($width * (70 / 100));
+    $imageHeight = (int)round($height * (70 / 100));
     $image = Image::make(public_path('storage/' . $imagePath))->fit($imageWidth, $imageHeight)->save();
 
     $request->validate([
@@ -68,9 +68,6 @@ class JurnalController extends Controller
       'kegiatan.required' => 'Kegiatan wajib diisi',
       'kompetensi.required' => 'Kompetensi wajib diisi',
     ]);
-
-    // return back()->withErrors();
-
     $data = [
       'id_jurnal' => Random::generate(10, '0-9'),
       'kegiatan_jurnal' => $request->kegiatan,
@@ -96,18 +93,15 @@ class JurnalController extends Controller
    */
   public function update(Request $request, string $id)
   {
-    // dd(
-    //   request('gambar'),
-    //   request('gambar')->store('uploads/jurnal', 'public'),
-    // );
-    if ($request->gambar == null){
+    if ($request->gambar != null) {
+      $imagePath = request('gambar')->store('uploads/jurnal', 'public');
+      list($width, $height) = getimagesize($_FILES["gambar"]['tmp_name']);
+      $imageWidth = (int)round($width * (70 / 100));
+      $imageHeight = (int)round($height * (70 / 100));
+      $image = Image::make(public_path('storage/' . $imagePath))->fit($imageWidth, $imageHeight)->save();
+    } else {
       $imagePath = Jurnal::where('id_jurnal', $id)->get('gambar_kegiatan_jurnal')[0]->gambar_kegiatan_jurnal;
     }
-      $imagePath = $request->file('gambar')->store('uploads/jurnal', 'public');
-      list($width, $height) = getimagesize($_FILES["gambar"]['tmp_name']);
-      $imageWidth = (int)round($width * (10 / 100));
-      $imageHeight = (int)round($height * (10 / 100));
-      $image = Image::make(public_path('storage/' . $imagePath))->fit($imageWidth, $imageHeight)->save();
     $data = [
       'kegiatan_jurnal' => $request->kegiatan,
       'kompetensi_jurnal' => $request->kompetensi,

@@ -5,7 +5,7 @@
   <nav>
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="{{ route('pSekolah-index') }}">Dashboard</a></li>
-      <li class="breadcrumb-item">Jurnal</li>
+      <li class="breadcrumb-item"><a href="{{ route('pSekolah-daftarJurnal') }}">Jurnal</a></li>
       <li class="breadcrumb-item active">{{ $data[0]->siswa->nis_siswa }}</li>
     </ol>
   </nav>

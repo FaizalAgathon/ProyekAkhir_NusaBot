@@ -53,18 +53,28 @@ class PSekolahController extends Controller
 
   public function index()
   {
-    if (Auth::guard('admin')->check()){
+    if (Auth::guard('admin')->check()) {
       return view('users.admin.psekolah', [
         'psekolahClassActive' => 'active',
         'dataJurusan' => Jurusan::all(),
-        'data' => Pembimbing_Sekolah::with('jurusan')->orderBy('created_at','desc')->get(),
+        'data' => Pembimbing_Sekolah::with('jurusan')->orderBy('created_at', 'desc')->get(),
       ]);
     } else if (Auth::guard('pSekolah')->check()) {
-      return view('users.pSekolah.index',[
-        'listSiswa' => Plotting::with(['siswa','pembimbing_sekolah'])->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get()
+      return view('users.pSekolah.index', [
+        'listSiswa' => Plotting::with(['siswa', 'pembimbing_sekolah'])
+          ->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get()
       ]);
     }
     return redirect('/');
+  }
+
+  public function daftarJurnalSiswa()
+  {
+    return view('users.pSekolah.daftarJurnalSiswa', [
+      'listSiswa' => Plotting::with(['siswa', 'pembimbing_sekolah', 'perusahaan'])
+          ->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get(),
+      'jurnalActive' => 'show'
+    ]);
   }
 
   public function jurnalSiswa(string $id)
@@ -72,13 +82,15 @@ class PSekolahController extends Controller
     $idPlotting = Plotting::where('id_plotting', $id)->get('id_plotting')[0]['id_plotting'];
     $data = Jurnal::with('plotting.siswa')->where('id_plotting', $id)->get();
 
-    if ($data->isEmpty()) {return view('users.pSekolah.jurnalSiswaEmpty',[
-      'data' => Plotting::with('siswa')->where('id_plotting', $id)->get(),
-      'listSiswa' => Plotting::with(['siswa','pembimbing_sekolah'])->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get(),
-      'jurnalActive' => 'show',
-    ]);} else {
-      return view('users.pSekolah.jurnalSiswa',[
-        'listSiswa' => Plotting::with(['siswa','pembimbing_sekolah'])->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get(),
+    if ($data->isEmpty()) {
+      return view('users.pSekolah.jurnalSiswaEmpty', [
+        'data' => Plotting::with('siswa')->where('id_plotting', $id)->get(),
+        'listSiswa' => Plotting::with(['siswa', 'pembimbing_sekolah'])->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get(),
+        'jurnalActive' => 'show',
+      ]);
+    } else {
+      return view('users.pSekolah.jurnalSiswa', [
+        'listSiswa' => Plotting::with(['siswa', 'pembimbing_sekolah'])->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get(),
         'data' => $data,
         'jurnalActive' => 'show',
         "$idPlotting" => '',
@@ -90,9 +102,9 @@ class PSekolahController extends Controller
 
   public function pageProfile()
   {
-    return view('users.pSekolah.profile',[
+    return view('users.pSekolah.profile', [
       'data' => Pembimbing_Sekolah::with(['jurusan'])->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get()[0],
-      'listSiswa' => Plotting::with(['siswa','pembimbing_sekolah'])->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get(),
+      'listSiswa' => Plotting::with(['siswa', 'pembimbing_sekolah'])->where('id_ps', Auth::guard('pSekolah')->user()->id_ps)->get(),
       'profile' => '',
     ]);
   }
@@ -102,10 +114,20 @@ class PSekolahController extends Controller
    */
   public function store(Request $request)
   {
-    $pass = Str::upper(Random::generate(8,'a-z'));
+    $pass = Str::upper(Random::generate(8, 'a-z'));
     $idJurusan = Jurusan::where('id_jurusan', $request->jurusan)->get('id_jurusan');
+    $request->validate([
+      'nip' => 'required|numeric',
+      'nama' => 'required',
+      'jk' => 'required',
+    ],[
+      'nip.required' => 'NIP Wajib Diisi',
+      'nip.numeric' => 'NIP Wajib Angka',
+      'nama.required' => 'Nama Wajib Diisi',
+      'jk.required' => 'JK Wajib Diisi',
+    ]);
     $data = [
-      'id_ps' => Random::generate(10,'0-9'),
+      'id_ps' => Random::generate(10, '0-9'),
       'nip_ps' => $request->nip,
       'pass_unhash' => $pass,
       'password_ps' => Hash::make($pass),
@@ -131,7 +153,7 @@ class PSekolahController extends Controller
     Pembimbing_Sekolah::where('id_ps', $id)->update($data);
     return redirect()->route('admin-readPSekolah')->with('edit', Pembimbing_Sekolah::select('id_ps')->max('updated_at'));
   }
-  
+
   /**
    * Remove the specified resource from storage.
    */

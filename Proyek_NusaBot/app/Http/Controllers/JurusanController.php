@@ -40,7 +40,7 @@ class JurusanController extends Controller
       'nama_j' => $request->jurusan,
     ];
     Jurusan::create($data);
-    return redirect()->route('admin-readJurusan')->with('add');
+    return redirect()->route('admin-readJurusan')->with('add', Jurusan::select('id_jurusan')->max('created_at'));
   }
 
   /**
@@ -52,7 +52,7 @@ class JurusanController extends Controller
       'nama_j' => $request->jurusan,
     ];
     Jurusan::where('id_jurusan', $id)->update($data);
-    return redirect()->route('admin-readJurusan')->with('edit');
+    return redirect()->route('admin-readJurusan')->with('edit', Jurusan::select('id_jurusan')->max('updated_at'));
   }
 
   /**

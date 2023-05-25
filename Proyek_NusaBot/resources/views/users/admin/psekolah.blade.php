@@ -33,9 +33,12 @@
           </div>
           <form action="{{ route('admin-storePSekolah') }}" method="post"> @csrf
             <div class="modal-body">
-              <div class="input-group mb-3">
+              <div class="input-group mb-3 has-validation">
                 <span class="input-group-text" id="basic-addon1">NIP : </span>
-                <input type="text" class="form-control" name="nip">
+                <input type="text" class="form-control" name="nip" required>
+                <div class="invalid-feedback">
+                  Please choose a username.
+                </div>
               </div>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Nama : </span>
@@ -119,22 +122,22 @@
                   <div class="modal-body">
                     <div class="input-group mb-3">
                       <span class="input-group-text" id="basic-addon1">NIP : </span>
-                      <input type="text" class="form-control" name="nip" value="{{ $content->nip_ps }}">
+                      <input type="text" class="form-control" name="nip" value="{{ $content->nip_ps }}" required>
                     </div>
                     <div class="input-group mb-3">
                       <span class="input-group-text" id="basic-addon1">Nama : </span>
-                      <input type="text" class="form-control" name="nama" value="{{ $content->nama_ps }}">
+                      <input type="text" class="form-control" name="nama" value="{{ $content->nama_ps }}" required>
                     </div>
                     <div class="input-group mb-3">
                       <label class="input-group-text" for="inputGroupSelect02">JK : </label>
-                      <select class="form-select" id="inputGroupSelect02" name="jk">
+                      <select class="form-select" id="inputGroupSelect02" name="jk" required>
                         <option {{ $content->jk_ps == 'L' ? 'selected' : '' }} value="L">L</option>
                         <option {{ $content->jk_ps == 'P' ? 'selected' : '' }} value="P">P</option>
                       </select>
                     </div>
                     <div class="input-group mb-3">
                       <label class="input-group-text" for="inputGroupSelect01">Jurusan : </label>
-                      <select class="form-select" id="inputGroupSelect01" name="jurusan">
+                      <select class="form-select" id="inputGroupSelect01" name="jurusan" required>
                         @foreach ($dataJurusan as $jurusan)
                           <option value="{{ $content->id_jurusan }}"
                             {{ $content->id_jurusan == $jurusan->id_jurusan ? 'selected' : '' }}>

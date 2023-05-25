@@ -11,7 +11,7 @@
 @endsection
 
 @section('content-body')
-  <div class="w-50 rounded-4 overflow-hidden mx-auto mb-4" style="border: 2px solid #899BBD; height: 300px;">
+  <div class="w-50 rounded-4 overflow-auto mx-auto mb-4" style="border: 2px solid #899BBD; min-height: 300px;">
     <h1 class="text-center" style="background-color: #899BBD">Gambar Kegiatan</h1>
     @if (file_exists(public_path('/storage/' . $data->gambar_kegiatan_jurnal)))
       <img src="/storage/{{ $data->gambar_kegiatan_jurnal }}" alt="" class="rounded-3 w-50 m-2 mx-auto d-block">

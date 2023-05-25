@@ -40,7 +40,7 @@ class AngkatanController extends Controller
       'angkatan_k' => $request->angkatan,
     ];
     Kelas::create($data);
-    return redirect()->route('admin-readAngkatan')->with('add');
+    return redirect()->route('admin-readAngkatan')->with('add', Kelas::select('id_kelas')->max('created_at'));
   }
 
   /**
@@ -52,7 +52,7 @@ class AngkatanController extends Controller
       'angkatan_k' => $request->angkatan,
     ];
     Kelas::where('id_kelas', $id)->update($data);
-    return redirect()->route('admin-readAngkatan')->with('edit');
+    return redirect()->route('admin-readAngkatan')->with('edit', Kelas::select('id_kelas')->max('updated_at'));
   }
 
   /**

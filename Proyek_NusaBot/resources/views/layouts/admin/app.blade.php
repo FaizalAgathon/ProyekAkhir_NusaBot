@@ -31,7 +31,6 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
-  <link href="toastr.css" rel="stylesheet" />
 
   <!-- Template Main CSS File -->
   <link href="{{ url('css/style.css') }}" rel="stylesheet">
@@ -72,16 +71,6 @@
             <li class="dropdown-header">
               <h6>{{ Auth::guard('admin')->user()->email_a }}</h6>
               <span>Admin</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -210,8 +199,9 @@
     </div>
   </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
 
   <!-- Vendor JS Files -->
   <script src="{{ url('vendor/apexcharts/apexcharts.min.js') }}"></script>
@@ -226,7 +216,6 @@
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-  <script src="toastr.js"></script>
   <!-- Template Main JS File -->
   <script src="{{ url('js/main.js') }}"></script>
 

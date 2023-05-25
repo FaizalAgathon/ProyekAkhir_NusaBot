@@ -37,9 +37,9 @@
             </td>
             <td>
               @if (file_exists(public_path('/storage/' . $item->gambar_kegiatan_jurnal)))
-                <img src="/storage/{{ $item->gambar_kegiatan_jurnal }}" alt="" class="rounded w-100">
+                <img src="/storage/{{ $item->gambar_kegiatan_jurnal }}" alt="" class="rounded d-block mx-auto" height="150">
               @else
-                <img src="{{ url('img/noImg.png') }}" alt="" class="rounded w-100">
+                <img src="{{ url('img/noImg.png') }}" alt="" class="rounded d-block mx-auto" height="150">
               @endif
             </td>
             <td id="paraf">
@@ -74,7 +74,7 @@
                   <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Angkatan</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ $_SERVER['REQUEST_URI'] . '/' . $item->id_jurnal }}" method="post"> @csrf
+                <form action="{{ $_SERVER['REQUEST_URI'] . '/' . $item->id_jurnal }}" method="post" enctype="multipart/form-data"> @csrf
                   @method('PUT')
                   <div class="modal-body">
                     <div class="w-100 p-2 rounded-4 border border-2 mb-3">
@@ -91,9 +91,9 @@
                       <h2 class="m-0">GAMBAR KEGIATAN</h2>
                       <hr class="mt-1 mb-2">
                       @if (file_exists(public_path('/storage/' . $item->gambar_kegiatan_jurnal)))
-                      <img src="/storage/{{ $item->gambar_kegiatan_jurnal }}" alt="" class="rounded w-100 mb-3" id="img">
+                      <img src="/storage/{{ $item->gambar_kegiatan_jurnal }}" alt="" class="rounded d-block mx-auto mb-3" id="img" height="300">
                       @else
-                        <img src="{{ url('img/noImg.png') }}" alt="" class="rounded w-100" id="img">
+                        <img src="{{ url('img/noImg.png') }}" alt="" class="rounded d-block mx-auto" id="img" height="300">
                       @endif
                       <input type="file" name="gambar" class="form-control" id="input">
                     </div>

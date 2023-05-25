@@ -40,7 +40,7 @@ class PerusahaanController extends Controller
       'alamat_p' => $request->alamat,
     ];
     Perusahaan::create($data);
-    return redirect()->route('admin-readPerusahaan')->with('add');
+    return redirect()->route('admin-readPerusahaan')->with('add', Perusahaan::select('id_perusahaan')->max('created_at'));
   }
 
   /**
@@ -53,7 +53,7 @@ class PerusahaanController extends Controller
       'alamat_p' => $request->alamat,
     ];
     Perusahaan::where('id_perusahaan', $id)->update($data);
-    return redirect()->route('admin-readPerusahaan')->with('edit');
+    return redirect()->route('admin-readPerusahaan')->with('edit', Perusahaan::select('id_perusahaan')->max('updated_at'));
   }
 
   /**

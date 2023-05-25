@@ -99,7 +99,7 @@ class SiswaController extends Controller
       'id_jurusan' => $request->jurusan,
     ];
     Siswa::create($data);
-    return redirect('/admin/siswa')->with('add', Siswa::select('id_siswa')->max('created_at'));
+    return redirect()->route('admin-readSiswa')->with('add', Siswa::select('id_siswa')->max('created_at'));
   }
 
   /**
@@ -115,7 +115,7 @@ class SiswaController extends Controller
       'id_jurusan' => $request->jurusan,
     ];
     Siswa::where('id_siswa', $id)->update($data);
-    return redirect('/admin/siswa')->with('edit', Siswa::select('id_siswa')->max('updated_at'));
+    return redirect()->route('admin-readSiswa')->with('edit', Siswa::select('id_siswa')->max('updated_at'));
   }
 
   /**
@@ -124,6 +124,6 @@ class SiswaController extends Controller
   public function destroy(string $id)
   {
     Siswa::where('id_siswa', $id)->delete();
-    return redirect('/admin/siswa')->with('del');
+    return redirect()->route('admin-readSiswa')->with('del');
   }
 }

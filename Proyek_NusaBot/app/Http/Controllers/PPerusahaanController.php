@@ -52,7 +52,7 @@ class PPerusahaanController extends Controller
       return view('users.admin.pperusahaan', [
         'pperusahaanClassActive' => 'active',
         'dataPerusahaan' => Perusahaan::all(),
-        'data' => Pembimbing_Perusahaan::with('perusahaan')->get(),
+        'data' => Pembimbing_Perusahaan::with('perusahaan')->orderBy('created_at', 'desc')->get(),
       ]);
     } else if (Auth::guard('pPerusahaan')->check()) {
       return view('users.pPerusahaan.index', [
@@ -65,7 +65,7 @@ class PPerusahaanController extends Controller
   {
     $user = Pembimbing_Perusahaan::all();
     $pdf = Pdf::loadView('users.admin.pdf.pperusahaan', compact('user'));
-    return $pdf->stream();
+    return $pdf->download('AKUN_PEMBIMBING_PERUSAHAAN.pdf');
   }
 
   public function pageProfile()
@@ -119,7 +119,7 @@ class PPerusahaanController extends Controller
       'id_perusahaan' => $request->perusahaan,
     ];
     Pembimbing_Perusahaan::create($data);
-    return redirect()->route('admin-readPPerusahaan');
+    return redirect()->route('admin-readPPerusahaan')->with('add', Pembimbing_Perusahaan::select('id_pp')->max('created_at'));
   }
 
   /**
@@ -134,7 +134,7 @@ class PPerusahaanController extends Controller
       'id_perusahaan' => $request->perusahaan,
     ];
     Pembimbing_Perusahaan::where('id_pp', $id)->update($data);
-    return redirect('/admin/pperusahaan');
+    return redirect()->route('admin-readPPerusahaan')->with('edit', Pembimbing_Perusahaan::select('id_pp')->max('updated_at'));
   }
 
   /**
@@ -143,6 +143,6 @@ class PPerusahaanController extends Controller
   public function destroy(string $id)
   {
     Pembimbing_Perusahaan::where('id_pp', $id)->delete();
-    return redirect('/admin/pperusahaan');
+    return redirect()->route('admin-readPPerusahaan')->with('del');
   }
 }

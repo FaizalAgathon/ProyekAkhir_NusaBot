@@ -41,7 +41,7 @@ class PlottingController extends Controller
       'id_perusahaan' => $request->perusahaan,
     ];
     Plotting::create($data);
-    return redirect('/admin/plotting');
+    return redirect()->route('admin-readPlotting')->with('add', Plotting::select('id_plotting')->max('created_at'));
   }
 
   /**
@@ -55,8 +55,7 @@ class PlottingController extends Controller
       'id_perusahaan' => $request->perusahaan,
     ];
     Plotting::where('id_plotting', $id)->update($data);
-    return redirect('/admin/plotting');
-    // return dd($data, $id, Plotting::where('id_plotting', $id)->get());
+    return redirect()->route('admin-readPlotting')->with('edit', Plotting::select('id_plotting')->max('updated_at'));
   }
 
   /**
@@ -65,28 +64,17 @@ class PlottingController extends Controller
   public function destroy(string $id)
   {
     Plotting::where('id_plotting', $id)->delete();
-    return redirect('/admin/plotting');
+    return redirect()->route('admin-readPlotting')->with('del');
   }
 
-  // public function getNIS(Request $request)
-  // {
-  //   // if (isset($request->idAngkatan) && isset($request->idJurusan)){
-  //   // }
-  //   $idAngkatan = $request->idAngkatan;
-  //   $idJurusan = $request->idJurusan;
+  public function getSiswa(Request $request)
+  {
+    $idAngkatan = $request->idAngkatan;
+    $idJurusan = $request->idJurusan;
 
-  //   echo "<option selected>Choose...</option>";
-  //   foreach (Siswa::where('idKelas', $idAngkatan)->where('idJurusan', $idJurusan)->get() as $siswa) {
-  //     echo "<option value='{$siswa->nis_siswa}'>$siswa->nis_siswa - $siswa->nama_s</option>";
-  //   }
-  // }
-  // public function getPS(Request $request)
-  // {
-  //   $idJurusan = $request->idJurusan;
-
-  //   echo "<option selected>Choose...</option>";
-  //   foreach (Pembimbing_Sekolah::with('jurusan')->where('idJurusan', $idJurusan)->get() as $ps) {
-  //     echo "<option value='{$ps->id_ps}'>{$ps->jurusan->nama_j} - $ps->nama_ps</option>";
-  //   }
-  // }
+    echo "<option selected>Choose...</option>";
+    foreach (Siswa::where('idKelas', $idAngkatan)->where('idJurusan', $idJurusan)->get() as $siswa) {
+      echo "<option value='{$siswa->nis_siswa}'>$siswa->nis_siswa - $siswa->nama_s</option>";
+    }
+  }
 }

@@ -30,6 +30,10 @@ class AdminController extends Controller
     $this->validate($request, [
       'email_a' => ['required', 'email'],
       'password' => ['required'],
+    ],[
+      'email_a.required' => 'Email Wajib Diisi',
+      'email_a.email' => 'Email Wajib Berbentuk Email',
+      'password.required' => 'Password Wajib Diisi',
     ]);
     $infoLogin = [
       'email_a' => $request->email_a,
@@ -65,7 +69,7 @@ class AdminController extends Controller
       'password_a' => Hash::make($pass),
     ];
     Admin::create($data);
-    return redirect('/admin/admin');
+    return redirect()->route('admin-readAdmin')->with('add', Admin::select('id_a')->max('created_at'));
   }
 
   // NOTE Method untuk mengedit data di database berdasarkan $id yg di kirim form action
@@ -75,13 +79,13 @@ class AdminController extends Controller
       'email_a' => $request->email,
     ];
     Admin::where('id_a', $id)->update($data);
-    return redirect('/admin/admin');
+    return redirect()->route('admin-readAdmin')->with('edit', Admin::select('id_a')->max('updated_at'));
   }
 
   // NOTE Method untuk menghapus data yg ada di database berdasarkan $id yg di kirim form action
   public function destroy( $id)
   {
     Admin::where('id_a', $id)->delete();
-    return redirect('/admin/admin');
+    return redirect()->route('admin-readAdmin')->with('del');
   }
 }
