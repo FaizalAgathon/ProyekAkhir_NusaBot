@@ -23,10 +23,9 @@ use App\Http\Controllers\PPerusahaanController;
 // 8. export pdf jurnal
 
 // TODO
-// 1. Langsung hal.login 
-// 2. (siswa) (tambah jurnal) kegiatan dan kompetensi pake textarea biasa
-// 3. (siswa) (jurnal) pencarian berdasarkan tanggal
+// 1. (siswa) (tambah jurnal) kegiatan dan kompetensi pake textarea biasa
 // 2. (siswa) (edit jurnal) kegiatan dan kompetensi pake textarea biasa
+// 3. (siswa) (jurnal) pencarian berdasarkan tanggal
 
 /*
 |--------------------------------------------------------------------------
@@ -161,6 +160,6 @@ Route::middleware('auth:pPerusahaan')->prefix('p-perusahaan')->name('pPerusahaan
   Route::get('', [PPerusahaanController::class, 'index'])->name('index');
   Route::get('/profile', [PPerusahaanController::class, 'pageProfile'])->name('profile');
   Route::get('/jurnal/{idSiswa}', [PPerusahaanController::class, 'jurnalSiswa']);
-  Route::get('/jurnal/{idSiswa}/edit/{jurnal}', [PPerusahaanController::class, 'parafJurnalSiswa']);
+  Route::post('/jurnal/{idSiswa}/paraf/{jurnal}', [PPerusahaanController::class, 'parafJurnalSiswa']);
 });
 // !SECTION AKSES PEMBIMBING PERUSAHAAN

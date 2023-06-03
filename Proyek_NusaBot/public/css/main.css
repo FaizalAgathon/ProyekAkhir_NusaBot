@@ -90,3 +90,9 @@
   from {background-color: #7fd6f0;}
   to {background-color: unset;}
 }
+
+@media (min-width: 768px) AND (max-width: 992px) {
+  .hiddenColumn-md{
+    display: none;
+  }
+}

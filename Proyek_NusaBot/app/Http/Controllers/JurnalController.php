@@ -37,15 +37,15 @@ class JurnalController extends Controller
   public function create()
   {
     // return view('welcome');
-    // dd(Jurnal::where('tanggal_jurnal', date('Y-m-d'))->get('tanggal_jurnal'));
-    // if (Jurnal::where('tanggal_jurnal', date('Y-m-d'))->get('tanggal_jurnal')){
-    //   return view('users.siswa.createJurnalFalse', [
-    //     'createJurnal' => '',
-    //   ]);
-    // } else {
+    // dd(Jurnal::where('tanggal_jurnal', date('Y-m-d'))->get('tanggal_jurnal')->isEmpty());
+    // if (Jurnal::where('tanggal_jurnal', date('Y-m-d'))->get('tanggal_jurnal')->isEmpty()) {
     return view('users.siswa.createJurnal', [
       'createJurnal' => '',
     ]);
+    // } else {
+    //   return view('users.siswa.createJurnalFalse', [
+    //     'createJurnal' => '',
+    //   ]);
     // }
   }
 
@@ -56,10 +56,13 @@ class JurnalController extends Controller
   {
     $idPlotting = Plotting::where('id_siswa', auth('siswa')->user()->id_siswa)->get('id_plotting')[0]['id_plotting'];
     $imagePath = request('gambar')->store('uploads/jurnal', 'public');
-    list($width, $height) = getimagesize($_FILES["gambar"]['tmp_name']);
-    $imageWidth = (int)round($width * (70 / 100));
-    $imageHeight = (int)round($height * (70 / 100));
-    $image = Image::make(public_path('storage/' . $imagePath))->fit($imageWidth, $imageHeight)->save();
+
+    if ($_FILES["gambar"]['size'] >= (10 * 100 * 100)/* MB */) {
+      list($width, $height) = getimagesize($_FILES["gambar"]['tmp_name']);
+      $imageWidth = (int)round($width * (70 / 100));
+      $imageHeight = (int)round($height * (70 / 100));
+      $image = Image::make(public_path('storage/' . $imagePath))->fit($imageWidth, $imageHeight)->save();
+    }
 
     $request->validate([
       'kegiatan' => 'required',
@@ -95,18 +98,23 @@ class JurnalController extends Controller
   {
     if ($request->gambar != null) {
       $imagePath = request('gambar')->store('uploads/jurnal', 'public');
-      list($width, $height) = getimagesize($_FILES["gambar"]['tmp_name']);
-      $imageWidth = (int)round($width * (70 / 100));
-      $imageHeight = (int)round($height * (70 / 100));
-      $image = Image::make(public_path('storage/' . $imagePath))->fit($imageWidth, $imageHeight)->save();
+
+      if ($_FILES["gambar"]['size'] >= (10 * 100 * 100)/* MB */) {
+        list($width, $height) = getimagesize($_FILES["gambar"]['tmp_name']);
+        $imageWidth = (int)round($width * (70 / 100));
+        $imageHeight = (int)round($height * (70 / 100));
+        Image::make(public_path('storage/' . $imagePath))->fit($imageWidth, $imageHeight)->save();
+      }
     } else {
       $imagePath = Jurnal::where('id_jurnal', $id)->get('gambar_kegiatan_jurnal')[0]->gambar_kegiatan_jurnal;
     }
+
     $data = [
       'kegiatan_jurnal' => $request->kegiatan,
       'kompetensi_jurnal' => $request->kompetensi,
       'gambar_kegiatan_jurnal' => $imagePath,
     ];
+
     Jurnal::where('id_jurnal', $id)->update($data);
     return redirect()->route('siswa-readJurnal');
   }

@@ -1,5 +1,17 @@
 @extends('layouts.pPerusahaan.app')
 
+@section('content-style')
+  <link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
+  <link type="text/css" href="{{ url("css/jquery.signature.css") }}" rel="stylesheet">
+  <script type="text/javascript" src="{{ url("js/jquery.signature.js") }}"></script>
+  <style>
+    .kbw-signature {
+      width: 100%;
+      height: 200px;
+    }
+  </style>
+@endsection
+
 @section('content-pageTitle')
   <h1>{{ $data[0]->plotting->siswa->nis_siswa }} - {{ $data[0]->plotting->siswa->nama_s }}</h1>
   <nav>
@@ -65,20 +77,41 @@
                   @method('PUT')
                   <div class="modal-body">
                     <div class="w-100 p-2 rounded-4 border border-2 mb-3">
-                      <h2 class="m-0">KEGIATAN YANG DILAKUKAN</h2>
+                      <h2 class="m-0 text-center">KEGIATAN YANG DILAKUKAN</h2>
                       <hr class="mt-1 mb-2">
-                      <textarea class="default" disabled>{!! $item->kegiatan_jurnal !!}</textarea>
+                      <textarea disabled class="form-control" style="min-height: 250px">{!! $item->kegiatan_jurnal !!}</textarea>
                     </div>
                     <div class="w-100 p-2 rounded-4 border border-2 mb-3">
-                      <h2 class="m-0">KOMPETENSI YANG DIDAPATKAN</h2>
+                      <h2 class="m-0 text-center">KOMPETENSI YANG DIDAPATKAN</h2>
                       <hr class="mt-1 mb-2">
-                      <textarea class="default" disabled>{{ $item->kompetensi_jurnal }}</textarea>
+                      <textarea disabled class="form-control" style="min-height: 250px">{{ $item->kompetensi_jurnal }}</textarea>
                     </div>
-                    <div class="w-100 p-2 rounded-4 border border-2 mb-3">
-                      <h2 class="m-0">GAMBAR KEGIATAN</h2>
-                      <hr class="mt-1 mb-2">
-                      <img src="{{ url('img/noImgProfile.png') }}" alt="..." class="mb-2" width="250"
-                        id="img">
+                    <div class="row">
+                      <div class="col">
+                        <div class="w-100 p-2 rounded-4 border border-2 mb-3">
+                          <h2 class="m-0 text-center">GAMBAR KEGIATAN</h2>
+                          <hr class="mt-1 mb-2">
+                          @if (file_exists(public_path('/storage/' . $item->gambar_kegiatan_jurnal)))
+                            <img src="/storage/{{ $item->gambar_kegiatan_jurnal }}" alt=""
+                              class="rounded d-block mx-auto" height="250">
+                          @else
+                            <img src="{{ url('img/noImgProfile.png') }}" alt="..." class="mb-2 d-block mx-auto"
+                              width="250" id="img">
+                          @endif
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div class="w-100 p-2 rounded-4 border border-2 mb-3">
+                          <h2 class="m-0 text-center">PARAF KEGIATAN</h2>
+                          <hr class="mt-1 mb-2">
+
+                          <div id="sig"></div>
+                          <br /><br />
+                          <button id="clear" class="btn btn-danger btn-sm">Clear</button>
+                          <textarea id="signature" name="signed" style="display: none"></textarea>
+
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="modal-footer">
@@ -98,13 +131,18 @@
 @endsection
 
 @section('content-script')
-  <script>
-    tinymce.init({
-      selector: 'textarea.default',
-      skin: 'oxide-dark',
-      height: 350,
-      statusbar: false,
-      promotion: false,
+  {{-- <script type="text/javascript" src="js/jquery.ui.touch-punch.min.js"></script> --}}
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+  <script type="text/javascript">
+    var sig = $('#sig').signature({
+      syncField: '#signature',
+      syncFormat: 'PNG'
+    });
+    $('#clear').click(function(e) {
+      e.preventDefault();
+      sig.signature('clear');
+      $("#signature64").val('');
     });
   </script>
 @endsection

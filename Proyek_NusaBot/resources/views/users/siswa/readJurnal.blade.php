@@ -10,14 +10,14 @@
 @endsection
 
 @section('content-body')
-  <div class="p-3 rounded overflow-auto" style="background-color: #899BBD;width:100%">
-    <table id="datatable" class="table table-striped bg-light rounded " style="width:100%">
+  <div class="p-3 rounded w-100 overflow-auto" style="background-color: #899BBD;width:100%">
+    <table id="datatable" class="table table-striped bg-light rounded" style="width:100%">
       <thead>
         <tr>
           <th>#</th>
           <th>Tanggal</th>
-          <th>Kegiatan</th>
-          <th>Kompetensi</th>
+          <th class="hiddenColumn-md">Kegiatan</th>
+          <th class="hiddenColumn-md">Kompetensi</th>
           <th>Gambar Kegiatan</th>
           <th>Paraf</th>
           <th>Action</th>
@@ -29,17 +29,17 @@
           <tr>
             <td>{{ $i++ }}</td>
             <td>{{ $item->tanggal_jurnal }}</td>
-            <td class="kegiatan">
+            <td class="kegiatan hiddenColumn-md">
               <span class="kegiatan-text">{!! $item->kegiatan_jurnal !!}</span>
             </td>
-            <td class="kompetensi">
+            <td class="kompetensi hiddenColumn-md">
               <span class="kompetensi-text">{!! $item->kompetensi_jurnal !!}</span>
             </td>
             <td>
               @if (file_exists(public_path('/storage/' . $item->gambar_kegiatan_jurnal)))
-                <img src="/storage/{{ $item->gambar_kegiatan_jurnal }}" alt="" class="rounded d-block mx-auto" height="150">
+                <img src="/storage/{{ $item->gambar_kegiatan_jurnal }}" alt="" class="rounded d-block mx-auto" height="100">
               @else
-                <img src="{{ url('img/noImg.png') }}" alt="" class="rounded d-block mx-auto" height="150">
+                <img src="{{ url('img/noImg.png') }}" alt="" class="rounded d-block mx-auto" height="100">
               @endif
             </td>
             <td id="paraf">
@@ -80,12 +80,12 @@
                     <div class="w-100 p-2 rounded-4 border border-2 mb-3">
                       <h2 class="m-0">KEGIATAN YANG DILAKUKAN</h2>
                       <hr class="mt-1 mb-2">
-                      <textarea name="kegiatan" class="default">{{ $item->kegiatan_jurnal }}</textarea>
+                      <textarea name="kegiatan" class="form-control" rows="10">{{ $item->kegiatan_jurnal }}</textarea>
                     </div>
                     <div class="w-100 p-2 rounded-4 border border-2 mb-3">
                       <h2 class="m-0">KOMPETENSI YANG DIDAPATKAN</h2>
                       <hr class="mt-1 mb-2">
-                      <textarea name="kompetensi" class="default">{{ $item->kompetensi_jurnal }}</textarea>
+                      <textarea name="kompetensi" class="form-control" rows="10">{{ $item->kompetensi_jurnal }}</textarea>
                     </div>
                     <div class="w-100 p-2 rounded-4 border border-2 mb-3">
                       <h2 class="m-0">GAMBAR KEGIATAN</h2>

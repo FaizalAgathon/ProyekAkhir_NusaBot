@@ -132,32 +132,3 @@
   </div>
 
 @endsection
-
-@section('admin-notification')
-  {{-- toastr.options = {
-  "closeButton": false,
-  "debug": false,
-  "newestOnTop": false,
-  "progressBar": true,
-  "positionClass": "toast-bottom-right",
-  "preventDuplicates": false,
-  "onclick": null,
-  "showDuration": "600",
-  "hideDuration": "1000",
-  "timeOut": "5000",
-  "extendedTimeOut": "1000",
-  "showEasing": "swing",
-  "hideEasing": "linear",
-  "showMethod": "fadeIn",
-  "hideMethod": "fadeOut"
-  } --}}
-  @if (Session::has('add'))
-    toastr.success("Successfully Added Data")
-  @endif
-  @if (Session::has('edit'))
-    toastr.success("Successfully Edited Data")
-  @endif
-  @if (Session::has('del'))
-    toastr.success("Successfully Deleted Data")
-  @endif
-@endsection

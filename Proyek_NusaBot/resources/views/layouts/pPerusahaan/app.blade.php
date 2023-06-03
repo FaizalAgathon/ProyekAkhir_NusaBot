@@ -31,9 +31,13 @@
   <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet" />
 
+  {{-- <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css"> --}}
+
   <!-- Template Main CSS File -->
   <link href="{{ url('css/style.css') }}" rel="stylesheet">
   <link href="{{ url('css/main.css') }}" rel="stylesheet">
+
+  @yield('content-style')
 
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.5.0
@@ -63,7 +67,8 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             {{-- <img src="{{ url('img/profile-img.jpg') }}" alt="Profile" class="rounded-circle"> --}}
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::guard('pPerusahaan')->user()->nama_pp }}</span>
+            <span
+              class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::guard('pPerusahaan')->user()->nama_pp }}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -200,7 +205,7 @@
   <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-    @yield('content-script')
+  @yield('content-script')
 
   <!-- Template Main JS File -->
   <script src="{{ url('js/main.js') }}"></script>

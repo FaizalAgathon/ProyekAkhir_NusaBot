@@ -14,12 +14,14 @@
     <div class="w-100 p-2 rounded-4 border border-2 mb-3">
       <h2 class="m-0">KEGIATAN YANG DILAKUKAN</h2>
       <hr class="mt-1 mb-2">
-      <textarea name="kegiatan" class="default"></textarea>
+      <span class="fst-italic text-danger">Max. 300 Karakter</span>
+      <textarea name="kegiatan" class="form-control" rows="10"></textarea>
     </div>
     <div class="w-100 p-2 rounded-4 border border-2 mb-3">
       <h2 class="m-0">KOMPETENSI YANG DIDAPATKAN</h2>
       <hr class="mt-1 mb-2">
-      <textarea name="kompetensi" class="default"></textarea>
+      <span class="fst-italic text-danger">Max. 300 Karakter</span>
+      <textarea name="kompetensi" class="form-control" rows="10"></textarea>
     </div>
     <div class="w-100 p-2 rounded-4 border border-2 mb-3">
       <h2 class="m-0">GAMBAR KEGIATAN</h2>

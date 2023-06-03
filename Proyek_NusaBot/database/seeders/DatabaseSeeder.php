@@ -51,13 +51,14 @@ class DatabaseSeeder extends Seeder
         'alamat_p' => $faker->address,
       ]);
     }
-    // Pembimbing_Sekolah::create([
-    //   'nip_ps' => Random::generate(10,'0-9'),
+    // Pembimbing_Perusahaan::create([
+    //   'id_pp' => Random::generate(10, '0-9'),
+    //   'email_pp' => $faker->email,
     //   'pass_unhash' => '12345',
-    //   'password_ps' => Hash::make('12345'),
-    //   'nama_ps' => $faker->name('Male'),
-    //   'jk_ps' => 'L',
-    //   'id_jurusan' => Jurusan::where('nama_j', 'RPL2')->get('id_jurusan')->first(),
+    //   'password_pp' => Hash::make('12345'),
+    //   'nama_pp' => $faker->name,
+    //   'jk_pp' => array_rand(['L', 'P']),
+    //   'id_perusahaan' => array_rand(foreach (Perusahaan::all('id_perusahaan'))),
     // ]);
   }
 }

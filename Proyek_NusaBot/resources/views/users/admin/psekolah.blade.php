@@ -190,7 +190,3 @@
 
 
 @endsection
-
-@section('admin-script')
-
-@endsection
